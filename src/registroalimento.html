@@ -1,0 +1,110 @@
+.<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REGISTRO ALIMENTO</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-image: url('../img/fondo.jpg'); 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row d-flex align-items-center">
+            <div class="col">
+                <div class="card text-center">
+                    <h3 class="card-header">REGISTRO DE ALIMENTO</h3>
+                <div class="card-body">
+                             <form class="form-control" action="" method="post">
+                                <div class="tipo-alimento">
+                                    <label for="tipo">Tipo De Alimento</label>
+                                          <select name="tipo" id="tipo">
+                                              <option value="Seleccione uno">Seleccione uno</option>
+                                              <option value="Pasto">Pasto</option>
+                                              <option value="Heno">Heno</option>
+                                              <option value="Concentrado">Concentrado</option>
+                                              <option value="Otros">Otros</option>
+                                          </select>
+                                          <br>
+                                          <br>
+                                      </div>
+                                    <div class=" Fecha administracion">
+                                        <label for="Fecha de Administraci&oacute;n">Fecha de Administraci&oacute;acute;n
+                                        <input type="date" name="fecha" id="fecha">
+                                         <br>
+                                        <br>
+                                    </div>
+                                    <div class="cantidad">
+                                        <label for="cantidad">Cantidad</label>
+                                        <input type="number" name="cantidad" id="cantidad">
+                                        <input type="text" name="kg" id="Kg">
+                                        <br>
+                                        <br>
+                                    </div>
+                                    <div class="hora">
+                                        <label for="hora">Hora De Alimento</label>
+                                        <input type="time" name="hora" id="hora">
+                                        <br>
+                                     <br>
+                                    </div>
+                                    <class="frecuencia">
+                                        <label for="frecuencia">Frecuencia De Alimento</label>
+                                        <select name="frecuencia" id="frecuencia">
+                                            <option value="Desayuno">Desayuno</option>
+                                            <option value="Media Mañana">Media Mañana</option>
+                                            <option value="Almuerzo">Almuerzo</option>
+                                            <option value="Media Tarde">Media Tarde</option>
+                                            <option value="Cena">Cena</option>
+                                        </select>
+                                        <br>
+                                     <br>
+                            </div>
+                            <br>
+                            <button name="btnGUARDAR" id="btnGUARDAR" onclick="clicbtn()" type="submit" class="btn btn-secondary">GUARDAR</button> 
+                            <button name="btnCANCELAR" id="btnCANCELAR" onclick="clicbtn()" type="submit" class="btn btn-secondary">CANCELAR</button>
+
+                        </form>
+                    </div>
+                  </div>
+                <div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 d-flex align-items-end">
+                <img src="../img/descarga.png" class="img-fluid" alt="...">
+            </div>
+            <div class="col-sm-6">
+                
+                    
+                </div>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+       
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/md5.js"></script>       
+    </body>
+    </html>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

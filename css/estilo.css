@@ -1,0 +1,71 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #faf7f7; 
+    background-image: url('../img/fondo.jpg'); 
+}
+.img.src {
+     text-align: center;
+      justify-content: center;
+      align-items: center;
+      width: 200%;
+}
+.container {
+    width: 400px;
+    padding: 16px;
+    margin: auto;
+    background-color: rgb(253, 243, 243);
+    margin-top: 200px;
+    margin-bottom: 100px;
+    border: 1px solid rgb(16, 15, 15);
+    border-radius: 10px;
+   text-align: center;
+    justify-content: center;
+    align-items: center;
+
+}
+.container h1 {
+    font-size: 20px;
+    border: 1px solid black; 
+    text-align: center;
+    background-color: #b3b8b3;
+    margin-top: auto;
+    margin-bottom: 50px;
+    border-radius: 5px;
+    
+}   
+
+.container input[type=text], .container input[type=password] {
+    
+    width: 80%;
+    padding: 10px;
+    margin: 20px  0 5px 0;
+    border-radius:1px solido black;
+    background: #f1f1f1;
+    margin: right 5px;
+}
+
+.container input[type=text]:focus, .container input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+    border-radius: 2px;
+}
+
+.container .btn {
+    background-color: #515551;
+    color: rgb(15, 15, 15);
+    padding: 10px 15px;
+    border: 1px solid #0d0e0d;
+    margin: 5px;
+    cursor: pointer;
+    width: 30%;
+   border-radius: 5px;
+    height: 5vh;
+    justify-content: center;
+    align-items: center;
+}
+.container .btn:hover {
+    opacity:1;
+}   
+.img {
+width: 500%;
+}    
