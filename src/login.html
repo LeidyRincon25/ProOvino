@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Inicio de Sesión</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <script src="../js/login.js"> </script>
         <style>
             body {
                 background-image: url('../img/fondo.jpg'); 
@@ -22,18 +21,18 @@
                 <div class="card text-center">
                     <h3 class="card-header">INICIO DE SESI&Oacute;N</h3>
                     <div class="card-body">
-                        <form class="form-control" action="" method="post">
+                        <form id="form_login" name="form_login" class="form-control" action="" method="post">
                             <div class="form-floating mb-2">
-                                <input type="text" class="form-control" id="user" placeholder="correo Electr&oacute;nico" required value="">
+                                <input type="text" class="form-control" id="user" name="user" placeholder="correo Electr&oacute;nico" required value="">
                                 <label for="user">Correo Electr&oacute;nico</label>
                             </div>
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="pass" placeholder="Contraseña" required>
+                                <input type="password" class="form-control" id="pass" name="pass" placeholder="Contraseña" required value="" autocomplete="">
                                 <label for="pass">Contrase&ntilde;a</label>
                             </div>
                             <br>
-                            <button name="btniniciar" id="btniniciar " onclick="(onclick)" type="submit" class="btn btn-secondary">Ingresar</button>                    
-                            <p class= "¿Olvido Su Contraseña?"><a href="#"> ¿Olvido Su Contraseña? </a></p> 
+                            <button name="btniniciar" id="btniniciar" type="submit" class="btn btn-secondary">Ingresar</button>                    
+                            <p class= "¿Olvido Su Contraseña?"><a href="olvidosucontraseña.html"> ¿Olvido Su Contraseña? </a></p> 
                         </form>
                     </div>
                   </div>
@@ -44,8 +43,9 @@
         </div>
     </div>
     </div>
-    <script src="../js/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script src="../js/login.js"> </script>
     </body>
     </html>
 
