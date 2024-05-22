@@ -1,4 +1,4 @@
-let divMsg = document.querySelector("#msgLogin")
+let $divMsg = document.querySelector("#msgLogin")
 
 const enviarLogin = async (url="", method = "", param = undefined)=>{
     //if(param !== undefined && method==="GET") url += "?"+ new URLSearchParams(param)
@@ -7,24 +7,32 @@ const enviarLogin = async (url="", method = "", param = undefined)=>{
     //if (method === "PUT") method={method,headers: {'Content-Type':'application/json'},body: JSON.stringify(param)}
     //if (method === "DELETE") method={method,headers: {'Content-Type':'application/json'},body: JSON.stringify(param)}
     
-    divMsg.innerHTML = `<div class="spinner-border text-black" role="status"><span class="sr-only"></span></div>`
-    fetch(url,method)
-        .then(response =>response.json())
-        .then(data=> validarLogin(data))
-        .catch(e => console.log(e))  
+    try{
+    msgErrorLogin(`<div class="spinner-border text-black" role="status"><span class="sr-only"></span></div>`)
+    let resp = await fetch(url,method),
+        respJson =  await resp.json();
+    //console.log(resp);    
+    validarLogin(respJson)
+    }catch(e){        
+        msgErrorLogin(`<b class='text-danger'>Codigo ${e.status}<br>${e.msg}</br>`,3000)
+    }
 }
 const validarLogin = (info)=>{
-    (info.code===200) ? window.location.href="menu.html" : divMsg.innerHTML =`<b class='text-danger'>${info.msg}</b>`
+    (info.code===200) ? location.href="menu.html?idUser="+info.idUser : msgErrorLogin(`<b class='text-danger'>${info.msg}</b>`,4000)
         
 }
+function msgErrorLogin (msg="", tiempo=undefined){
+    $divMsg.innerHTML=msg
+    if(tiempo!==undefined) setTimeout(()=>{$divMsg.innerHTML=""},tiempo)  
+}
 
-let form = document.getElementById("form_login")
+let $form = document.getElementById("form_login")
   
-form.addEventListener('submit', (e)=>{
+$form.addEventListener('submit', (e)=>{
     e.preventDefault()
     let user = document.getElementById("user").value
     let pass = md5(document.getElementById("pass").value)
-    let param = {user, pass}
+    let param = {user, pass} //{"user": user, "pass":pass}
     //console.log(param)
     //console.log(JSON.stringify(param))
     

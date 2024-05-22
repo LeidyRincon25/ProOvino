@@ -1,5 +1,4 @@
 <?php
-
 class ConfigDb {
     private $db_host = "localhost"; //Lugar o IP donde esta el servidor de Base de datos
     private $db_port = "3306"; // Puerto de Base de datos MySQL
