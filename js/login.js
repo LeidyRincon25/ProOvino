@@ -4,15 +4,14 @@ const enviarLogin = async (url="", method = "", param = undefined)=>{
     //if(param !== undefined && method==="GET") url += "?"+ new URLSearchParams(param)
     //if (method === "GET") method={method,headers: {'Content-Type':'application/json'}}    
     if (method === "POST") method={method,headers: {'Content-Type':'application/json'},body: JSON.stringify(param)}
-    //if (method === "PUT") method={method,headers: {'Content-Type':'application/json'},body: JSON.stringify(param)}
-    //if (method === "DELETE") method={method,headers: {'Content-Type':'application/json'},body: JSON.stringify(param)}
     
     try{
-    msgErrorLogin(`<div class="spinner-border text-black" role="status"><span class="sr-only"></span></div>`)
-    let resp = await fetch(url,method),
-        respJson =  await resp.json();
-    //console.log(resp);    
-    validarLogin(respJson)
+        msgErrorLogin(`<div class="spinner-border text-black" role="status"><span class="sr-only"></span></div>`)
+        let resp = await fetch(url,method);
+        //console.log(resp);
+        if(!resp.ok) throw {status: resp.status, msg: resp.statusText};
+        let respJson =  await resp.json();  
+        validarLogin(respJson)
     }catch(e){        
         msgErrorLogin(`<b class='text-danger'>Codigo ${e.status}<br>${e.msg}</br>`,3000)
     }
