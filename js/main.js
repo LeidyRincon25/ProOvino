@@ -18,3 +18,18 @@ else
     alert("datos incorrectos");
  
 } }
+
+function validarToken(){
+   console.log(localStorage);
+   if(localStorage.getItem("token")){
+      alert("ok token existe")
+   }else{
+      ruta("login.html")
+   }
+
+   //localStorage.clear()
+}
+
+document.addEventListener("DOMContentLoaded", (e)=>{
+   validarToken()
+})

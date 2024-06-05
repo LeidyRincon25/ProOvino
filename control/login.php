@@ -16,11 +16,14 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 $result = $stmt->fetchAll();
                 if(count($result) > 0)
                 {
+                    $idtoken = $bd->obtenerToken($result[0]["ID"], $result[0]["NOMBRE"]." ".$result[0]["APELLIDOS"]);
                     //var_dump($result);
+
                     header("HTTP/1.1 200 OK");
                     echo json_encode(['code'=>200,
                     'idUser'=>$result[0]["ID"],
                     'Usuario'=>$result[0]["NOMBRE"]." ".$result[0]["APELLIDOS"],
+                    'idToken'=>$idtoken,
                     'msg' => "OK"]);
                 }else{                    
                 header("HTTP/1.1 203 OK");

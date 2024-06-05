@@ -17,7 +17,18 @@ const enviarLogin = async (url="", method = "", param = undefined)=>{
     }
 }
 const validarLogin = (info)=>{
-    (info.code===200) ? location.href="menu.html?idUser="+info.idUser : msgErrorLogin(`<b class='text-danger'>${info.msg}</b>`,4000)
+    //console.log(info)
+    if(info.code===200) {
+        //console.log(info);
+        localStorage.clear();
+        localStorage.setItem("token",info.idToken)
+        localStorage.setItem("iduser",info.idUser)
+        localStorage.setItem("user",info.Usuario)
+        //console.log(localStorage);
+        location.href="menu.html?token="+info.idToken
+    } else {
+        msgErrorLogin(`<b class='text-danger'>${info.msg}</b>`,4000)
+    }
         
 }
 function msgErrorLogin (msg="", tiempo=undefined){
