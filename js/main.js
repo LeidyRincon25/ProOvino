@@ -22,7 +22,10 @@ else
 function validarToken(){
    console.log(localStorage);
    if(localStorage.getItem("token")){
-      alert("ok token existe")
+      //alert("ok token existe")
+      $div_info_user = document.getElementById("info-user");
+      $div_info_user.innerHTML=`${localStorage.getItem("user")}`;
+      $div_info_user.className="small";
    }else{
       ruta("login.html")
    }
