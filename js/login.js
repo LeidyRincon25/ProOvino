@@ -50,6 +50,6 @@ $form.addEventListener('submit', (e)=>{
         let method = "POST"
         //fetch('../control/login.php', {method: 'POST',body: JSON.stringify(param)})
         //fetch('../control/login.php?'+ new URLSearchParams(param), {method: 'GET'})
-        enviarLogin("../control/login.php",method,param)
+       enviarLogin("../control/login.php",method,param)
     }
 })
