@@ -1,8 +1,6 @@
 let $divMsg = document.querySelector("#msgLogin")
 
 const enviarLogin = async (url="", method = "", param = undefined)=>{
-    //if(param !== undefined && method==="GET") url += "?"+ new URLSearchParams(param)
-    //if (method === "GET") method={method,headers: {'Content-Type':'application/json'}}    
     if (method === "POST") method={method,headers: {'Content-Type':'application/json'},body: JSON.stringify(param)}
     
     try{
