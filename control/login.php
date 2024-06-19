@@ -10,19 +10,19 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             //echo $_post["user"]; 
             $bd = new ConfigDb();
             $conn = $bd->conexion();
-            $sql = "SELECT `ID`, `NOMBRE`, `APELLIDOS` FROM `tbusuario` WHERE `EMAIL`='".$post["user"]."' AND `CLAVE`='".$post["pass"]."'";
+            $sql = "SELECT `IdUsuario`, `UsuNombre`, `UsuApellido` FROM `tbusuario` WHERE `UsuCorreo`= '".$post["user"]."' AND `UsuContrasena`='".$post["pass"]."'";
             $stmt = $conn ->prepare($sql);
             if($stmt->execute()){
                 $result = $stmt->fetchAll();
                 if(count($result) > 0)
                 {
-                    $idtoken = $bd->obtenerToken($result[0]["ID"], $result[0]["NOMBRE"]." ".$result[0]["APELLIDOS"]);
+                    $idtoken = $bd->obtenerToken($result[0]["IdUsuario"], $result[0]["UsuNombre"]." ".$result[0]["UsuApellido"]);
                     //var_dump($result);
 
                     header("HTTP/1.1 200 OK");
                     echo json_encode(['code'=>200,
-                    'idUser'=>$result[0]["ID"],
-                    'Usuario'=>$result[0]["NOMBRE"]." ".$result[0]["APELLIDOS"],
+                    'idUser'=>$result[0]["IdUsuario"],
+                    'Usuario'=>$result[0]["UsuNombre"]." ".$result[0]["UsuApellido"],
                     'idToken'=>$idtoken,
                     'msg' => "OK"]);
                 }else{                    

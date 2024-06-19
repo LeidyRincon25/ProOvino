@@ -11,14 +11,15 @@ class ConfigDb {
         try{
             $conn = new PDO($link,$this->db_user, $this->db_pass);
             $conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            return $conn;
-        }catch(PDOException $e){
-            throw new Exception("ERROR: ".$e->getMessage());
-        }
-    }
+           return $conn;
+       }
+       catch(PDOException $e){
+           throw new Exception("ERROR: ".$e->getMessage());
+       }
+   }
 
     public function obtenerToken($iduser, $nombreuser){
-        $bandera=true;
+      $bandera=true;
         $estado = "ACTIVO";
         $token = bin2hex(openssl_random_pseudo_bytes(16,$bandera));
         $bd = new ConfigDb();
