@@ -43,8 +43,18 @@ const salida = ()=>{
    })
 }
 
+const mostarMenu = async ()=>{
+   let $divmenu = document.getElementById("navbarSupportedContent");
+   let url = "../control/menu.php"
+   let resp = await fetch(url);
+   let respText =  await resp.text();
+   //console.log(respJson);
+   $divmenu.innerHTML=respText;
+   validarToken();
+}
+
 document.addEventListener("DOMContentLoaded", (e)=>{
-   validarToken()
+   mostarMenu();
 })
 
 document.addEventListener("click",(e)=>{

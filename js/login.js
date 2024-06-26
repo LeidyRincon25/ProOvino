@@ -23,7 +23,7 @@ const validarLogin = (info)=>{
         localStorage.setItem("iduser",info.idUser)
         localStorage.setItem("user",info.Usuario)
         //console.log(localStorage);
-        location.href="menu.html?token="+info.idToken
+        location.href="principal.html?token="+info.idToken
     } else {
         msgErrorLogin(`<b class='text-danger'>${info.msg}</b>`,4000)
     }
