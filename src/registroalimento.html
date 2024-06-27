@@ -29,74 +29,48 @@
     <div class="container">
         <div class="m-5 row d-flex align-items-center">
             <div class="col">
-                <div class="card text-center">
-                    <h3 class="card-header">REGISTRO DE ALIMENTO</h3>
+                <div class="card">
+                    <h3 class="card-header text-center">REGISTRO DE ALIMENTO</h3>
                 <div class="card-body">
                              <form class="form-control" action="" method="post">
-                                <div class="tipo-alimento">
-                                    <label for="tipo">Tipo De Alimento</label>
-                                          <select name="tipo" id="tipo">
-                                              <option value="Seleccione uno">Seleccione uno</option>
-                                              <option value="Pasto">Pasto</option>
-                                              <option value="Heno">Heno</option>
-                                              <option value="Concentrado">Concentrado</option>
-                                              <option value="Otros">Otros</option>
-                                          </select>
-                                          <br>
-                                          <br>
+                                <div class="mb-3">
+                                    <label for="Alimento">Tipo de Alimento</label>
+                                          <input class="form-control" name="Alimento" id="Alimento">
                                       </div>
-                                    <div class=" Fecha administracion">
-                                        <label for="Fecha de Administraci&oacute;n">Fecha de Administraci&oacute;acute;n
-                                        <input type="date" name="fecha" id="fecha">
-                                         <br>
-                                        <br>
+                                      <div class="mb-3">
+                                        <label for="Fecha">Fecha de Administraci&oacute;n</label>
+                                        <input type="date" class="form-control" name="fecha" id="fecha">
                                     </div>
-                                    <div class="cantidad">
-                                        <label for="cantidad">Cantidad</label>
-                                        <input type="number" name="cantidad" id="cantidad">
-                                        <input type="text" name="kg" id="Kg">
-                                        <br>
-                                        <br>
+                                    <div class="mb-3">
+                                        <label for="cantidad">Cantidad en kilogramos</label>
+                                    <div class="input-group mb-3">
+                                        <input type="number" class="form-control" name="cantidad" id="cantidad"
+                                        aria-describedby="basic-addon2">
+                                        <span class="input-group-text" id="basic-addon2">kg</span>
                                     </div>
-                                    <div class="hora">
-                                        <label for="hora">Hora De Alimento</label>
-                                        <input type="time" name="hora" id="hora">
-                                        <br>
-                                     <br>
                                     </div>
-                                    <class="frecuencia">
+                                    <div class="mb-3">
+                                        <label for="hora">Hora Del Alimento</label>
+                                        <input type="time" class="form-control" name="hora" id="hora"> 
+                                    </div>
+                                    <div class="mb-3">
                                         <label for="frecuencia">Frecuencia De Alimento</label>
-                                        <select name="frecuencia" id="frecuencia">
-                                            <option value="Desayuno">Desayuno</option>
-                                            <option value="Media Mañana">Media Mañana</option>
-                                            <option value="Almuerzo">Almuerzo</option>
-                                            <option value="Media Tarde">Media Tarde</option>
-                                            <option value="Cena">Cena</option>
-                                        </select>
-                                        <br>
-                                     <br>
+                                        <input type="text" class="form-control" type="text" name="Frecuencia" id="Frecuencia">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="Observacion">Observaciones</label>
+                                        <textarea class="form-control" type="text" name="Observacion" id="Observacion">Ninguno</textarea>
+                                    </div>
+                                    <div class="mb-3 text-center">
+                                        <button name="btnGUARDAR" id="btnGUARDAR" onclick="clicbtn()" type="submit" class="btn btn-success">GUARDAR</button> 
+                                       <button name="btnCANCELAR" id="btnCANCELAR" onclick="clicbtn()" type="cancel" class="btn btn-danger">CANCELAR</button>
+                                    </div>
+                                 </form>
                             </div>
-                            <br>
-                            <button name="btnGUARDAR" id="btnGUARDAR" onclick="clicbtn()" type="submit" class="btn btn-secondary">GUARDAR</button> 
-                            <button name="btnCANCELAR" id="btnCANCELAR" onclick="clicbtn()" type="submit" class="btn btn-secondary">CANCELAR</button>
-
-                        </form>
-                    </div>
-                  </div>
-                <div>
+                       </div>
+                  <div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3 d-flex align-items-end">
-                <img src="../img/descarga.png" class="img-fluid" alt="...">
-            </div>
-            <div class="col-sm-6">
-                
-                    
-                </div>
-            </div>
-            <div class="col-sm-3"></div>
-        </div>
+           </div>
        
     </div>
     
