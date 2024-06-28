@@ -13,11 +13,11 @@
         Salud
     </a>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Vacunacion</a></li>
-        <li><a class="dropdown-item" href="#">Desparacitacion</a></li>
-        <li><a class="dropdown-item" href="#">Medicamentos</a></li>
-        <li><a class="dropdown-item" href="#">Enfermedades</a></li>
-        <li><a class="dropdown-item" href="#">Muertes</a></li>
+        <li><a class="dropdown-item" href="vacunacion.html">Vacunacion</a></li>
+        <li><a class="dropdown-item" href="desparacitacion.html">Desparacitacion</a></li>
+        <li><a class="dropdown-item" href="medicamentos.html">Medicamentos</a></li>
+        <li><a class="dropdown-item" href="enfermedades.html">Enfermedades</a></li>
+        <li><a class="dropdown-item" href="muertes.html">Muertes</a></li>
     </ul>
     </li>
     <li class="nav-item dropdown">
@@ -25,13 +25,13 @@
         Reproduccion
     </a>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Monta</a></li>
-        <li><a class="dropdown-item" href="#">Inseminacion</a></li>
-        <li><a class="dropdown-item" href="#">Partos</a></li>
+        <li><a class="dropdown-item" href="Monta.html">Monta</a></li>
+        <li><a class="dropdown-item" href="Inseminacion.html">Inseminacion</a></li>
+        <li><a class="dropdown-item" href="Partos.html">Partos</a></li>
     </ul>                
     </li>
     <li class="nav-item">
-    <a class="nav-link" href="#">Ventas</a>
+    <a class="nav-link" href="ventas.html">Ventas</a>
     </li>
 </ul>
 <div class="nav-item dropdown">
