@@ -23,6 +23,9 @@ function validarToken(){
    if(localStorage.getItem("token")){
       $div_info_user = document.getElementById("info-user");
       $div_info_user.innerHTML=`${localStorage.getItem("user")}`;
+
+      //Funciones del Registro de Animales
+      razas();
    }else{
       salida()
    }
@@ -39,6 +42,29 @@ const salida = ()=>{
       fSuccess: (Resp)=>{
          localStorage.clear();
          ruta("login.html");
+      }
+   })
+}
+
+function razas(){
+   let $divRazas = document.getElementById("drazas");
+   $divRazas.innerHTML= `<div class="spinner-border text-black" role="status"><span class="sr-only"></span></div>`;
+   //console.log($divRazas)
+   Ajax({
+      url: "../control/razas.php",
+      method: "GET", 
+      param: undefined, 
+      fSuccess:(Resp)=>{
+         //console.log(Resp)
+         if(Resp.code==200){            
+            let opc=``;
+            //console.log(Resp.data)
+            Resp.data.map((el) => {
+               opc+=`<option value="${el.IdRaza}">${el.RazaNombres}</option>`;               
+               //console.log(el)
+            });
+            $divRazas.innerHTML= `<label for="raza">Raza</label><select class="form-select" name="raza" id="raza"><option value="Seleccione uno">Seleccione uno</option>${opc}</select>`;
+         }
       }
    })
 }
