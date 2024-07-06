@@ -51,3 +51,11 @@ $form.addEventListener('submit', (e)=>{
        enviarLogin("../control/login.php",method,param)
     }
 })
+
+function consultarToken(){
+    if(localStorage.getItem("token")){location.href="principal.html?token="+localStorage.getItem("token")}
+}
+
+document.addEventListener("DOMContentLoaded", (e)=>{
+    consultarToken()
+})
