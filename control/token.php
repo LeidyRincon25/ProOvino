@@ -10,8 +10,9 @@ if($_SERVER["REQUEST_METHOD"]=="PUT"){
             //echo $_post["user"]; 
             $bd = new ConfigDb();
             $conn = $bd->conexion();
-            $sql = "UPDATE `token_acceso` SET `ESTADO`='INACTIVO' WHERE `ID_TOKEN`='".$post["token"]."'";
+            $sql = "UPDATE `token_acceso` SET `ESTADO`='INACTIVO' WHERE `ID_TOKEN`= ?";
             $stmt = $conn ->prepare($sql);
+            $stmt->bindParam(1,$post["token"],PDO::PARAM_STR);
             if($stmt->execute()){
                 header("HTTP/1.1 200 OK");
                 echo json_encode(['code'=>200,'msg' => "OK"]);

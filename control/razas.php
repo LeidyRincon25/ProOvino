@@ -10,11 +10,15 @@ if($_SERVER["REQUEST_METHOD"]=="GET"){
             $conn = $bd->conexion();
             $sql = "SELECT `IdRaza`, `RazaNombres` FROM `tbraza` ORDER BY `RazaNombres` ASC";
             $stmt = $conn ->prepare($sql);
-            $stmt->execute();
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            //var_dump($result);
-            header("HTTP/1.1 200 OK");
-            echo json_encode(['code'=>200,'data'=>$result,'msg' => "OK"]);                        
+            if($stmt->execute()){                
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                //var_dump($result);
+                header("HTTP/1.1 200 OK");
+                echo json_encode(['code'=>200,'data'=>$result,'msg' => "OK"]); 
+            }else{
+                header("HTTP/1.1 400");
+                echo json_encode(['code'=>400,'msg' => 'Error, La peticion no se pudo procesar']);
+            }                       
         
         //exit();
     } catch (Exception $ex) {

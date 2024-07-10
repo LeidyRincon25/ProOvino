@@ -10,8 +10,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             //echo $_post["user"]; 
             $bd = new ConfigDb();
             $conn = $bd->conexion();
-            $sql = "SELECT `IdUsuario`, `UsuNombre`, `UsuApellido` FROM `tbusuario` WHERE `UsuCorreo`= '".$post["user"]."' AND `UsuContrasena`='".$post["pass"]."'";
+            $sql = "SELECT `IdUsuario`, `UsuNombre`, `UsuApellido` FROM `tbusuario` WHERE `UsuCorreo`= :user AND `UsuContrasena`= :clave";
             $stmt = $conn ->prepare($sql);
+            $stmt->bindParam(":user",$post["user"],PDO::PARAM_STR);
+            $stmt->bindParam(":clave",$post["pass"],PDO::PARAM_STR);
             if($stmt->execute()){
                 $result = $stmt->fetchAll();
                 if(count($result) > 0)
