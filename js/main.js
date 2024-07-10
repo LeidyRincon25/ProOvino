@@ -25,7 +25,10 @@ function validarToken(){
       $div_info_user.innerHTML=`${localStorage.getItem("user")}`;
 
       //Funciones del Registro de Animales
-      razas();
+      if(location.pathname.includes("registroanimales")){
+         razas()
+         categorias()
+      }      
    }else{
       salida()
    }
@@ -63,7 +66,26 @@ function razas(){
                opc+=`<option value="${el.IdRaza}">${el.RazaNombres}</option>`;               
                //console.log(el)
             });
-            $divRazas.innerHTML= `<label for="raza">Raza</label><select class="form-select" name="raza" id="raza"><option value="Seleccione uno">Seleccione uno</option>${opc}</select>`;
+            $divRazas.innerHTML= `<label for="raza">Raza</label><select class="form-select" name="raza" id="raza"><option value="">Seleccione una</option>${opc}</select>`;
+         }
+      }
+   })
+}
+
+function categorias(){
+   let $div = document.getElementById("dcat");
+   $div.innerHTML= `<div class="spinner-border text-black" role="status"><span class="sr-only"></span></div>`;
+   Ajax({
+      url: "../control/categorias.php",
+      method: "GET", 
+      param: undefined, 
+      fSuccess:(Resp)=>{
+         if(Resp.code==200){            
+            let opc=``;
+            Resp.data.map((el) => {
+               opc+=`<option value="${el.IdCategoria}">${el.CateNombre}</option>`;
+            });
+            $div.innerHTML= `<label for="cat">Categoria</label><select class="form-select" name="cat" id="cat"><option value="">Seleccione una</option>${opc}</select>`;
          }
       }
    })
@@ -84,5 +106,7 @@ document.addEventListener("DOMContentLoaded", (e)=>{
 })
 
 document.addEventListener("click",(e)=>{
+   //console.log(e.target)
    if(e.target.matches("#salir")) salida()
+   if(e.target.matches(".img-fluid")) ruta("principal.html?token="+localStorage.getItem("token"))
 })
