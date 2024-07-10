@@ -35,9 +35,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 header("HTTP/1.1 203 OK");
                 echo json_encode(['code'=>203,'msg' => "Las credenciales no son validas"]);
             }
-            /**/
-            //echo json_encode(['code'=>200,'msg' => 'Consulta finalizada correctamente']);
-            //var_dump($post);
+            $stmt = null;
+            $conn = null;
         }
         //exit();
     } catch (Exception $ex) {

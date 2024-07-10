@@ -10,6 +10,7 @@ const Ajax = async (info)=>{
    if (method === "POST" || method === "PUT" || method === "DELETE") method={method,headers: {'Content-Type':'application/json'},body: JSON.stringify(param)}
    
    try{
+       //console.log(url,method)
        let resp = await fetch(url,method);
        if(!resp.ok) throw {status: resp.status, msg: resp.statusText};
        let respJson =  await resp.json();  
@@ -66,7 +67,7 @@ function razas(){
                opc+=`<option value="${el.IdRaza}">${el.RazaNombres}</option>`;               
                //console.log(el)
             });
-            $divRazas.innerHTML= `<label for="raza">Raza</label><select class="form-select" name="raza" id="raza"><option value="">Seleccione una</option>${opc}</select>`;
+            $divRazas.innerHTML= `<label for="raza">Raza</label><select class="form-select" name="raza" id="raza" required><option value="">Seleccione una</option>${opc}</select>`;
          }
       }
    })
@@ -85,7 +86,34 @@ function categorias(){
             Resp.data.map((el) => {
                opc+=`<option value="${el.IdCategoria}">${el.CateNombre}</option>`;
             });
-            $div.innerHTML= `<label for="cat">Categoria</label><select class="form-select" name="cat" id="cat"><option value="">Seleccione una</option>${opc}</select>`;
+            $div.innerHTML= `<label for="cat">Categoria</label><select class="form-select" name="cat" id="cat" required><option value="">Seleccione una</option>${opc}</select>`;
+         }
+      }
+   })
+}
+
+function guardarAnimal(){
+   //alert("OK estamos listos para enviar los datos")
+   let datos = {
+      ident: document.getElementById("identificacion").value,
+      fn: document.getElementById("fecha").value,
+      peso: document.getElementById("peso").value,
+      raza: document.getElementById("raza").value,
+      sexo: document.getElementById("sexo").value,
+      cat: document.getElementById("cat").value,
+      antecedentes: document.getElementById("antecedentes").value,
+      iduser: localStorage.getItem("iduser"),
+   };
+   //console.log(datos)
+   Ajax({
+      url: "../control/animales.php", method: "POST", param: datos, 
+      fSuccess: (resp)=>{
+         console.log(resp)
+         if(resp.code==200)
+         {
+            alert("El registos fue guardado correctamente")
+         } else {
+            alert("Error en el registro. "+resp.msg);
          }
       }
    })
@@ -109,4 +137,9 @@ document.addEventListener("click",(e)=>{
    //console.log(e.target)
    if(e.target.matches("#salir")) salida()
    if(e.target.matches(".img-fluid")) ruta("principal.html?token="+localStorage.getItem("token"))
+})
+
+document.addEventListener("submit", (e)=>{
+   e.preventDefault()
+   if(e.target.matches("#form-animales")) guardarAnimal();
 })
