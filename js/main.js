@@ -99,7 +99,6 @@ function categorias(){
 function guardarAnimal(){
    //alert("OK estamos listos para enviar los datos")
    let datos = {
-      ident: document.getElementById("identificacion").value,
       fn: document.getElementById("fecha").value,
       peso: document.getElementById("peso").value,
       raza: document.getElementById("raza").value,
@@ -122,14 +121,24 @@ function guardarAnimal(){
 }
 
 function listadoAnimales(){
-   $tinfo=document.getElementById("tinfo")
+   let $tinfo=document.getElementById("tinfo"), item="";
+
    Ajax({
       url: "../control/animales.php", method: "GET", param: undefined, 
       fSuccess: (resp)=>{
          console.log(resp)
          if(resp.code==200){
-            console.log(resp.data)
-
+            //console.log(resp.data)
+            resp.data.forEach((el)=>{
+               item+=`<tr><th scope='row'>${el.id}</th>
+                      <td>${el.cate}</td>
+                      <td>${el.raza}</td>
+                      <td>${el.sexo}</td>
+                      <td>${el.peso} Kg</td>
+                      <td>${el.ant}</td>
+                      <td></td></tr>`
+            })
+            $tinfo.innerHTML=item;
          } else $tinfo.innerHTML=`<tr><td colspan='6' class='text-center'>Error en la petición <b>${resp.msg}</b></td></tr>`;
       }
    })

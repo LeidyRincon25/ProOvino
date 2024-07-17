@@ -33,40 +33,36 @@
                     <h3 class="card-header text-center">REGISTRO DE ANIMAL</h3>
                 <div class="card-body">
                         <form class="form-control" action="" method="post" id="form-animales" name="form-animales">
-                            <div class="mb-3">
-                                <label for="identificacion">Numero de Identificaci&oacute;n</label>
-                                <input type="text" class="form-control" id="identificacion" name="identificacion" required alt="Este valor es obligatorio" >
-                            </div>                            
-                            <div class="mb-3">
+                            <div class="mb-3" id="dcat">
+                                <label for="cat">Categoria</label>
+                                    <select class="form-select" name="cat" id="cat" required>
+                                        <option value="">Seleccione una</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3" id="drazas">
+                                    <label for="raza">Raza</label>
+                                    <select class="form-select" name="raza" id="raza" required>
+                                        <option value="">Seleccione una</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sexo">Genero</label>
+                                    <select class="form-select" name="sexo" id="sexo" required>
+                                        <option value="">Seleccione uno</option>
+                                        <option value="Macho">Macho</option>
+                                        <option value="Hembra">Hembra</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="peso">Peso en kilogramos</label>
+                                    <div class="input-group mb-3">
+                                        <input type="number" class="form-control" id="peso" name="peso" placeholder="" aria-describedby="basic-addon2" required>
+                                        <span class="input-group-text" id="basic-addon2">Kg</span>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
                                 <label for="fecha">Fecha de Nacimiento</label>
                                 <input type="date" class="form-control" name="fecha" id="fecha" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="peso">Peso en kilogramos</label>
-                                <div class="input-group mb-3">
-                                    <input type="number" class="form-control" id="peso" name="peso" placeholder="" aria-describedby="basic-addon2" required>
-                                    <span class="input-group-text" id="basic-addon2">Kg</span>
-                                </div>
-                            </div>
-                            <div class="mb-3" id="drazas">
-                                <label for="raza">Raza</label>
-                                <select class="form-select" name="raza" id="raza" required>
-                                    <option value="">Seleccione una</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                            <label for="sexo">Genero</label>
-                                <select class="form-select" name="sexo" id="sexo" required>
-                                    <option value="">Seleccione uno</option>
-                                    <option value="Macho">Macho</option>
-                                    <option value="Hembra">Hembra</option>
-                                </select>
-                            </div>
-                            <div class="mb-3" id="dcat">
-                            <label for="cat">Categoria</label>
-                                <select class="form-select" name="cat" id="cat" required>
-                                    <option value="">Seleccione una</option>
-                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="antecedentes">Antecedentes Geneticos</label>
