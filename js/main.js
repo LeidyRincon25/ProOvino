@@ -29,7 +29,11 @@ function validarToken(){
       if(location.pathname.includes("registroanimales")){
          razas()
          categorias()
-      }      
+      } 
+      //Funciones del Listado de Animales
+      if(location.pathname.includes("listadoanimales")){
+         listadoAnimales()
+      }     
    }else{
       salida()
    }
@@ -108,13 +112,25 @@ function guardarAnimal(){
    Ajax({
       url: "../control/animales.php", method: "POST", param: datos, 
       fSuccess: (resp)=>{
-         console.log(resp)
-         if(resp.code==200)
-         {
+         //console.log(resp)
+         if(resp.code==200){
             alert("El registos fue guardado correctamente")
-         } else {
-            alert("Error en el registro. "+resp.msg);
-         }
+            ruta("listadoanimales.html")
+         } else alert("Error en el registro. "+resp.msg);
+      }
+   })
+}
+
+function listadoAnimales(){
+   $tinfo=document.getElementById("tinfo")
+   Ajax({
+      url: "../control/animales.php", method: "GET", param: undefined, 
+      fSuccess: (resp)=>{
+         console.log(resp)
+         if(resp.code==200){
+            console.log(resp.data)
+
+         } else $tinfo.innerHTML=`<tr><td colspan='6' class='text-center'>Error en la petición <b>${resp.msg}</b></td></tr>`;
       }
    })
 }

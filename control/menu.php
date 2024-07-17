@@ -4,8 +4,10 @@
         Gesti&oacute;n
     </a>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="registroanimales.html">Animales</a></li>
-        <li><a class="dropdown-item" href="registroalimento.html">Alimento</a></li>
+        <li><a class="dropdown-item" href="listadoanimales.html">Listado Animales</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="registroanimales.html">Nuevo Animal</a></li>
+        <li><a class="dropdown-item" href="registroalimento.html">Nuevo Alimento</a></li>
     </ul>
     </li>
     <li class="nav-item dropdown">

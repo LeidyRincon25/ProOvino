@@ -4,9 +4,7 @@ require_once("configdb.php");
 //header('Content-Type: application/json');
 if($_SERVER["REQUEST_METHOD"]=="POST"){
     try {
-        $post = json_decode(file_get_contents('php://input'),true);
-        
-        
+        $post = json_decode(file_get_contents('php://input'),true);       
         if($post["ident"]!="" && $post["fn"]!="" && $post["peso"]!="" && $post["raza"]!="" && $post["sexo"]!="" && $post["cat"]!="" && $post["antecedentes"]!="" && $post["iduser"]!=""){
             //echo $_post["user"]; 
             $bd = new ConfigDb();
@@ -27,7 +25,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 
             }else{
                 header("HTTP/1.1 403 OK");
-                echo json_encode(['code'=>203,'msg' => "Inconvenientes al gestionar en la consulta"]);
+                echo json_encode(['code'=>203,'msg' => "Inconvenientes al gestionar la consulta"]);
             }
             $stmt = null;
             $conn = null;
