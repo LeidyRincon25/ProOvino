@@ -136,7 +136,11 @@ function listadoAnimales(){
                       <td>${el.sexo}</td>
                       <td>${el.peso} Kg</td>
                       <td>${el.ant}</td>
-                      <td></td></tr>`
+                      <td> <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary" title='Editar'><i class="fa fa-edit"></i></button>
+                        <button type="button" class="btn btn-outline-danger" title='Eliminar'><i class="fa fa-trash"></i></button>
+                        </div>
+                      </td></tr>`
             })
             $tinfo.innerHTML=item;
          } else $tinfo.innerHTML=`<tr><td colspan='6' class='text-center'>Error en la petición <b>${resp.msg}</b></td></tr>`;
