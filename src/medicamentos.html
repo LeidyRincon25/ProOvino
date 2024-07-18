@@ -34,9 +34,13 @@ integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2
                    <h3 class="card-header text-center">MEDICAMENTOS</h3>
                <div class="card-body">
                         <form class="form-control" action="" method="post">
-                            <div class="mb-3">
-                                <label for="Identidicacion">Identificaci&oacute;n del Ovino</label>
-                                <input type="text" class="form-control"  id="Identificaci&oacute;n" name="Identificaci&oacute;n">                                                                                       
+                            <div class="mb-3" id="dmedi">
+                                <label for="Nombre">Nombre del Medicamento</label>
+                                <input type="text" class="form-control"  id="Nombre" name="Nombre">                                                                          
+                            </div>
+                            <div class="mb-3" id="dmedi">
+                                <label for="Presentacion">Presentacion</label>
+                                <input type="text" class="form-control"  id="Presentacion" name="Presentacion">                                                                                      
                             </div>
                             <div class="mb-3">
                                 <label for="Fecha ">Fecha de Aplicacion</label>
@@ -75,22 +79,13 @@ integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2
                                     <option value="Borrega">Borrego</option>
                                 </select>
                             </div>
-                            <div class="Medicamento">
-                                    <label for="Medicamento">Medicamento</label>
-                                    <input type="text" class="form-control" name="Medicamento" id="Medicamento">
-                            </div>
-                            <div class="mb-3">
+                            <div class="mb-3" id="dmedi">
                                     <label for="Administracion">Via de Administraci&oacute;n</label>
-                                    <select class="form-control" name=" Administraci&oacute;n" id="Administraci&oacute;n">
+                                    <select class="form-select" name=" Administraci&oacute;n" id="Administraci&oacute;n">
                                         <option value="Seleccione uno">Seleccione uno</option>
-                                        <option value=" Oral"> Oral</option>
-                                        <option value="Subcutanea">Subcutanea </option>
-                                        <option value="Intravenosa">Intravenosa</option>
-                                        <option value="Intramuscular">Intramuscular </option>
-                                        <option value="Otras">Intramamaria</option>
                                     </select>
                             </div>
-                            <div class="mb-3">
+                            <div class="mb-3" id="dmedi">
                                     <label for="Dosis">Dosis</label>
                                     <input type="text" class="form-control" name="Dosis" id="Dosis">
                             </div>

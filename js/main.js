@@ -96,6 +96,26 @@ function categorias(){
    })
 }
 
+function medicamentos(){
+   let $div = document.getElementById("dcat");
+   $div.innerHTML= `<div class="spinner-border text-black" role="status"><span class="sr-only"></span></div>`;
+   Ajax({
+      url: "../control/medicamentos.php",
+      method: "GET", 
+      param: undefined, 
+      fSuccess:(Resp)=>{
+         if(Resp.code==200){            
+            let opc=``;
+            Resp.data.map((el) => {
+               opc+=`<option value="${el.IdMedicamentos}">${el.MediNombre}${el.MediPresentacion}${el.MediDosis}${el.MediVia}</option>`;
+            });
+            $div.innerHTML= `<label for="medi">Medicamentos</label><select class="form-select" name="medi" id="medi" 
+required><option value="">Seleccione una</option>${opc}</select>`;
+         }
+      }
+   })
+}
+
 function guardarAnimal(){
    //alert("OK estamos listos para enviar los datos")
    let datos = {
