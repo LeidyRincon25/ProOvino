@@ -107,10 +107,10 @@ function medicamentos(){
          if(Resp.code==200){            
             let opc=``;
             Resp.data.map((el) => {
-               opc+=`<option value="${el.IdMedicamentos}">${el.MediNombre}${el.MediPresentacion}${el.MediDosis}${el.MediVia}</option>`;
+               opc+=`<option value="${el.IdMedicamentos}">${el.MediVia}</option>`;
             });
             $div.innerHTML= `<label for="medi">Medicamentos</label><select class="form-select" name="medi" id="medi" 
-required><option value="">Seleccione una</option>${opc}</select>`;
+            required><option value="">Seleccione una</option>${opc}</select>`;
          }
       }
    })
@@ -168,6 +168,35 @@ function listadoAnimales(){
    })
 }
 
+function registrosalud(){
+   let $tinfo=document.getElementById("tinfo"), item="";
+
+   Ajax({
+      url: "../control/salud.php", method: "GET", param: undefined, 
+      fSuccess: (resp)=>{
+         console.log(resp)
+         if(resp.code==200){
+            //console.log(resp.data)
+            resp.data.forEach((el)=>{
+               item+=`<tr><th scope='row'>${el.id}</th>
+                      <td>${el.enfermedades}</td>
+                      <td>${el.tratamiento}</td>
+                      <td>${el.medicamento}</td>
+                      <td>${el.ovino} Kg</td>
+                      <td> <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary" title='Editar'><i class="fa fa-edit"></i></
+button>
+                        <button type="button" class="btn btn-outline-danger" title='Eliminar'><i class="fa fa-trash"></
+i></button>
+                        </div>
+                      </td></tr>`
+            })
+            $tinfo.innerHTML=item;
+         } else $tinfo.innerHTML=`<tr><td colspan='6' class='text-center'>Error en la petición <b>${resp.msg}</b></td></
+tr>`;
+      }
+   })
+}
 const mostarMenu = async ()=>{
    let $divmenu = document.getElementById("navbarSupportedContent");
    let url = "../control/menu.php"
