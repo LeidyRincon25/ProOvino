@@ -142,11 +142,11 @@ function guardarAnimal(){
 
 function listadoAnimales(){
    let $tinfo=document.getElementById("tinfo"), item="";
-
+   $tinfo.innerHTML= `<tr><td colspan='7' class='text-center'><div class="spinner-border text-black" role="status"><span class="sr-only"></span></div><br>Procesando...</td></tr>`;
    Ajax({
       url: "../control/animales.php", method: "GET", param: undefined, 
       fSuccess: (resp)=>{
-         console.log(resp)
+         //console.log(resp)
          if(resp.code==200){
             //console.log(resp.data)
             resp.data.forEach((el)=>{
@@ -157,15 +157,33 @@ function listadoAnimales(){
                       <td>${el.peso} Kg</td>
                       <td>${el.ant}</td>
                       <td> <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary" title='Editar'><i class="fa fa-edit"></i></button>
-                        <button type="button" class="btn btn-outline-danger" title='Eliminar'><i class="fa fa-trash"></i></button>
+                        <button type="button" class="btn btn-outline-primary fa fa-edit u_animal" title='Editar' data-id='${el.id}'></button>
+                        <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.id}'></button>
                         </div>
                       </td></tr>`
             })
             $tinfo.innerHTML=item;
-         } else $tinfo.innerHTML=`<tr><td colspan='6' class='text-center'>Error en la petición <b>${resp.msg}</b></td></tr>`;
+         } else $tinfo.innerHTML=`<tr><td colspan='7' class='text-center'>Error en la petición <b>${resp.msg}</b></td></tr>`;
       }
    })
+}
+function editarAnimal(id){
+   console.log("Clic en Editar el registro id="+id)
+}
+function eliminarAnimal(id){
+   let resp = confirm("Desea eliminar el registro del Animal (#"+id+")?")
+   if(resp){
+      Ajax({
+         url: "../control/animales.php", method: "DELETE", param: {id}, 
+         fSuccess: (resp)=>{
+            console.log(resp)
+            if(resp.code==200){
+               //console.log(resp.data)
+               listadoAnimales()
+            } else alert("Error en la petición\n"+resp.msg);
+         }
+      })
+   }
 }
 
 function registrosalud(){
@@ -215,6 +233,8 @@ document.addEventListener("click",(e)=>{
    //console.log(e.target)
    if(e.target.matches("#salir")) salida()
    if(e.target.matches(".img-fluid")) ruta("principal.html?token="+localStorage.getItem("token"))
+   if(e.target.matches(".u_animal")) editarAnimal(e.target.dataset.id)
+   if(e.target.matches(".d_animal")) eliminarAnimal(e.target.dataset.id)   
 })
 
 document.addEventListener("submit", (e)=>{
