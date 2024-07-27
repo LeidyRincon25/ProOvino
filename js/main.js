@@ -26,9 +26,14 @@ function validarToken(){
       $div_info_user.innerHTML=`${localStorage.getItem("user")}`;
 
       //Funciones del Registro de Animales
-      if(location.pathname.includes("registroanimales")){
+      if(location.pathname.includes("registroanimales") | location.pathname.includes("actualizaranimales")){
          razas()
          categorias()
+         if(location.pathname.includes("actualizaranimales")) {
+            setTimeout(()=>{
+               buscarAnimales(localStorage.getItem("id_animal"))
+            },100)
+         }
       } 
       //Funciones del Listado de Animales
       if(location.pathname.includes("listadoanimales")){
@@ -167,8 +172,34 @@ function listadoAnimales(){
       }
    })
 }
+
+function buscarAnimales(id){
+   let $form = document.getElementById("form-act_animales")
+   Ajax({
+      url: "../control/animales.php", method: "GET", param: {id}, 
+      fSuccess: (resp)=>{
+         //console.log(resp)
+         if(resp.code==200){
+            console.log(resp.data)
+            //console.log($form)
+            resp.data.forEach((el)=>{
+               $form.id_animal.value=el.id
+               $form.peso.value=el.peso
+               $form.fecha.value=el.fn
+               $form.antecedentes.innerHTML=el.ant
+               $form.sexo.value=el.sexo
+               $form.cat.value=el.cate
+               $form.raza.value=el.raza
+            })
+         } else alert("Error en la petición\n"+resp.msg);
+      }
+   })
+}
+
 function editarAnimal(id){
-   console.log("Clic en Editar el registro id="+id)
+   //console.log("Clic en Editar el registro id="+id)
+   localStorage.setItem("id_animal",id);
+   ruta("actualizaranimales.html?id="+id)
 }
 function eliminarAnimal(id){
    let resp = confirm("Desea eliminar el registro del Animal (#"+id+")?")

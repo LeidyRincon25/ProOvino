@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProOvino - Actualizar de Animales</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+      body {
+          background-image: url('../img/fondo.jpg'); 
+      }
+  </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-md bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="../img/descarga.png" class="img-fluid" alt="descarga" width="80px">
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          </div>
+        </div>
+      </nav> 
+
+    <div class="container">
+        <div class="m-5 row d-flex align-items-center">
+            <div class="col"> 
+                <div class="card">
+                    <h3 class="card-header text-center">ACTUALIZACI&Oacute;N DEL ANIMAL</h3>
+                <div class="card-body">
+                        <form class="form-control" action="" method="post" id="form-act_animales" name="form-act_animales">
+                            <input type="hidden" name="id_animal" id="id_animal" value="">
+                            <div class="mb-3" id="dcat">
+                                <label for="cat">Categoria</label>
+                                    <select class="form-select" name="cat" id="cat" required>
+                                        <option value="">Seleccione una</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3" id="drazas">
+                                    <label for="raza">Raza</label>
+                                    <select class="form-select" name="raza" id="raza" required>
+                                        <option value="">Seleccione una</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="sexo">Genero</label>
+                                    <select class="form-select" name="sexo" id="sexo" required>
+                                        <option value="">Seleccione uno</option>
+                                        <option value="Macho">Macho</option>
+                                        <option value="Hembra">Hembra</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="peso">Peso en kilogramos</label>
+                                    <div class="input-group mb-3">
+                                        <input type="number" class="form-control" id="peso" name="peso" placeholder="" aria-describedby="basic-addon2" required>
+                                        <span class="input-group-text" id="basic-addon2">Kg</span>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                <label for="fecha">Fecha de Nacimiento</label>
+                                <input type="date" class="form-control" name="fecha" id="fecha" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="antecedentes">Antecedentes Geneticos</label>
+                                <textarea class="form-control" type="text" name="antecedentes" id="antecedentes"></textarea>
+                            </div>
+                            <div class="mb-3 text-center">
+                                <button name="btnGUARDAR" id="btnGUARDAR" type="submit" class="btn btn-success">GUARDAR</button> 
+                                <button name="btnCANCELAR" id="btnCANCELAR" type="cancel" class="btn btn-danger">CANCELAR</button>
+                            </div>
+                        </form>
+                    </div>
+                  </div>
+                <div>
+            </div>
+        </div>
+        </div>
+       
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="../js/jquery-3.7.1.min.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

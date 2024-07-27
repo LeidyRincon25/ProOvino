@@ -3,11 +3,10 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-06-2024 a las 02:45:29
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Tiempo de generación: 26-07-2024 a las 06:30:15
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
-SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -42,9 +41,9 @@ CREATE TABLE `tbcategoria` (
 
 INSERT INTO `tbcategoria` (`IdCategoria`, `CateNombre`) VALUES
 (1, 'Oveja'),
-(2, 'Borrega'),
+(2, 'Borrego'),
 (3, 'Cordero'),
-(4, 'Borrego');
+(4, 'Equino');
 
 -- --------------------------------------------------------
 
@@ -82,17 +81,16 @@ CREATE TABLE `tbmedicamentos` (
   `MediNombre` varchar(100) NOT NULL,
   `MediPresentacion` varchar(100) NOT NULL,
   `MediDosis` varchar(100) NOT NULL,
-  `MediVia` varchar(100) NOT NULL,
-  `IdRegOvino` int(10) NOT NULL
+  `MediVia` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `tbmedicamentos`
 --
 
-INSERT INTO `tbmedicamentos` (`IdMedicamentos`, `MediNombre`, `MediPresentacion`, `MediDosis`, `MediVia`, `IdRegOvino`) VALUES
-(1, 'Oxitetraciclina', 'Solucion', '10mg/kg', 'Intramuscular', 1),
-(2, 'Ivermectina', 'Solucion inyectable', '200mg/kg', 'Subcutanea', 3);
+INSERT INTO `tbmedicamentos` (`IdMedicamentos`, `MediNombre`, `MediPresentacion`, `MediDosis`, `MediVia`) VALUES
+(1, 'Oxitetraciclina', 'Solucion', '10mg/kg', 'Intramuscular'),
+(2, 'Ivermectina', 'Solucion inyectable', '200mg/kg', 'Subcutanea');
 
 -- --------------------------------------------------------
 
@@ -113,7 +111,8 @@ CREATE TABLE `tbraza` (
 INSERT INTO `tbraza` (`IdRaza`, `RazaNombres`) VALUES
 (1, 'Criolla'),
 (2, 'Dorper'),
-(3, 'Hampshire');
+(3, 'Hampshire'),
+(4, 'Merina');
 
 -- --------------------------------------------------------
 
@@ -125,7 +124,7 @@ DROP TABLE IF EXISTS `tbregovino`;
 CREATE TABLE `tbregovino` (
   `IdRegOvino` int(10) NOT NULL,
   `RegFechadeNacimiento` date NOT NULL,
-  `RegEdad` varchar(20) NOT NULL,
+  `RegSexo` varchar(20) NOT NULL,
   `RegPeso` varchar(100) NOT NULL,
   `RegAntecedentes` text NOT NULL,
   `Idcategoria` int(10) NOT NULL,
@@ -137,11 +136,11 @@ CREATE TABLE `tbregovino` (
 -- Volcado de datos para la tabla `tbregovino`
 --
 
-INSERT INTO `tbregovino` (`IdRegOvino`, `RegFechadeNacimiento`, `RegEdad`, `RegPeso`, `RegAntecedentes`, `Idcategoria`, `IdRaza`, `IdUsuario`) VALUES
-(1, '2019-12-10', '4 años', '80kg', 'Ninguno', 1, 1, 3),
-(2, '2023-05-24', ' 7meses', '20kg', 'Ninguno', 2, 3, 3),
-(3, '2018-10-27', '6 años', '100kg', 'Ninguno', 3, 2, 3),
-(4, '2022-12-06', '1 año', '45kg', 'Ninguno', 4, 3, 3);
+INSERT INTO `tbregovino` (`IdRegOvino`, `RegFechadeNacimiento`, `RegSexo`, `RegPeso`, `RegAntecedentes`, `Idcategoria`, `IdRaza`, `IdUsuario`) VALUES
+(1, '2019-12-10', 'Hembra', '80', 'Ninguno', 1, 1, 3),
+(2, '2023-05-24', 'Macho', '20', 'Ninguno', 2, 3, 3),
+(6, '2024-06-05', 'Macho', '20', 'Le faltan todas sus vacunas', 3, 1, 1),
+(7, '2024-05-14', 'Hembra', '8', 'Al dia con sus vacunas', 3, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -156,18 +155,18 @@ CREATE TABLE `tbregsalud` (
   `RegEnfermedades` varchar(100) NOT NULL,
   `RegTratamiento` text NOT NULL,
   `IdMedicamentos` int(10) NOT NULL,
-  `IdRegOvino` int(10) NOT NULL,
-  `Idcategoria` int(10) NOT NULL,
-  `IdRaza` int(10) NOT NULL
+  `IdRegOvino` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `tbregsalud`
 --
 
-INSERT INTO `tbregsalud` (`IdRegSalud`, `RegFecha`, `RegEnfermedades`, `RegTratamiento`, `IdMedicamentos`, `IdRegOvino`, `Idcategoria`, `IdRaza`) VALUES
-(1, '2023-12-12', 'tetano', '10mg/kg/3dias', 1, 1, 3, 2),
-(2, '2023-12-12', 'antiparasitario', '1ml/50kg ', 2, 2, 1, 3);
+INSERT INTO `tbregsalud` (`IdRegSalud`, `RegFecha`, `RegEnfermedades`, `RegTratamiento`, `IdMedicamentos`, `IdRegOvino`) VALUES
+(1, '2023-12-12', 'tetano', '10mg/kg', 1, 1),
+(2, '2023-12-12', 'antiparasitario', '1ml/50kg ', 2, 2),
+(3, '2023-12-13', 'tetano', '10mg/kg', 1, 1),
+(4, '2023-12-14', 'tetano', '10mg/kg', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -213,7 +212,7 @@ CREATE TABLE `tbusuario` (
 --
 
 INSERT INTO `tbusuario` (`IdUsuario`, `UsuNombre`, `UsuApellido`, `Identificacion`, `UsuTelefono`, `UsuCorreo`, `UsuContrasena`, `IdRol`) VALUES
-(1, 'Leidy Maela', 'Nempeque Rincon', '1057608937', '3228383579', 'rinconleidy020@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 1),
+(1, 'Leidy Maela', 'Nempeque Rincon', '1057608937', '3228383579', 'rinconleidy020@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 1),
 (2, 'Ricardo Andres', 'Diaz Alba', '1055315244', '3112656859', 'ricardo3112656859@gmail.com', 'f99f135f65b6a774614c2e05744290e9', 2),
 (3, 'Nicol Dayana', 'Castro Nempeque', '23165103', '3202583966', 'nicolcastro2013@hotmail.com', '0ffb605ed5a3c7ce2b71b17f49104a15', 3);
 
@@ -265,7 +264,17 @@ CREATE TABLE `token_acceso` (
 --
 
 INSERT INTO `token_acceso` (`ID_TOKEN`, `ID_USUARIO_FK`, `USUARIO`, `FECHA_REG`, `HORA_REG`, `ESTADO`) VALUES
-('2b27688dc27220ef74283e910f41e8a1', '1', 'Leidy Maela Nempeque Rincon', '2024-06-18', '19:38:53', 'ACTIVO');
+('2b27688dc27220ef74283e910f41e8a1', '1', 'Leidy Maela Nempeque Rincon', '2024-06-18', '19:38:53', 'INACTIVO'),
+('fd869cc54b059b66dba13bf379fb72d0', '1', 'Leidy Maela Nempeque Rincon', '2024-07-05', '20:11:04', 'INACTIVO'),
+('90a25e0d06bd1e3c4ce5843eff3bfa30', '1', 'Leidy Maela Nempeque Rincon', '2024-07-05', '20:13:27', 'INACTIVO'),
+('7002f4c15ae1e6463e106bfa51740fbe', '1', 'Leidy Maela Nempeque Rincon', '2024-07-05', '20:20:21', 'INACTIVO'),
+('fe85a50c3b69378f320d4eaafd2c4cc2', '1', 'Leidy Maela Nempeque Rincon', '2024-07-09', '19:43:55', 'INACTIVO'),
+('ad0bef55c2f3565480cb1139692a4e4c', '1', 'Leidy Maela Nempeque Rincon', '2024-07-09', '19:45:15', 'INACTIVO'),
+('4a259b247df968668f4cad7efefa136d', '1', 'Leidy Maela Nempeque Rincon', '2024-07-11', '21:45:45', 'INACTIVO'),
+('d989a069161e5605d610ff3fa28f9c8b', '1', 'Leidy Maela NempequE', '2024-07-11', '21:46:40', 'INACTIVO'),
+('2faa4d5c50d3724d5a37925212899625', '1', 'Leidy Maela NempequE', '2024-07-16', '19:20:01', 'INACTIVO'),
+('eb50c5659f616c30c1dfe08b97532ba7', '1', 'Leidy Maela NempequE', '2024-07-23', '19:53:05', 'INACTIVO'),
+('6cd8257a6a92655f2962ba01dcbe6a14', '1', 'Leidy Maela NempequE', '2024-07-25', '23:27:44', 'INACTIVO');
 
 --
 -- Índices para tablas volcadas
@@ -287,8 +296,7 @@ ALTER TABLE `tbcomprador`
 -- Indices de la tabla `tbmedicamentos`
 --
 ALTER TABLE `tbmedicamentos`
-  ADD PRIMARY KEY (`IdMedicamentos`),
-  ADD KEY `TbMedicamentos_fk0` (`IdRegOvino`);
+  ADD PRIMARY KEY (`IdMedicamentos`);
 
 --
 -- Indices de la tabla `tbraza`
@@ -311,9 +319,7 @@ ALTER TABLE `tbregovino`
 ALTER TABLE `tbregsalud`
   ADD PRIMARY KEY (`IdRegSalud`),
   ADD KEY `TbRegSalud_fk0` (`IdMedicamentos`),
-  ADD KEY `TbRegSalud_fk1` (`IdRegOvino`),
-  ADD KEY `TbRegSalud_fk2` (`Idcategoria`),
-  ADD KEY `TbRegSalud_fk3` (`IdRaza`);
+  ADD KEY `TbRegSalud_fk1` (`IdRegOvino`);
 
 --
 -- Indices de la tabla `tbrol`
@@ -349,14 +355,20 @@ ALTER TABLE `tbmedicamentos`
   MODIFY `IdMedicamentos` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Restricciones para tablas volcadas
+-- AUTO_INCREMENT de la tabla `tbregovino`
 --
+ALTER TABLE `tbregovino`
+  MODIFY `IdRegOvino` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- Filtros para la tabla `tbmedicamentos`
+-- AUTO_INCREMENT de la tabla `tbregsalud`
 --
-ALTER TABLE `tbmedicamentos`
-  ADD CONSTRAINT `TbMedicamentos_fk0` FOREIGN KEY (`IdRegOvino`) REFERENCES `tbregovino` (`IdRegOvino`);
+ALTER TABLE `tbregsalud`
+  MODIFY `IdRegSalud` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Restricciones para tablas volcadas
+--
 
 --
 -- Filtros para la tabla `tbregovino`
@@ -371,9 +383,7 @@ ALTER TABLE `tbregovino`
 --
 ALTER TABLE `tbregsalud`
   ADD CONSTRAINT `TbRegSalud_fk0` FOREIGN KEY (`IdMedicamentos`) REFERENCES `tbmedicamentos` (`IdMedicamentos`),
-  ADD CONSTRAINT `TbRegSalud_fk1` FOREIGN KEY (`IdRegOvino`) REFERENCES `tbregovino` (`IdRegOvino`),
-  ADD CONSTRAINT `TbRegSalud_fk2` FOREIGN KEY (`Idcategoria`) REFERENCES `tbcategoria` (`IdCategoria`),
-  ADD CONSTRAINT `TbRegSalud_fk3` FOREIGN KEY (`IdRaza`) REFERENCES `tbraza` (`IdRaza`);
+  ADD CONSTRAINT `TbRegSalud_fk1` FOREIGN KEY (`IdRegOvino`) REFERENCES `tbregovino` (`IdRegOvino`);
 
 --
 -- Filtros para la tabla `tbusuario`
@@ -389,7 +399,6 @@ ALTER TABLE `tbventa`
   ADD CONSTRAINT `TbVenta_fk1` FOREIGN KEY (`IdRaza`) REFERENCES `tbraza` (`IdRaza`),
   ADD CONSTRAINT `TbVenta_fk2` FOREIGN KEY (`IdComprador`) REFERENCES `tbcomprador` (`IdComprador`),
   ADD CONSTRAINT `TbVenta_fk3` FOREIGN KEY (`IdOvino`) REFERENCES `tbregovino` (`IdRegOvino`);
-SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
