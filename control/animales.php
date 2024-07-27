@@ -43,7 +43,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             
             //SELECT `IdRegOvino` as 'id', t2.CateNombre as 'cate', t3.RazaNombres as 'raza',`RegFechadeNacimiento` as 'fn', `RegSexo` as 'sexo', `RegPeso` as 'peso', `RegAntecedentes` as 'ant' FROM `tbregovino` t1 INNER JOIN `tbcategoria` t2 ON(t1.Idcategoria=t2.IdCategoria) INNER JOIN `tbraza` t3 ON(t1.IdRaza=t3.IdRaza) ORDER BY t2.CateNombre;
             $sql = "SELECT `IdRegOvino` as 'id', t2.CateNombre as 'cate', t3.RazaNombres as 'raza',`RegFechadeNacimiento` as 'fn', `RegSexo` as 'sexo', `RegPeso` as 'peso', `RegAntecedentes` as 'ant' FROM `tbregovino` t1, `tbcategoria` t2, `tbraza` t3 WHERE t1.Idcategoria=t2.IdCategoria AND t1.IdRaza=t3.IdRaza ORDER BY t1.IdRegOvino";
-            if(isset($_GET["id"])) $sql = "SELECT `IdRegOvino` as 'id', `Idcategoria` as 'cate', `IdRaza` as 'raza' ,`RegFechadeNacimiento` as 'fn', `RegSexo` as 'sexo', `RegPeso` as 'peso', `RegAntecedentes` as 'ant' FROM `tbregovino` t1 WHERE `IdRegOvino`=TRIM('".$_GET["id"]."')";
+            if(isset($_GET["id"])) $sql = "SELECT `IdRegOvino` as 'id', t2.CateNombre as 'cate', t3.RazaNombres as 'raza',`RegFechadeNacimiento` as 'fn', `RegSexo` as 'sexo', `RegPeso` as 'peso', `RegAntecedentes` as 'ant', t1.`Idcategoria` AS 'idcate', t1.`IdRaza` as 'idraza' FROM `tbregovino` t1, `tbcategoria` t2, `tbraza` t3 WHERE  `IdRegOvino`=TRIM('".$_GET["id"]."') AND t1.Idcategoria=t2.IdCategoria AND t1.IdRaza=t3.IdRaza";
             $stmt = $conn ->prepare($sql);
             if($stmt->execute()){                
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

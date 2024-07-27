@@ -31,14 +31,49 @@ function validarToken(){
          categorias()
          if(location.pathname.includes("actualizaranimales")) {
             setTimeout(()=>{
-               buscarAnimales(localStorage.getItem("id_animal"))
+               let $form = document.getElementById("form-act_animales")
+               buscarAnimal(localStorage.getItem("id_animal"), (resp)=>{
+                  resp.forEach((el)=>{
+                     $form.id_animal.value=el.id
+                     $form.peso.value=el.peso
+                     $form.fecha.value=el.fn
+                     $form.antecedentes.innerHTML=el.ant
+                     $form.sexo.value=el.sexo
+                     $form.cat.value=el.idcate
+                     $form.raza.value=el.idraza
+                  })
+               })
             },100)
          }
       } 
       //Funciones del Listado de Animales
       if(location.pathname.includes("listadoanimales")){
          listadoAnimales()
-      }     
+      }
+      //Funciones para la Vacunacion de Animales
+      if(location.pathname.includes("vacunacion")){
+         
+            buscarAnimal(localStorage.getItem("id_animal"), (resp)=>{
+               setTimeout(()=>{
+                  let $inf = document.getElementById("info_animal"), data=""
+                  document.getElementById("id_animal").value=localStorage.getItem("id_animal")
+                  //console.log(resp)
+                  resp.forEach((el)=>{
+                     data=`<a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                              <div class="d-flex w-100 justify-content-between">
+                                 <h5 class="mb-1">Categoria: ${el.cate}</h5>
+                                 <h5 class="mb-1">Raza: ${el.raza}</h5>
+                                 <small>ID:${el.id}</small>
+                              </div>
+                              <p>Peso: ${el.peso} KG / Sexo: ${el.sexo} / Fecha de nacimiento: ${el.fn}</p>
+                              <small>${el.ant}</small>
+                           </a>`;
+                  })
+                  $inf.innerHTML=data;
+            },100)
+         })
+      }
+      
    }else{
       salida()
    }
@@ -147,6 +182,7 @@ function guardarAnimal(m){
 }
 
 function listadoAnimales(){
+   localStorage.removeItem("id_animal")
    let $tinfo=document.getElementById("tinfo"), item="";
    $tinfo.innerHTML= `<tr><td colspan='7' class='text-center'><div class="spinner-border text-black" role="status"><span class="sr-only"></span></div><br>Procesando...</td></tr>`;
    Ajax({
@@ -165,6 +201,7 @@ function listadoAnimales(){
                       <td> <div class="btn-group" role="group">
                         <button type="button" class="btn btn-outline-primary fa fa-edit u_animal" title='Editar' data-id='${el.id}'></button>
                         <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.id}'></button>
+                        <button type="button" class="btn btn-outline-success fa fa-file-medical s_animal" title='Salud' data-id='${el.id}'></button>
                         </div>
                       </td></tr>`
             })
@@ -174,24 +211,13 @@ function listadoAnimales(){
    })
 }
 
-function buscarAnimales(id){
-   let $form = document.getElementById("form-act_animales")
+function buscarAnimal(id,send){   
    Ajax({
       url: "../control/animales.php", method: "GET", param: {id}, 
       fSuccess: (resp)=>{
          //console.log(resp)
          if(resp.code==200){
-            console.log(resp.data)
-            //console.log($form)
-            resp.data.forEach((el)=>{
-               $form.id_animal.value=el.id
-               $form.peso.value=el.peso
-               $form.fecha.value=el.fn
-               $form.antecedentes.innerHTML=el.ant
-               $form.sexo.value=el.sexo
-               $form.cat.value=el.cate
-               $form.raza.value=el.raza
-            })
+            send(resp.data)            
          } else alert("Error en la petición\n"+resp.msg);
       }
    })
@@ -216,6 +242,12 @@ function eliminarAnimal(id){
          }
       })
    }
+}
+
+function saludAnimal(id){
+   //console.log("Clic en Editar el registro id="+id)
+   localStorage.setItem("id_animal",id);
+   ruta("vacunacion.html?id="+id)
 }
 
 function registrosalud(){
@@ -266,7 +298,8 @@ document.addEventListener("click",(e)=>{
    if(e.target.matches("#salir")) salida()
    if(e.target.matches(".img-fluid")) ruta("principal.html?token="+localStorage.getItem("token"))
    if(e.target.matches(".u_animal")) editarAnimal(e.target.dataset.id)
-   if(e.target.matches(".d_animal")) eliminarAnimal(e.target.dataset.id)   
+   if(e.target.matches(".d_animal")) eliminarAnimal(e.target.dataset.id)
+      if(e.target.matches(".s_animal")) saludAnimal(e.target.dataset.id)
 })
 
 document.addEventListener("submit", (e)=>{
