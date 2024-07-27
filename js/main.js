@@ -121,7 +121,7 @@ function medicamentos(){
    })
 }
 
-function guardarAnimal(){
+function guardarAnimal(m){
    //alert("OK estamos listos para enviar los datos")
    let datos = {
       fn: document.getElementById("fecha").value,
@@ -131,10 +131,11 @@ function guardarAnimal(){
       cat: document.getElementById("cat").value,
       antecedentes: document.getElementById("antecedentes").value,
       iduser: localStorage.getItem("iduser"),
+      id_animal: localStorage.getItem("id_animal"),
    };
    //console.log(datos)
    Ajax({
-      url: "../control/animales.php", method: "POST", param: datos, 
+      url: "../control/animales.php", method: m, param: datos, 
       fSuccess: (resp)=>{
          //console.log(resp)
          if(resp.code==200){
@@ -270,5 +271,6 @@ document.addEventListener("click",(e)=>{
 
 document.addEventListener("submit", (e)=>{
    e.preventDefault()
-   if(e.target.matches("#form-animales")) guardarAnimal();
+   if(e.target.matches("#form-animales")) guardarAnimal("POST");
+   if(e.target.matches("#form-act_animales")) guardarAnimal("PUT");
 })
