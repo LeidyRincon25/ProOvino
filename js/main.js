@@ -73,6 +73,30 @@ function validarToken(){
             },100)
          })
       }
+            //Funciones para Medicamentos de Animales
+            if(location.pathname.includes("medicamentos")){
+         
+               buscarAnimal(localStorage.getItem("id_animal"), (resp)=>{
+                  setTimeout(()=>{
+                     let $inf = document.getElementById("info_animal"), data=""
+                     document.getElementById("id_animal").value=localStorage.getItem("id_animal")
+                     //console.log(resp)
+                     resp.forEach((el)=>{
+                        data=`<a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                                 <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">Categoria: ${el.cate}</h5>
+                                    <h5 class="mb-1">Raza: ${el.raza}</h5>
+                                    <small>ID:${el.id}</small>
+                                 </div>
+                                 <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
+                                 <small>${el.ant}</small>
+                              </a>`;
+                     })
+                     $inf.innerHTML=data;
+               },100)
+            })
+         }
+         
       
    }else{
       salida()
@@ -202,7 +226,8 @@ function listadoAnimales(){
                         <button type="button" class="btn btn-outline-primary fa fa-edit u_animal" title='Editar' data-id='${el.id}'></button>
                         <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.id}'></button>
                         <button type="button" class="btn btn-outline-success fa fa-file-medical s_animal" title='Salud' data-id='${el.id}'></button>
-                        </div>
+                        <button type="button" class="btn btn-outline-dark fa-sharp-duotone fa-solid fa-syringe ms_animal" title= 'MediSalud' data-id='${el.id}'></button>
+                       </div>
                       </td></tr>`
             })
             $tinfo.innerHTML=item;
@@ -248,6 +273,12 @@ function saludAnimal(id){
    //console.log("Clic en Editar el registro id="+id)
    localStorage.setItem("id_animal",id);
    ruta("vacunacion.html?id="+id)
+   
+}
+function mediSalud(id){
+   //console.log("Clic en Editar el registro id="+id)
+   localStorage.setItem("id_animal",id);
+   ruta("medicamentos.html?id="+id)
 }
 
 function registrosalud(){
@@ -267,15 +298,15 @@ function registrosalud(){
                       <td>${el.ovino} Kg</td>
                       <td> <div class="btn-group" role="group">
                         <button type="button" class="btn btn-outline-primary" title='Editar'><i class="fa fa-edit"></i></
-button>
+                           button>
                         <button type="button" class="btn btn-outline-danger" title='Eliminar'><i class="fa fa-trash"></
-i></button>
+                       i></button>
                         </div>
                       </td></tr>`
             })
             $tinfo.innerHTML=item;
          } else $tinfo.innerHTML=`<tr><td colspan='6' class='text-center'>Error en la petición <b>${resp.msg}</b></td></
-tr>`;
+          tr>`;
       }
    })
 }
@@ -300,6 +331,7 @@ document.addEventListener("click",(e)=>{
    if(e.target.matches(".u_animal")) editarAnimal(e.target.dataset.id)
    if(e.target.matches(".d_animal")) eliminarAnimal(e.target.dataset.id)
       if(e.target.matches(".s_animal")) saludAnimal(e.target.dataset.id)
+         if(e.target.matches(".ms_animal")) mediSalud(e.target.dataset.id)
 })
 
 document.addEventListener("submit", (e)=>{
