@@ -8,7 +8,7 @@ if($_SERVER["REQUEST_METHOD"]=="GET"){
             $info = array();
             $bd = new ConfigDb();
             $conn = $bd->conexion();
-            $sql = "SELECT `IdMedicamentos`, `MediNombre`, `MediPresentacion`, `MediDosis`, `MediVia`FROM `tbmedicamentos` ORDER BY `MediNombre` ASC";
+            $sql = "SELECT `IdMedicamentos`, `MediNombre`, `MediPresentacion` FROM `tbmedicamentos` ORDER BY `MediNombre` ASC";
             $stmt = $conn ->prepare($sql);
             if($stmt->execute()){                
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
