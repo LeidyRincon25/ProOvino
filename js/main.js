@@ -253,6 +253,7 @@ function editarAnimal(id){
    localStorage.setItem("id_animal",id);
    ruta("actualizaranimales.html?id="+id)
 }
+
 function eliminarAnimal(id){
    let resp = confirm("Desea eliminar el registro del Animal (#"+id+")?")
    if(resp){
@@ -275,6 +276,7 @@ function saludAnimal(id){
    ruta("vacunacion.html?id="+id)
    
 }
+
 function mediSalud(id){
    //console.log("Clic en Editar el registro id="+id)
    localStorage.setItem("id_animal",id);
@@ -310,6 +312,7 @@ function registrosalud(){
       }
    })
 }
+
 const mostarMenu = async ()=>{
    let $divmenu = document.getElementById("navbarSupportedContent");
    let url = "../control/menu.php"
@@ -330,8 +333,8 @@ document.addEventListener("click",(e)=>{
    if(e.target.matches(".img-fluid")) ruta("principal.html?token="+localStorage.getItem("token"))
    if(e.target.matches(".u_animal")) editarAnimal(e.target.dataset.id)
    if(e.target.matches(".d_animal")) eliminarAnimal(e.target.dataset.id)
-      if(e.target.matches(".s_animal")) saludAnimal(e.target.dataset.id)
-         if(e.target.matches(".ms_animal")) mediSalud(e.target.dataset.id)
+   if(e.target.matches(".s_animal")) saludAnimal(e.target.dataset.id)
+   if(e.target.matches(".ms_animal")) mediSalud(e.target.dataset.id)
 })
 
 document.addEventListener("submit", (e)=>{
