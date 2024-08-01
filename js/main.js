@@ -78,6 +78,25 @@ function categorias(){
    })
 }
 
+function via(){
+   let $div = document.getElementById("dvia");
+   $div.innerHTML= `<div class="spinner-border text-black" role="status"><span class="sr-only"></span></div>`;
+   Ajax({
+      url: "../control/via.php",
+      method: "GET", 
+      param: undefined, 
+      fSuccess:(Resp)=>{
+         if(Resp.code==200){            
+            let opc=``;
+            Resp.data.map((el) => {
+               opc+=`<option value="${el.IdVia}">${el.ViaNombre}</option>`;
+            });
+            $div.innerHTML= `<label for="via">Via</label><select class="form-select" name="via" id="via" 
+            required><option value="">Seleccione una</option>${opc}</select>`;
+         }
+      }
+   })
+}
 function medicamento(){
    let $div = document.getElementById("dmedicamentos");
    $div.innerHTML= `<div class="spinner-border text-black" role="status"><span class="sr-only"></span></div>`;
@@ -96,26 +115,6 @@ function medicamento(){
                //console.log(el)
             });
             $div.innerHTML= `<label for="medicamento">Medicamentos</label><select class="form-select" name="medicamento" id="medicamento" required><option value="">Seleccione un</option>${opc}</select>`;
-         }
-      }
-   })
-}
-
-function medicamentos(){
-   let $div = document.getElementById("dcat");
-   $div.innerHTML= `<div class="spinner-border text-black" role="status"><span class="sr-only"></span></div>`;
-   Ajax({
-      url: "../control/medicamentos.php",
-      method: "GET", 
-      param: undefined, 
-      fSuccess:(Resp)=>{
-         if(Resp.code==200){            
-            let opc=``;
-            Resp.data.map((el) => {
-               opc+=`<option value="${el.IdMedicamentos}">${el.MediVia}</option>`;
-            });
-            $div.innerHTML= `<label for="medi">Medicamentos</label><select class="form-select" name="medi" id="medi" 
-            required><option value="">Seleccione una</option>${opc}</select>`;
          }
       }
    })
