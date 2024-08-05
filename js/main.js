@@ -227,7 +227,7 @@ function registrosalud(){
    let $tinfo=document.getElementById("tinfo"), item="";
 
    Ajax({
-      url: "../control/salud.php", method: "GET", param: undefined, 
+      url: "../control/vacunacion.php", method: "GET", param: undefined, 
       fSuccess: (resp)=>{
          console.log(resp)
          if(resp.code==200){
@@ -318,7 +318,7 @@ function validarToken(){
          listadoAnimales()
       }
       //Funciones para la Vacunacion de Animales
-      if(location.pathname.includes("vacunacion")){
+      if(location.pathname.includes("vacunacion")){   
          buscarAnimal(localStorage.getItem("id_animal"), (resp)=>{
                setTimeout(()=>{
                   let $inf = document.getElementById("info_animal"), data=""
@@ -331,17 +331,19 @@ function validarToken(){
                                  <h5 class="mb-1">Raza: ${el.raza}</h5>
                                  <small>ID:${el.id}</small>
                               </div>
-                              <p>Peso: ${el.peso} KG / Sexo: ${el.sexo} / Fecha de nacimiento: ${el.fn}</p>
-                              <div class="d-flex w-100 justify-content-between"><smal>${el.ant}</smal><span class="badge rounded-pill text-bg-primary">Medicamentos</span></div>
-                              
-                           </a>`;
+                              <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
+                              <small>${el.ant}</small> 
+                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                               <button class="btn btn-info me-md-2" type="button">Medicamentos</button>
+                               <button class="btn btn-info" type="button">Registro de Salud</button>
+                             </div>
+                            </a>`;
                   })
                   $inf.innerHTML=data;
             },100)
          })
          medicamento()
       }
-
       //Funciones para Medicamentos de Animales
       if(location.pathname.includes("medicamentos")){   
          buscarAnimal(localStorage.getItem("id_animal"), (resp)=>{

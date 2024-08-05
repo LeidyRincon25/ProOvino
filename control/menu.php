@@ -15,8 +15,6 @@
         Salud
     </a>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="registrosalud.html">Registro Salud</a></li>
-        <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" href="vacunacion.html">Vacunacion</a></li>
         <li><a class="dropdown-item" href="desparacitacion.html">Desparacitacion</a></li>
         <li><a class="dropdown-item" href="medicamentos.html">Medicamentos</a></li>
