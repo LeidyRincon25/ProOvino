@@ -175,6 +175,36 @@ function listadoAnimales(){
       }
    })
 }
+function registrosalud(){
+   let $tinfo=document.getElementById("tinfo"), item="";
+
+   Ajax({
+      url: "../control/vacunacion.php", method: "GET", param: undefined, 
+      fSuccess: (resp)=>{
+         console.log(resp)
+         if(resp.code==200){
+            //console.log(resp.data)
+            resp.data.forEach((el)=>{
+               item+=`<tr><th scope='row'>${el.id}</th>
+                      <td>${el.medicamento}</td>
+                      <td>${el.fecha}</td>
+                      <td>${el.enfermedad}</td>
+                      <td>${el.via}</td>
+                      <td>${el.dosis}</td>
+                      <td> <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary" title='Editar'><i class="fa fa-edit"></i></
+                           button>
+                        <button type="button" class="btn btn-outline-danger" title='Eliminar'><i class="fa fa-trash"></
+                       i></button>
+                        </div>
+                      </td></tr>`
+            })
+            $tinfo.innerHTML=item;
+         } else $tinfo.innerHTML=`<tr><td colspan='6' class='text-center'>Error en la petición <b>${resp.msg}</b></td></
+          tr>`;
+      }
+   })
+}
 
 function buscarAnimal(id,send){   
    Ajax({
@@ -221,36 +251,6 @@ function mediSalud(id){
    //console.log("Clic en Editar el registro id="+id)
    localStorage.setItem("id_animal",id);
    ruta("medicamentos.html?id="+id)
-}
-
-function registrosalud(){
-   let $tinfo=document.getElementById("tinfo"), item="";
-
-   Ajax({
-      url: "../control/vacunacion.php", method: "GET", param: undefined, 
-      fSuccess: (resp)=>{
-         console.log(resp)
-         if(resp.code==200){
-            //console.log(resp.data)
-            resp.data.forEach((el)=>{
-               item+=`<tr><th scope='row'>${el.id}</th>
-                      <td>${el.enfermedades}</td>
-                      <td>${el.tratamiento}</td>
-                      <td>${el.medicamento}</td>
-                      <td>${el.ovino} Kg</td>
-                      <td> <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary" title='Editar'><i class="fa fa-edit"></i></
-                           button>
-                        <button type="button" class="btn btn-outline-danger" title='Eliminar'><i class="fa fa-trash"></
-                       i></button>
-                        </div>
-                      </td></tr>`
-            })
-            $tinfo.innerHTML=item;
-         } else $tinfo.innerHTML=`<tr><td colspan='6' class='text-center'>Error en la petición <b>${resp.msg}</b></td></
-          tr>`;
-      }
-   })
 }
 
 const mostarMenu = async ()=>{

@@ -38,8 +38,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     try {
             $bd = new ConfigDb();
             $conn = $bd->conexion();
-            
-            $sql = "SELECT `IdRegOvino` as 'id', t2.CateNombre as 'cate', t3.RazaNombres as 'raza',`RegFechadeNacimiento` as 'fn', `RegSexo` as 'sexo', `RegPeso` as 'peso', `RegAntecedentes` as 'ant' FROM `tbregovino` t1, `tbcategoria` t2, `tbraza` t3 WHERE t1.Idcategoria=t2.IdCategoria AND t1.IdRaza=t3.IdRaza ORDER BY t1.IdRegOvino;";
+            $sql= "SELECT `IdRegSalud` as 'id', t2.MediNombre as 'medi', t3.ViaNombre as 'via',`RegFecha` as 'fn', `RegEnfermedades` as 'enfe', 
+            `RegTratamiento` as 'dosis' FROM `tbregsalud` t1, `tbmedicamentos` t2, `tbvia` t3 WHERE t1.IdMedicamentos=t2.IdMedicamentos AND t1.IdVia=t3.IdVia ORDER BY t1.IdRegSalud";
             $stmt = $conn ->prepare($sql);
             if($stmt->execute()){                
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

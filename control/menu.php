@@ -16,9 +16,7 @@
     </a>
     <ul class="dropdown-menu">
         <li><a class="dropdown-item" href="vacunacion.html">Vacunacion</a></li>
-        <li><a class="dropdown-item" href="desparacitacion.html">Desparacitacion</a></li>
         <li><a class="dropdown-item" href="medicamentos.html">Medicamentos</a></li>
-        <li><a class="dropdown-item" href="enfermedades.html">Enfermedades</a></li>
         <li><a class="dropdown-item" href="muertes.html">Muertes</a></li>
     </ul>
     </li>
