@@ -165,7 +165,7 @@ function listadoAnimales(){
                       <td> <div class="btn-group" role="group">
                         <button type="button" class="btn btn-outline-primary fa fa-edit u_animal" title='Editar' data-id='${el.id}'></button>
                         <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.id}'></button>
-                        <button type="button" class="btn btn-outline-success fa fa-file-medical s_animal" title='Agregar medicina' data-id='${el.id}'></button>
+                        <button type="button" class="btn btn-outline-success fa fa-file-medical s_animal" title='Agregar medicamento' data-id='${el.id}'></button>
                         <button type="button" class="btn btn-outline-dark fa-sharp-duotone fa-solid fa-syringe ms_animal" title= 'Historial Medico' data-id='${el.id}'></button>
                        </div>
                       </td></tr>`
@@ -247,10 +247,10 @@ function saludAnimal(id){
    
 }
 
-function mediSalud(id){
+function historialMedico(id){
    //console.log("Clic en Editar el registro id="+id)
    localStorage.setItem("id_animal",id);
-   ruta("medicamentos.html?id="+id)
+   ruta("historialmedico.html?id="+id)
 }
 
 const mostarMenu = async ()=>{
@@ -283,6 +283,34 @@ function guardarVacunacion(m){
             alert("El registos fue guardado correctamente")
             ruta("listadoanimales.html")
          } else alert("Error en el registro. "+resp.msg);
+      }
+   })
+}
+
+function historialMedicoAnimal(){
+   
+   let $tinfo=document.getElementById("tinfo"), item="", id=localStorage.getItem("id_animal");
+   $tinfo.innerHTML= `<tr><td colspan='7' class='text-center'><div class="spinner-border text-black" role="status"><span class="sr-only"></span></div><br>Procesando...</td></tr>`;
+   Ajax({
+      url: "../control/historialMedico.php", method: "GET", param: {id}, 
+      fSuccess: (resp)=>{
+         if(resp.code==200){
+            //console.log(resp.data)
+            resp.data.forEach((el)=>{
+               item+=`<tr><th scope='row'>${el.IdRegSalud}</th>
+                      <td>${el.RegFecha}</td>
+                      <td>${el.MediNombre}</td>
+                      <td>${el.RegEnfermedades}</td>
+                      <td>${el.Via}</td>
+                      <td>${el.RegTratamiento}</td>
+                      <!-- --><td> <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.IdRegSalud}'></button>
+                       </div>
+                      </td></tr>`
+            })
+            if(item=="") item = `<tr><td colspan='7' class='text-center'>No hay registos asociados</td></tr>`
+            $tinfo.innerHTML=item;
+         } else $tinfo.innerHTML=`<tr><td colspan='7' class='text-center'>Error en la petición <b>${resp.msg}</b></td></tr>`;
       }
    })
 }
@@ -334,8 +362,8 @@ function validarToken(){
                               <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
                               <small>${el.ant}</small> 
                              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                               <button class="btn btn-info me-md-2" type="button">Medicamentos</button>
-                               <button class="btn btn-info" type="button">Registro de Salud</button>
+                               <button class="btn btn-info me-md-2" type="button">Nuevo Medicamentos</button>
+                               <button class="btn btn-info ms_animal" type="button"  data-id='${el.id}'>Historial de Medicamentos</button>
                              </div>
                             </a>`;
                   })
@@ -345,11 +373,11 @@ function validarToken(){
          medicamento()
          via()
       }
-      //Funciones para Medicamentos de Animales
-      if(location.pathname.includes("medicamentos")){   
+      //Funciones para Historial Medico de Animales
+      if(location.pathname.includes("historialmedico")){   
          buscarAnimal(localStorage.getItem("id_animal"), (resp)=>{
                setTimeout(()=>{
-                  let $inf = document.getElementById("info_animal"), data=""
+                  let $inf = document.getElementById("info_animal"), data="";
                   document.getElementById("id_animal").value=localStorage.getItem("id_animal")
                   //console.log(resp)
                   resp.forEach((el)=>{
@@ -361,9 +389,13 @@ function validarToken(){
                               </div>
                               <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
                               <small>${el.ant}</small>
+                              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                              <button type="button" class="btn btn-outline-success fa fa-file-medical s_animal" title='Agregar medicamento' data-id='${el.id}'></button>
+                              </div>
                            </a>`;
                   })
                   $inf.innerHTML=data;
+                  historialMedicoAnimal();
             },100)
          })
       }
@@ -385,7 +417,7 @@ document.addEventListener("click",(e)=>{
    if(e.target.matches(".u_animal")) editarAnimal(e.target.dataset.id)
    if(e.target.matches(".d_animal")) eliminarAnimal(e.target.dataset.id)
    if(e.target.matches(".s_animal")) saludAnimal(e.target.dataset.id)
-   if(e.target.matches(".ms_animal")) mediSalud(e.target.dataset.id)
+   if(e.target.matches(".ms_animal")) historialMedico(e.target.dataset.id)
 })
 
 document.addEventListener("submit", (e)=>{
