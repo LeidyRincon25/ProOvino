@@ -165,8 +165,8 @@ function listadoAnimales(){
                       <td> <div class="btn-group" role="group">
                         <button type="button" class="btn btn-outline-primary fa fa-edit u_animal" title='Editar' data-id='${el.id}'></button>
                         <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.id}'></button>
-                        <button type="button" class="btn btn-outline-success fa fa-file-medical s_animal" title='Salud' data-id='${el.id}'></button>
-                        <button type="button" class="btn btn-outline-dark fa-sharp-duotone fa-solid fa-syringe ms_animal" title= 'MediSalud' data-id='${el.id}'></button>
+                        <button type="button" class="btn btn-outline-success fa fa-file-medical s_animal" title='Agregar medicina' data-id='${el.id}'></button>
+                        <button type="button" class="btn btn-outline-dark fa-sharp-duotone fa-solid fa-syringe ms_animal" title= 'Historial Medico' data-id='${el.id}'></button>
                        </div>
                       </td></tr>`
             })
