@@ -91,7 +91,7 @@ function via(){
             Resp.data.map((el) => {
                opc+=`<option value="${el.IdVia}">${el.ViaNombre}</option>`;
             });
-            $div.innerHTML= `<label for="via">Via</label><select class="form-select" name="via" id="via" 
+            $div.innerHTML= `<label for="via">Via de Administraci&oacute;n</label><select class="form-select" name="via" id="via" 
             required><option value="">Seleccione una</option>${opc}</select>`;
          }
       }
@@ -343,6 +343,7 @@ function validarToken(){
             },100)
          })
          medicamento()
+         via()
       }
       //Funciones para Medicamentos de Animales
       if(location.pathname.includes("medicamentos")){   
