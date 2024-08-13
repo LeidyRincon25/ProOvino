@@ -33,7 +33,8 @@ integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2
                <div class="card">
                    <h3 class="card-header text-center">VENTAS</h3>
                <div class="card-body">
-                        <form class="form-control" action="" method="post">                                                                         
+                   <input type="hidden" id="id_animal" name="id_animal" value="">
+                <div class="list-group"id="info_animal"></div>
                             <div class="mb-3">
                                 <label for="Fecha">Fecha de Venta</label>
                                 <input type="date" class="form-control" name="fecha" id="fecha">
@@ -49,32 +50,6 @@ integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2
                             <div class="mb-3">
                                 <label for="tipo">Cantidad</label>
                                 <input type="text" class="form-control" id="Cantidad" name="Cantidad">
-                            </div>
-                            <div class="mb-3">
-                                <label for="Raza">Raza</label>
-                                <select class="form-select" name="Raza" id="Raza">
-                                    <option value="Seleccione uno">Seleccione uno</option>
-                                    <option value="Criolla">Criolla</option>
-                                    <option value="Hampshire">Hampshire</option>
-                                    <option value="Dorper">Dorper</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="Genero">Genero</label>
-                                <select class="form-select"  name="Genero" id="Genero">
-                                    <option value="Seleccione uno">Seleccione uno</option>
-                                    <option value="Macho">Macho</option>
-                                    <option value="Hembra">Hembra</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="Categoria">Categoria</label>
-                                <select class="form-select" name="Categoria" id="Categoria">
-                                    <option value="Seleccione uno">Seleccione uno</option>
-                                    <option value="Cordero">Cordero</option>
-                                    <option value="Oveja">Oveja</option>
-                                    <option value="Borrego">Borrego</option>
-                                </select>
                             </div>
                             <div class="mb-3 text-center">
                                  <button name="btnGUARDAR" id="btnGUARDAR" onclick="clicbtn()"type="submit" class="btn 

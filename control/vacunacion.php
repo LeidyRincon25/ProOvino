@@ -1,4 +1,5 @@
 <?php
+
 require_once("configdb.php");
 
 //header('Content-Type: application/json');
@@ -60,5 +61,6 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     header("HTTP/1.1 400");
     echo json_encode(['code'=>400,'msg' => 'Error, La peticion no se pudo procesar']);
 }
+    
 
 ?>

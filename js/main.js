@@ -97,7 +97,7 @@ function via(){
       }
    })
 }
-function medicamento(){
+function medicamentos(){
    let $div = document.getElementById("dmedicamentos");
    $div.innerHTML= `<div class="spinner-border text-black" role="status"><span class="sr-only"></span></div>`;
    //console.log($divRazas)
@@ -114,7 +114,7 @@ function medicamento(){
                opc+=`<option value="${el.IdMedicamentos}">${el.MediNombre} (${el.MediPresentacion})</option>`;               
                //console.log(el)
             });
-            $div.innerHTML= `<label for="medicamento">Medicamentos</label><select class="form-select" name="medicamento" id="medicamento" required><option value="">Seleccione un</option>${opc}</select>`;
+            $div.innerHTML= `<label for="nombre">Medicamento</label><select class="form-select" name="nombre" id="nombre" required><option value="">Seleccione un</option>${opc}</select>`;
          }
       }
    })
@@ -165,8 +165,9 @@ function listadoAnimales(){
                       <td> <div class="btn-group" role="group">
                         <button type="button" class="btn btn-outline-primary fa fa-edit u_animal" title='Editar' data-id='${el.id}'></button>
                         <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.id}'></button>
-                        <button type="button" class="btn btn-outline-success fa fa-file-medical s_animal" title='Agregar medicamento' data-id='${el.id}'></button>
+                        <button type="button" class="btn btn-outline-success fa fa-file-medical s_animal" title='Agregar Medicamento' data-id='${el.id}'></button>
                         <button type="button" class="btn btn-outline-dark fa-sharp-duotone fa-solid fa-syringe ms_animal" title= 'Historial Medico' data-id='${el.id}'></button>
+                         <button type="button" class="btn btn-outline-primary fa-sharp-duotone fa-solid fa-syringe m_animal" title= 'Medicamentos' data-id='${el.id}'></button>
                        </div>
                       </td></tr>`
             })
@@ -253,6 +254,12 @@ function historialMedico(id){
    ruta("historialmedico.html?id="+id)
 }
 
+function medicamentos(id){
+   //console.log("Clic en Editar el registro id="+id)
+   localStorage.setItem("id_animal",id);
+   ruta("medicamentos.html?id="+id)
+}
+
 const mostarMenu = async ()=>{
    let $divmenu = document.getElementById("navbarSupportedContent");
    let url = "../control/menu.php"
@@ -286,6 +293,29 @@ function guardarVacunacion(m){
       }
    })
 }
+
+function guardarmedicamentos(event) {
+   event.preventDefault(); 
+   let datos = {
+       MediNombre: document.getElementById("MediNombre").value,
+       MediPresentacion: document.getElementById("MediPresentacion").value,
+       IdMedicamentos: localStorage.getItem("idMedicamentos"),
+   };
+   //console.log(datos)
+   Ajax({
+       url: "../control/medicamentos.php",method: event, param: datos, 
+       fSuccess: (resp) => {
+           //console.log(resp)
+           if (resp.code == 200) {
+               alert("El registro fue guardado correctamente");
+               ruta("historialmedico.html");
+           } else {
+               alert("Error en el registro. " + resp.msg);
+           }
+       }
+   });
+}
+
 
 function historialMedicoAnimal(){
    
@@ -362,7 +392,7 @@ function validarToken(){
                               <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
                               <small>${el.ant}</small> 
                              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                               <button class="btn btn-info me-md-2" type="button">Nuevo Medicamentos</button>
+                               <button class="btn btn-info md_animal" type="button" data-id='${el.id}'>Medicamentos</button>
                                <button class="btn btn-info ms_animal" type="button"  data-id='${el.id}'>Historial de Medicamentos</button>
                              </div>
                             </a>`;
@@ -370,9 +400,9 @@ function validarToken(){
                   $inf.innerHTML=data;
             },100)
          })
-         medicamento()
          via()
       }
+
       //Funciones para Historial Medico de Animales
       if(location.pathname.includes("historialmedico")){   
          buscarAnimal(localStorage.getItem("id_animal"), (resp)=>{
@@ -399,6 +429,55 @@ function validarToken(){
             },100)
          })
       }
+
+       //Funciones para medicamentos
+ if(location.pathname.includes("medicamentos")){   
+   buscarAnimal(localStorage.getItem("id_animal"), (resp)=>{
+         setTimeout(()=>{
+            let $inf = document.getElementById("info_animal"), data="";
+            document.getElementById("id_animal").value=localStorage.getItem("id_animal")
+            //console.log(resp)
+            resp.forEach((el)=>{
+               data=`<a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                        <div class="d-flex w-100 justify-content-between">
+                           <h5 class="mb-1">Categoria: ${el.cate}</h5>
+                           <h5 class="mb-1">Raza: ${el.raza}</h5>
+                           <small>ID:${el.id}</small>
+                        </div>
+                        <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
+                        <small>${el.ant}</small>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        </div>
+                     </a>`;
+            })
+            $inf.innerHTML=data;
+      },100)
+   })
+}
+
+//Funciones para ventas
+   if(location.pathname.includes("ventas")){   
+      buscarAnimal(localStorage.getItem("id_animal"), (resp)=>{
+            setTimeout(()=>{
+               let $inf = document.getElementById("info_animal"), data="";
+               document.getElementById("id_animal").value=localStorage.getItem("id_animal")
+               //console.log(resp)
+               resp.forEach((el)=>{
+                  data=`<a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                           <div class="d-flex w-100 justify-content-between">
+                              <h5 class="mb-1">Categoria: ${el.cate}</h5>
+                              <h5 class="mb-1">Raza: ${el.raza}</h5>
+                              <small>ID:${el.id}</small>
+                           </div>
+                           <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
+                           <small>${el.ant}</small>
+                           </div>
+                        </a>`;
+               })
+               $inf.innerHTML=data;
+         },100)
+      })
+   }
          
       
    }else{
@@ -418,6 +497,7 @@ document.addEventListener("click",(e)=>{
    if(e.target.matches(".d_animal")) eliminarAnimal(e.target.dataset.id)
    if(e.target.matches(".s_animal")) saludAnimal(e.target.dataset.id)
    if(e.target.matches(".ms_animal")) historialMedico(e.target.dataset.id)
+   if(e.target.matches(".m_animal")) medicamentos(e.target.dataset.id)
 })
 
 document.addEventListener("submit", (e)=>{
@@ -425,4 +505,5 @@ document.addEventListener("submit", (e)=>{
    if(e.target.matches("#form-animales")) guardarAnimal("POST");
    if(e.target.matches("#form-act_animales")) guardarAnimal("PUT");
    if(e.target.matches("#form_vacunacion_animal")) guardarVacunacion("POST")
+   if(e.target.matches("#form_medicamento_animal")) guardarmedicamentos("POST")
 })
