@@ -294,21 +294,19 @@ function guardarVacunacion(m){
    })
 }
 
-function guardarmedicamentos(event) {
-   event.preventDefault(); 
+function guardarmedicamento(m) {
    let datos = {
        MediNombre: document.getElementById("MediNombre").value,
-       MediPresentacion: document.getElementById("MediPresentacion").value,
-       IdMedicamentos: localStorage.getItem("idMedicamentos"),
+       MediPresentacion: document.getElementById("MediPresentacion").value
    };
    //console.log(datos)
    Ajax({
-       url: "../control/medicamentos.php",method: event, param: datos, 
+       url: "../control/medicamentos.php",method: m, param: datos, 
        fSuccess: (resp) => {
            //console.log(resp)
            if (resp.code == 200) {
                alert("El registro fue guardado correctamente");
-               ruta("historialmedico.html");
+               ruta("medicamentos.html")
            } else {
                alert("Error en el registro. " + resp.msg);
            }
@@ -430,32 +428,7 @@ function validarToken(){
          })
       }
 
-       //Funciones para medicamentos
- if(location.pathname.includes("medicamentos")){   
-   buscarAnimal(localStorage.getItem("id_animal"), (resp)=>{
-         setTimeout(()=>{
-            let $inf = document.getElementById("info_animal"), data="";
-            document.getElementById("id_animal").value=localStorage.getItem("id_animal")
-            //console.log(resp)
-            resp.forEach((el)=>{
-               data=`<a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                        <div class="d-flex w-100 justify-content-between">
-                           <h5 class="mb-1">Categoria: ${el.cate}</h5>
-                           <h5 class="mb-1">Raza: ${el.raza}</h5>
-                           <small>ID:${el.id}</small>
-                        </div>
-                        <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
-                        <small>${el.ant}</small>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                        </div>
-                     </a>`;
-            })
-            $inf.innerHTML=data;
-      },100)
-   })
-}
-
-//Funciones para ventas
+   //Funciones para ventas
    if(location.pathname.includes("ventas")){   
       buscarAnimal(localStorage.getItem("id_animal"), (resp)=>{
             setTimeout(()=>{
@@ -505,5 +478,5 @@ document.addEventListener("submit", (e)=>{
    if(e.target.matches("#form-animales")) guardarAnimal("POST");
    if(e.target.matches("#form-act_animales")) guardarAnimal("PUT");
    if(e.target.matches("#form_vacunacion_animal")) guardarVacunacion("POST")
-   if(e.target.matches("#form_medicamento_animal")) guardarmedicamentos("POST")
+   if(e.target.matches("#form_medicamento")) guardarmedicamento("POST")
 })

@@ -5,15 +5,14 @@ require_once("configdb.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $post = json_decode(file_get_contents('php://input'), true);       
-        if ($post["MediNombre"] != "" && $post["MediPresentacion"] != "" && $post["IdMedicamentos"] != "") {
+        if ($post["MediNombre"] != "" && $post["MediPresentacion"] != "") {
             $bd = new ConfigDb();
             $conn = $bd->conexion();
             $sql = "INSERT INTO `tbmedicamentos`(`IdMedicamentos`, `MediNombre`, `MediPresentacion`) 
-                    VALUES (null, :MediNombre, :MediPresentacion, :IdMedicamentos)";
+                    VALUES (null, :MediNombre, :MediPresentacion)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(":MediNombre", $post["MediNombre"], PDO::PARAM_STR);
             $stmt->bindParam(":MediPresentacion", $post["MediPresentacion"], PDO::PARAM_STR);
-            $stmt->bindParam(":IdMedicamentos", $post["IdMedicamentos"], PDO::PARAM_INT);
             if ($stmt->execute()) {                
                 header("HTTP/1.1 200 OK");
                 echo json_encode(['code' => 200, 'msg' => "OK"]);
@@ -28,12 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("HTTP/1.1 500");
         echo json_encode(['code' => 500, 'msg' => 'Error interno al procesar su petición', "ERROR" => $ex->getMessage()]);
     }
-}
-
-
-
-//header('Content-Type: application/json');
-if($_SERVER["REQUEST_METHOD"]=="GET"){
+} else if($_SERVER["REQUEST_METHOD"]=="GET"){
     try {
         //if($_GET["id"]!=""){}
             $info = array();
@@ -57,7 +51,7 @@ if($_SERVER["REQUEST_METHOD"]=="GET"){
         echo json_encode(['code'=>500,'msg' => 'Error interno al procesar su petici&oacute;n', "ERROR"=>$ex->getMessage
 ()]);
     }
-}else {
+} else {
     header("HTTP/1.1 400");
     echo json_encode(['code'=>400,'msg' => 'Error, La peticion no se pudo procesar']);
 }
