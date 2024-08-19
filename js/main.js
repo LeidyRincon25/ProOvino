@@ -390,7 +390,7 @@ function validarToken(){
                               <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
                               <small>${el.ant}</small> 
                              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                               <button class="btn btn-info md_animal" type="button" data-id='${el.id}'>Medicamentos</button>
+                               <button class="btn btn-info m_animal" type="button" data-id='${el.id}'>Medicamentos</button>
                                <button class="btn btn-info ms_animal" type="button"  data-id='${el.id}'>Historial de Medicamentos</button>
                              </div>
                             </a>`;
@@ -399,6 +399,7 @@ function validarToken(){
             },100)
          })
          via()
+         medicamentos()
       }
 
       //Funciones para Historial Medico de Animales
