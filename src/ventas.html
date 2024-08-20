@@ -32,9 +32,10 @@ integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2
            <div class="col"> 
                <div class="card" >
                    <h3 class="card-header text-center">VENTAS</h3>
-               <div class="card-body">
-                   <input type="hidden" id="id_animal" name="id_animal" value="">
-                <div class="list-group"id="info_animal"></div>
+                   <div class="card-body">
+                        <form class="form-control" action="" id="form_ventas" method="post">
+                        <input type="hidden" id="id_animal" name="id_animal">
+                   <div class="list-group" id="info_animal"></div>                                
                             <div class="mb-3">
                                 <label for="Fecha">Fecha de Venta</label>
                                 <input type="date" class="form-control" name="fecha" id="fecha">
@@ -48,18 +49,17 @@ integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2
                                 <input type="text" class="form-control" id="cantidad" name="cantidad">
                             </div>
                             <div class="mb-3">
-                                <label for="Nombre">Nombre del Comprador</label>
-                                <input type="Text" class="form-control" id="nombre"name= "nombre">
+                                <label for="Comprador">Nombre del Comprador</label>
+                                <input type="Text" class="form-control" id="comprador"name= "comprador">
                             </div>
                             <div class="mb-3">
                                 <label for="Celular">Celular</label>
                                 <input type="number" class="form-control" id="celular" name="celular">
                             </div>
-                            <div class="mb-3 text-center">
-                                 <button name="btnGUARDAR" id="btnGUARDAR" onclick="clicbtn()"type="submit" class="btn 
-                                 btn-success">GUARDAR</button> 
-                                 <button name="btnCANCELAR" id="btnCANCELAR" onclick="clicbtn()" type="cancel" class="btn 
-                                 btn-danger">CANCELAR</button>
+                                <div class="mb-3 text-center">
+                                    <button name="btnGUARDAR" id="btnGUARDAR" type="submit" class="btn btn-success">GUARDAR</button> 
+                                    <button name="btnCANCELAR" id="btnCANCELAR" type="cancel" class="btn btn-danger">CANCELAR</button>
+                                </div>
                        </form>
                    </div>
                  </div>

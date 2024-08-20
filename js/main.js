@@ -254,10 +254,22 @@ function historialMedico(id){
    ruta("historialmedico.html?id="+id)
 }
 
+function historialVentas(id){
+   //console.log("Clic en Editar el registro id="+id)
+   localStorage.setItem("id_animal",id);
+   ruta("historialventas.html?id="+id)
+}
+
 function medicamentos(id){
    //console.log("Clic en Editar el registro id="+id)
    localStorage.setItem("id_animal",id);
    ruta("medicamentos.html?id="+id)
+}
+
+function venta(id){
+   //console.log("Clic en Editar el registro id="+id)
+   localStorage.setItem("id_animal",id);
+   ruta("venta.html?id="+id)
 }
 
 const mostarMenu = async ()=>{
@@ -314,6 +326,31 @@ function guardarmedicamento(m) {
    });
 }
 
+function guardarventa(m) {
+   let datos = {
+      fecha: document.getElementById("fecha").value,
+      precio: document.getElementById("precio").value,
+      cantidad: document.getElementById("cantidad").value,
+      comprador: document.getElementById("comprador").value,
+      celular: document.getElementById("celular").value,
+      idcategoria: localStorage.getItem("idcategoria"),
+      idraza: localStorage.getItem("idraza"),
+      idovino: localStorage.getItem("idovino"),
+   }
+   //console.log(datos)
+   Ajax({
+       url: "../control/venta.php",method: m, param: datos, 
+       fSuccess: (resp) => {
+           //console.log(resp)
+           if (resp.code == 200) {
+               alert("El registro fue guardado correctamente");
+               ruta("venta.html")
+           } else {
+               alert("Error en el registro. " + resp.msg);
+           }
+       }
+   });
+}
 
 function historialMedicoAnimal(){
    
@@ -333,6 +370,35 @@ function historialMedicoAnimal(){
                       <td>${el.RegTratamiento}</td>
                       <!-- --><td> <div class="btn-group" role="group">
                         <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.IdRegSalud}'></button>
+                       </div>
+                      </td></tr>`
+            })
+            if(item=="") item = `<tr><td colspan='7' class='text-center'>No hay registos asociados</td></tr>`
+            $tinfo.innerHTML=item;
+         } else $tinfo.innerHTML=`<tr><td colspan='7' class='text-center'>Error en la petición <b>${resp.msg}</b></td></tr>`;
+      }
+   })
+}
+
+function historialVentas(){
+   
+   let $tinfo=document.getElementById("tinfo"), item="", id=localStorage.getItem("id_animal");
+   $tinfo.innerHTML= `<tr><td colspan='7' class='text-center'><div class="spinner-border text-black" role="status"><span class="sr-only"></span></
+div><br>Procesando...</td></tr>`;
+   Ajax({
+      url: "../control/historialventas.php", method: "GET", param: {id}, 
+      fSuccess: (resp)=>{
+         if(resp.code==200){
+            //console.log(resp.data)
+            resp.data.forEach((el)=>{
+               item+=`<tr><th scope='row'>${el.IdVenta}</th>
+                      <td>${el.VenFecha}</td>
+                      <td>${el.VenPrecio}</td>
+                      <td>${el.VenCantidad}</td>
+                      <td>${el.VenComprador}</td>
+                      <td>${el.VenCelular}</td>
+                      <!-- --><td> <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.IdVenta}'></button>
                        </div>
                       </td></tr>`
             })
@@ -480,4 +546,5 @@ document.addEventListener("submit", (e)=>{
    if(e.target.matches("#form-act_animales")) guardarAnimal("PUT");
    if(e.target.matches("#form_vacunacion_animal")) guardarVacunacion("POST")
    if(e.target.matches("#form_medicamento")) guardarmedicamento("POST")
+   if(e.target.matches("#form_ventas")) guardarventa("POST")
 })
