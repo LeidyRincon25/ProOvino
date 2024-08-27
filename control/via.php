@@ -23,8 +23,7 @@ if($_SERVER["REQUEST_METHOD"]=="GET"){
             $conn = null;
     } catch (Exception $ex) {
         header("HTTP/1.1 500");
-        echo json_encode(['code'=>500,'msg' => 'Error interno al procesar su petici&oacute;n', "ERROR"=>$ex->g
-()]);
+        echo json_encode(['code'=>500,'msg' => 'Error interno al procesar su petici&oacute;n', "ERROR"=>$ex->getMessage()]);
     }
 }else {
     header("HTTP/1.1 400");

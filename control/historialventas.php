@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     FROM `tbVenta` v
                     JOIN `tbcategoria` c ON v.`IdCategoria` = c.`IdCategoria`
                     JOIN `tbraza` r ON v.`IdRaza` = r.`IdRaza`
-                    WHERE v.`IdOvino` = :id
+                    WHERE v.`IdRegOvino` = :id
                     ORDER BY v.`VenFecha` DESC";
         }
         

@@ -7,7 +7,6 @@
         <li><a class="dropdown-item" href="listadoanimales.html">Listado Animales</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" href="registroanimales.html">Nuevo Animal</a></li>
-        <li><a class="dropdown-item" href="registroalimento.html">Nuevo Alimento</a></li>
     </ul>
     </li>
     <li class="nav-item dropdown">
@@ -25,8 +24,7 @@
         Reproduccion
     </a>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="Monta.html">Monta</a></li>
-        <li><a class="dropdown-item" href="Inseminacion.html">Inseminacion</a></li>
+        <li><a class="dropdown-item" href="reproduccion.html">Reproducci&oacute;n</a></li>
         <li><a class="dropdown-item" href="Partos.html">Partos</a></li>
     </ul>                
     </li>

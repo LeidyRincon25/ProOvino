@@ -32,64 +32,30 @@ integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2
             <div class="col"> 
                 <div class="card">
                     <h3 class="card-header text-center">MUERTES</h3>
-                <div class="card-body">
-                         <form class="form-control" action="" method="post">
-                            <div class="mb-3">
-                                <label for="Identidicacion">Identificaci&oacute;n del Ovino</label>
-                                <input type="text" class="form-control"  id="Identificaci&oacute;n" name="Identificaci&
-                                oacute;n">
-                            </div>
+                    <div class="card-body" id="muertes">
+                        <form class="form-control" action="" id="form_muertes" method="post">
+                                <input type="hidden" id="id_animal" name="id_animal">
+                            <div class="list-group" id="info_animal"></div>                                
                              <div class="mb-3">
-                                 <label for="Fecha ">Fecha</label>
+                                 <label for="Fecha ">Fecha de Mortalidad</label>
                                  <input type="date" class="form-control" name="fecha" id="fecha">
                              </div>
                              <div class="mb-3">
-                                 <label for="Peso">Peso en Kg</label>
-                                 <div class="input-group mb-3">
-                                     <input type="number" class="form-control" id="peso" name="peso" placeholder="" 
-                                     aria-describedby= "basic-addon2">
-                                     <span class="input-group-text" id="basic-addon2">Kg</span>
-                             </div>
-                             <div class="mb-3">
-                                 <label for="Raza">Raza</label>
-                                 <select class="form-select" name="Raza" id="Raza">
-                                     <option value="Seleccione uno">Seleccione uno</option>
-                                     <option value="Criolla">Criolla</option>
-                                     <option value="Hampshire">Hampshire</option>
-                                     <option value="Dorper">Dorper</option>
-                                 </select>
-                             </div>
-                             <div class="mb-3">
-                                 <label for="Genero">Genero</label>
-                                 <select class="form-select" name="Genero" id="Genero">
+                                 <label for="Sexo">Sexo</label>
+                                 <select class="form-select" name="Sexo" id="Sexo">
                                      <option value="Seleccione uno">Seleccione uno</option>
                                      <option value="Macho">Macho</option>
                                      <option value="Hembra">Hembra</option>
                                  </select>
-                             </div>
-                             <div class="mb-3">
-                                 <label for="Categoria">Categoria</label>
-                                 <select class="form-select" name="Categoria" id="Categoria">
-                                     <option value="Seleccione uno">Seleccione uno</option>
-                                     <option value="Cordero">Cordero</option>
-                                     <option value="Oveja">Oveja</option>
-                                     <option value="Borrega">Borrego</option>
-                                     <option value="Borrego">Borrego</option>
-                                 </select>
-                            </div>
+                                 </div>
                             <div class="mb-3">
                                 <label for="Causa">Causa</label>
                                 <textarea class="form-control" name="Causa" id="Causa"></textarea>
                             </div>
-                            <div class="mb-3">
-                                <label for="Observaci&oacute;n">Observaci&oacute;n</label>
-                                <textarea class="form-control" name="Observaci&oacute;n" id="Observaci&oacute;n">Ninguno</textarea>
-                            </div>
                             <div class="mb-3 text-center">
-                                <button name="btnGUARDAR" id="btnGUARDAR" onclick="clicbtn()" type="submit" class="btn 
-                                btn-success">GUARDAR</button> 
-                                <button name="btnCANCELAR" id="btnCANCELAR" onclick="clicbtn()" type="cancel" class="btn 
-                                btn-danger">CANCELAR</button>
+                                <button name="btnGUARDAR" id="btnGUARDAR" type="submit" class="btn btn-success">GUARDAR</button> 
+                                <button name="btnCANCELAR" id="btnCANCELAR" type="cancel" class="btn btn-danger">CANCELAR</button>
+                            </div>
                         </form>
                    </div>
                  </div>

@@ -11,7 +11,7 @@ const Ajax = async (info)=>{
    
    try{
        //console.log(url,method)
-       let resp = await fetch(url,method);
+       let resp = await fetch(url, { method: 'GET' });
        if(!resp.ok) throw {status: resp.status, msg: resp.statusText};
        let respJson =  await resp.json();  
        fSuccess(respJson)
@@ -111,7 +111,7 @@ function medicamentos(){
             let opc=``;
             //console.log(Resp.data)
             resp.data.map((el) => {
-               opc+=`<option value="${el.IdMedicamentos}">${el.MediNombre} (${el.MediPresentacion})</option>`;               
+               opc+=`<option value="${el.IdMedicamentos}"> ${el.MediNombre} (${el.MediPresentacion})</option>`;               
                //console.log(el)
             });
             $div.innerHTML= `<label for="nombre">Medicamento</label><select class="form-select" name="nombre" id="nombre" required><option value="">Seleccione un</option>${opc}</select>`;
@@ -119,7 +119,27 @@ function medicamentos(){
       }
    })
 }
-
+function muertes(){
+   let $div = document.getElementById("muertes");
+   $div.innerHTML= `<div class="spinner-border text-black" role="status"><span class="sr-only"></span></div>`;
+   //console.log($divRazas)
+   Ajax({
+      url: "../control/muertes.php",
+      method: "GET", 
+      param: undefined, 
+      fSuccess:(resp)=>{
+         //console.log(Resp)
+         if(resp.code==200){            
+            let opc=``;
+            //console.log(Resp.data)
+            resp.data.map((el) => {
+               opc+=`<option value="${el.IdMorta}"> ${el.MortaFecha} ${el.MortaSexo} (${el.MortaCausa})</option>`;               
+               //console.log(el)
+            });
+         }
+      }
+   })
+}
 function guardarAnimal(m){
    //alert("OK estamos listos para enviar los datos")
    let datos = {
@@ -168,6 +188,7 @@ function listadoAnimales(){
                         <button type="button" class="btn btn-outline-success fa fa-file-medical s_animal" title='Agregar Medicamento' data-id='${el.id}'></button>
                         <button type="button" class="btn btn-outline-dark fa-sharp-duotone fa-solid fa-syringe ms_animal" title= 'Historial Medico' data-id='${el.id}'></button>
                          <button type="button" class="btn btn-outline-primary fa-sharp-duotone fa-solid fa-syringe m_animal" title= 'Medicamentos' data-id='${el.id}'></button>
+                        <button type="button" class="btn btn-outline-dark fa-sharp-duotone fa-solid fa-syringe mv_animal" title= 'Historial Ventas' data-id='${el.id}'></button>
                        </div>
                       </td></tr>`
             })
@@ -265,11 +286,15 @@ function medicamentos(id){
    localStorage.setItem("id_animal",id);
    ruta("medicamentos.html?id="+id)
 }
-
-function venta(id){
+function muertes(id){
    //console.log("Clic en Editar el registro id="+id)
    localStorage.setItem("id_animal",id);
-   ruta("venta.html?id="+id)
+   ruta("muertes.html?id="+id)
+}
+function ventas(id){
+   //console.log("Clic en Editar el registro id="+id)
+   localStorage.setItem("id_animal",id);
+   ruta("ventas.html?id="+id)
 }
 
 const mostarMenu = async ()=>{
@@ -325,6 +350,29 @@ function guardarmedicamento(m) {
        }
    });
 }
+function guardarmuertes(m) {
+   let datos = {
+       MortaFecha: document.getElementById("MortaFecha"),
+       MortaSexo: document.getElementById("MortaSexo"),
+       MortaCausa: document.getElementById("MortaCausa"),
+       idcategoria: localStorage.getItem("idcategoria"),
+       idraza: localStorage.getItem("idraza"),
+       idovino: localStorage.getItem("idovino"),
+   };
+   //console.log(datos)
+   Ajax({
+       url: "../control/muertes.php",method: m, param: datos, 
+       fSuccess: (resp) => {
+           //console.log(resp)
+           if (resp.code == 200) {
+               alert("El registro fue guardado correctamente");
+               ruta("muertes.html")
+           } else {
+               alert("Error en el registro. " + resp.msg);
+           }
+       }
+   });
+}
 
 function guardarventa(m) {
    let datos = {
@@ -339,12 +387,12 @@ function guardarventa(m) {
    }
    //console.log(datos)
    Ajax({
-       url: "../control/venta.php",method: m, param: datos, 
+       url: "../control/ventas.php",method: m, param: datos, 
        fSuccess: (resp) => {
            //console.log(resp)
            if (resp.code == 200) {
                alert("El registro fue guardado correctamente");
-               ruta("venta.html")
+               ruta("ventas.html")
            } else {
                alert("Error en el registro. " + resp.msg);
            }
@@ -383,13 +431,12 @@ function historialMedicoAnimal(){
 function historialVentas(){
    
    let $tinfo=document.getElementById("tinfo"), item="", id=localStorage.getItem("id_animal");
-   $tinfo.innerHTML= `<tr><td colspan='7' class='text-center'><div class="spinner-border text-black" role="status"><span class="sr-only"></span></
-div><br>Procesando...</td></tr>`;
+   $tinfo.innerHTML= `<tr><td colspan='7' class='text-center'><div class="spinner-border text-black" role="status"><span class="sr-only"></span></div><br>Procesando...</td></tr>`;
    Ajax({
       url: "../control/historialventas.php", method: "GET", param: {id}, 
       fSuccess: (resp)=>{
          if(resp.code==200){
-            //console.log(resp.data)
+           // console.log(resp.data)
             resp.data.forEach((el)=>{
                item+=`<tr><th scope='row'>${el.IdVenta}</th>
                       <td>${el.VenFecha}</td>
@@ -465,9 +512,53 @@ function validarToken(){
             },100)
          })
          via()
-         medicamentos()
+         
       }
-
+    //Funcion para muertes de Animales
+   if(location.pathname.includes("muertes")){   
+      buscarAnimal(localStorage.getItem("id_animal"), (resp)=>{
+            setTimeout(()=>{
+               let $inf = document.getElementById("info_animal"), data=""
+               document.getElementById("id_animal").value=localStorage.getItem("id_animal")
+               console.log(resp)
+               resp.forEach((el)=>{
+                  data=`<a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                           <div class="d-flex w-100 justify-content-between">
+                              <h5 class="mb-1">Categoria: ${el.cate}</h5>
+                              <h5 class="mb-1">Raza: ${el.raza}</h5>
+                              <small>ID:${el.id}</small>
+                           </div>
+                           <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
+                           <small>${el.ant}</small> 
+                         </a>`;
+               })
+               $inf.innerHTML=data;
+         },100)
+      })
+   }
+      //Funciones para ventas
+      if(location.pathname.includes("ventas")){   
+         buscarAnimal(localStorage.getItem("id_animal"), (resp)=>{
+               setTimeout(()=>{
+                  let $inf = document.getElementById("info_animal"), data=""
+                  document.getElementById("id_animal").value=localStorage.getItem("id_animal")
+                  console.log(resp)
+                  resp.forEach((el)=>{
+                     data=`<a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                              <div class="d-flex w-100 justify-content-between">
+                                 <h5 class="mb-1">Categoria: ${el.cate}</h5>
+                                 <h5 class="mb-1">Raza: ${el.raza}</h5>
+                                 <small>ID:${el.id}</small>
+                              </div>
+                              <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
+                              <small>${el.ant}</small> 
+                            </a>`;
+                  })
+                  $inf.innerHTML=data;
+            },100)
+         })
+         
+      }
       //Funciones para Historial Medico de Animales
       if(location.pathname.includes("historialmedico")){   
          buscarAnimal(localStorage.getItem("id_animal"), (resp)=>{
@@ -494,9 +585,8 @@ function validarToken(){
             },100)
          })
       }
-
-   //Funciones para ventas
-   if(location.pathname.includes("ventas")){   
+     //Funciones para Historial de ventas
+     if(location.pathname.includes("historialventas")){   
       buscarAnimal(localStorage.getItem("id_animal"), (resp)=>{
             setTimeout(()=>{
                let $inf = document.getElementById("info_animal"), data="";
@@ -511,15 +601,15 @@ function validarToken(){
                            </div>
                            <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
                            <small>${el.ant}</small>
+                           <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                           <button type="button" class="btn btn-outline-success fa fa-file-medical mv_animal" title='Agregar ventas' data-id='${el.id}'></button>
                            </div>
                         </a>`;
                })
                $inf.innerHTML=data;
          },100)
       })
-   }
-         
-      
+   }    
    }else{
       salida()
    }
@@ -538,6 +628,7 @@ document.addEventListener("click",(e)=>{
    if(e.target.matches(".s_animal")) saludAnimal(e.target.dataset.id)
    if(e.target.matches(".ms_animal")) historialMedico(e.target.dataset.id)
    if(e.target.matches(".m_animal")) medicamentos(e.target.dataset.id)
+   if(e.target.matches(".mv_animal")) historialVentas(e.target.dataset.id)
 })
 
 document.addEventListener("submit", (e)=>{
@@ -547,4 +638,5 @@ document.addEventListener("submit", (e)=>{
    if(e.target.matches("#form_vacunacion_animal")) guardarVacunacion("POST")
    if(e.target.matches("#form_medicamento")) guardarmedicamento("POST")
    if(e.target.matches("#form_ventas")) guardarventa("POST")
+   if(e.target.matches("#form_muertes")) guardarmuertes("POST")
 })
