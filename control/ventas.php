@@ -10,16 +10,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $bd = new ConfigDb(); {
             $bd = new ConfigDb();
             $conn = $bd->conexion();
-            $sql = "INSERT INTO INSERT INTO `tbventa`(`IdVenta`, `VenFecha`, `VenPrecio`, `VenCantidad`, `VenComprador`, `VenCelular`, `IdCategoria`, `IdRaza`, `IdRegOvino`) VALUES (null, :VenFecha, :VenPrecio, :VenCantidad, :VenComprador, :VenCelular,  :IdAnimal, :IdCategoria, :IdRaza)";
+            $sql = "INSERT INTO INSERT INTO `tbventa`(`IdVenta`, `VenFecha`, `VenPrecio`, `VenCantidad`, `VenComprador`, `VenCelular`, `IdCategoria`, `IdRaza`, `IdRegOvino`) VALUES 
+            (null, :VenFecha, :VenPrecio, :VenCantidad, :VenComprador, :VenCelular,  :IdAnimal, :IdCategoria, :IdRaza)";
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(":VenFecha",$post["VenFecha"],PDO::PARAM_STR);
-            $stmt->bindParam(":VenPrecio",$post["VenPrecio"],PDO::PARAM_INT);
-            $stmt->bindParam(":VenCantidad",$post["VenCantidad"],PDO::PARAM_INT);
-            $stmt->bindParam(":VenComprador",$post["VenComprador"],PDO::PARAM_STR);
-            $stmt->bindParam(":VenCelular",$post["VenCelular"],PDO::PARAM_STR);
+            $stmt->bindParam(":VenFecha",$post["fecha"],PDO::PARAM_STR);
+            $stmt->bindParam(":VenPrecio",$post["precio"],PDO::PARAM_INT);
+            $stmt->bindParam(":VenCantidad",$post["cantidad"],PDO::PARAM_INT);
+            $stmt->bindParam(":VenComprador",$post["comprador"],PDO::PARAM_STR);
+            $stmt->bindParam(":VenCelular",$post["celular"],PDO::PARAM_STR);
             $stmt->bindParam(":IdAnimal",$post["id_animal"],PDO::PARAM_INT);
-            $stmt->bindParam(":IdCategoria",$post["cat"],PDO::PARAM_INT);
-            $stmt->bindParam(":IdRaza",$post["raza"],PDO::PARAM_INT);
+            $stmt->bindParam(":IdCategoria",$post["idcategoria"],PDO::PARAM_INT);
+            $stmt->bindParam(":IdRaza",$post["idraza"],PDO::PARAM_INT);
             if ($stmt->execute()) {                
                 header("HTTP/1.1 200 OK");
                 echo json_encode(['code' => 200, 'msg' => "OK"]);
