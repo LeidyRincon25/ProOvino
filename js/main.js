@@ -461,34 +461,31 @@ function historialMedicoAnimal() {
 }
 
 function historialVentas() {
-  let $tinfo = document.getElementById("tinfo"),
-    item = "",
-    id = localStorage.getItem("id_animal");
-  $tinfo.innerHTML = `<tr><td colspan='7' class='text-center'><div class="spinner-border text-black" role="status"><span class="sr-only"></span></div><br>Procesando...</td></tr>`;
+  let $tinfo = document.getElementById("tinfo"), id="", item = "";
+  $tinfo.innerHTML = `<tr><td colspan='6' class='text-center'><div class="spinner-border text-black" role="status"><span class="sr-only"></span></div><br>Procesando...</td></tr>`;
   Ajax({
-    url: "../control/historialventas.php",
+    url: "../control/ventas.php",
     method: "GET",
     param: { id },
     fSuccess: (resp) => {
       if (resp.code == 200) {
-        // console.log(resp.data)
+        //console.log(resp.data)
         resp.data.forEach((el) => {
-          item += `<tr><th scope='row'>${el.IdVenta}</th>
-                      <td>${el.VenFecha}</td>
-                      <td>${el.VenPrecio}</td>
+          item += `<tr><th scope='row'>${el.VenFecha}</th>
+                      <td>${el.VenPrecioF}</td>
                       <td>${el.VenCantidad}</td>
-                      <td>${el.VenComprador}</td>
-                      <td>${el.VenCelular}</td>
+                      <td><b>${el.VenComprador}</b><br><small class='text-blue'>ID: ${el.VenIdentificacion} / CEL: ${el.VenCelular}</small></td>
+                      <td>${el.CateNombre} / ${el.RazaNombres}</td>
                       <!-- --><td> <div class="btn-group" role="group">
                         <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.IdVenta}'></button>
                        </div>
                       </td></tr>`;
         });
         if (item == "")
-          item = `<tr><td colspan='7' class='text-center'>No hay registos asociados</td></tr>`;
+          item = `<tr><td colspan='6' class='text-center'>No hay registos asociados</td></tr>`;
         $tinfo.innerHTML = item;
       } else
-        $tinfo.innerHTML = `<tr><td colspan='7' class='text-center'>Error en la petición <b>${resp.msg}</b></td></tr>`;
+        $tinfo.innerHTML = `<tr><td colspan='6' class='text-center'>Error en la petición <b>${resp.msg}</b></td></tr>`;
     }
   });
 }
@@ -608,30 +605,7 @@ function validarToken() {
     }
     //Funciones para Historial de ventas
     if (location.pathname.includes("historialventas")) {
-      buscarAnimal(localStorage.getItem("id_animal"), (resp) => {
-        setTimeout(() => {
-          let $inf = document.getElementById("info_animal"),
-            data = "";
-          document.getElementById("id_animal").value =
-            localStorage.getItem("id_animal");
-          //console.log(resp)
-          resp.forEach((el) => {
-            data = `<a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                              <div class="d-flex w-100 justify-content-between">
-                                 <h5 class="mb-1">Categoria: ${el.cate}</h5>
-                                 <h5 class="mb-1">Raza: ${el.raza}</h5>
-                                 <small>ID:${el.id}</small>
-                              </div>
-                              <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
-                              <small>${el.ant}</small>
-                              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                              <button type="button" class="btn btn-outline-success fa fa-file-medical mv_animal" title='Agregar ventas' data-id='${el.id}'></button>
-                              </div>
-                           </a>`;
-          });
-          $inf.innerHTML = data;
-        }, 100);
-      });
+      historialVentas()
     }
 
     //Funciones para la Venta de Animales
