@@ -33,45 +33,53 @@ integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2
                <div class="card" >
                    <h3 class="card-header text-center">VENTAS</h3>
                    <div class="card-body">
-                        <form class="form-control" action="guardarventa" id="form_ventas" method="post">
+                        <form class="form-control" action="#" id="form_ventas" method="post">
                         <input type="hidden" id="id_animal" name="id_animal">
-                   <div class="list-group" id="info_animal"></div>                                
-                            <div class="mb-3">
-                                <label for="Fecha">Fecha de Venta</label>
-                                <input type="date" class="form-control" name="fecha" id="fecha">
+                   <div class="list-group" id="info_animal"></div>
+                            <div class="row align-items-center mb-3">
+                                <div class="col">
+                                    <label for="Fecha">Fecha de Venta</label>
+                                    <input type="date" class="form-control" name="fecha" id="fecha" required>
+                                </div>
+                                <div class="col">
+                                    <label for="Cantidad">Cantidad</label>
+                                    <input type="text" class="form-control" id="cantidad" name="cantidad" required>
+                                </div>
+                                <div class="col">
+                                    <label for="Precio">Precio</label>
+                                    <input type="text" class="form-control" id="precio" name="Precio" required>
+                                </div>
+                            </div>                            
+                            <div class="row align-items-center mb-3">
+                                <div class="col">
+                                    <label for="ident">Identificación</label>
+                                    <input type="text" class="form-control" id="ident" name="ident" required>
+                                </div>                                
+                                <div class="col">
+                                    <label for="Celular">Celular</label>
+                                    <input type="number" class="form-control" id="celular" name="celular">
+                                </div>
                             </div>
                             <div class="mb-3">
-                                <label for="Precio">Precio</label>
-                                <input type="text" class="form-control" id="precio" name="Precio">
-                            </div>
-                            <div class="mb-3">
-                                <label for="Cantidad">Cantidad</label>
-                                <input type="text" class="form-control" id="cantidad" name="cantidad">
+                                <label for="Comprador">Nombre del Comprador</label>
+                                <input type="Text" class="form-control" id="comprador"name= "comprador" required>
                             </div>
                             <div class="mb-3" id="dcat">
                                 <label for="cat">Categoria</label>
                                     <select class="form-select" name="cat" id="cat" required>
                                         <option value="">Seleccione una</option>
                                     </select>
-                                </div>
-                                <div class="mb-3" id="drazas">
+                            </div>
+                            <div class="mb-3" id="drazas">
                                     <label for="raza">Raza</label>
                                     <select class="form-select" name="raza" id="raza" required>
                                         <option value="">Seleccione una</option>
                                     </select>
-                                </div>
-                            <div class="mb-3">
-                                <label for="Comprador">Nombre del Comprador</label>
-                                <input type="Text" class="form-control" id="comprador"name= "comprador">
                             </div>
-                            <div class="mb-3">
-                                <label for="Celular">Celular</label>
-                                <input type="number" class="form-control" id="celular" name="celular">
+                            <div class="mb-3 text-center">
+                                <button name="btnGUARDAR" id="btnGUARDAR" type="submit" class="btn btn-success">GUARDAR</button> 
+                                <button name="btnCANCELAR" id="btnCANCELAR" type="cancel" class="btn btn-danger">CANCELAR</button>
                             </div>
-                                <div class="mb-3 text-center">
-                                    <button name="btnGUARDAR" id="btnGUARDAR" type="submit" class="btn btn-success">GUARDAR</button> 
-                                    <button name="btnCANCELAR" id="btnCANCELAR" type="cancel" class="btn btn-danger">CANCELAR</button>
-                                </div>
                        </form>
                    </div>
                  </div>

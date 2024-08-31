@@ -5,20 +5,19 @@ require_once("configdb.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $post = json_decode(file_get_contents('php://input'), true);     
-        if($post["fecha"]!="" && $post["precio"]!="" && $post["cantidad"]!="" && $post["comprador"]!="" && $post["celular"]!="" && $post["idcategoria"]
-        !="" && $post["idraza"]!="" && $post["id_animal"]!="")  
+        if($post["fecha"]!="" && $post["precio"]!="" && $post["cantidad"]!="" && $post["identificacion"]!="" && $post["comprador"]!="" && $post["celular"]!="" && $post["idcategoria"]!="" && $post["idraza"]!="")  
         $bd = new ConfigDb(); {
             $bd = new ConfigDb();
             $conn = $bd->conexion();
-            $sql = "INSERT INTO INSERT INTO `tbventa`(`IdVenta`, `VenFecha`, `VenPrecio`, `VenCantidad`, `VenComprador`, `VenCelular`, `IdCategoria`, `IdRaza`, `IdRegOvino`) VALUES 
-            (null, :VenFecha, :VenPrecio, :VenCantidad, :VenComprador, :VenCelular,  :IdAnimal, :IdCategoria, :IdRaza)";
+            $sql = "INSERT INTO `tbventa`(`IdVenta`, `VenFecha`, `VenPrecio`, `VenCantidad`, `VenIdentificacion`, `VenComprador`, `VenCelular`, `IdCategoria`, `IdRaza`) VALUES 
+            (null, :VenFecha, :VenPrecio, :VenCantidad, :VenIdentificacion, :VenComprador, :VenCelular, :IdCategoria, :IdRaza)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(":VenFecha",$post["fecha"],PDO::PARAM_STR);
             $stmt->bindParam(":VenPrecio",$post["precio"],PDO::PARAM_INT);
             $stmt->bindParam(":VenCantidad",$post["cantidad"],PDO::PARAM_INT);
+            $stmt->bindParam(":VenIdentificacion",$post["identificacion"],PDO::PARAM_STR);
             $stmt->bindParam(":VenComprador",$post["comprador"],PDO::PARAM_STR);
             $stmt->bindParam(":VenCelular",$post["celular"],PDO::PARAM_STR);
-            $stmt->bindParam(":IdAnimal",$post["id_animal"],PDO::PARAM_INT);
             $stmt->bindParam(":IdCategoria",$post["idcategoria"],PDO::PARAM_INT);
             $stmt->bindParam(":IdRaza",$post["idraza"],PDO::PARAM_INT);
             if ($stmt->execute()) {                

@@ -352,7 +352,7 @@ function guardarVacunacion(m) {
   });
 }
 
-function guardarmedicamento(m) {
+function guardarMedicamento(m) {
   let datos = {
     MediNombre: document.getElementById("MediNombre").value,
     MediPresentacion: document.getElementById("MediPresentacion").value,
@@ -399,15 +399,16 @@ function guardarmuertes(m) {
   });
 }
 
-function guardarventa(m) {
+function guardarVenta(m) {
   let datos = {
     fecha: document.getElementById("fecha").value,
-    precio: document.getElementById("precio").value,
     cantidad: document.getElementById("cantidad").value,
-    comprador: document.getElementById("comprador").value,
+    precio: document.getElementById("precio").value,
+    identificacion: document.getElementById("ident").value,
     celular: document.getElementById("celular").value,
-    idcategoria: localStorage.getItem("idcategoria"),
-    idraza: localStorage.getItem("idraza"),
+    comprador: document.getElementById("comprador").value,
+    idcategoria: document.getElementById("cat").value,
+    idraza: document.getElementById("raza").value,
   };
   //console.log(datos)
   Ajax({
@@ -418,7 +419,7 @@ function guardarventa(m) {
       //console.log(resp)
       if (resp.code == 200) {
         alert("El registro fue guardado correctamente");
-        ruta("ventas.html");
+        ruta("historialventas.html");
       } else {
         alert("Error en el registro. " + resp.msg);
       }
@@ -632,6 +633,12 @@ function validarToken() {
         }, 100);
       });
     }
+
+    //Funciones para la Venta de Animales
+    if (location.pathname.includes("ventas")) {      
+      razas();
+      categorias();
+    }
   } else {
     salida();
   }
@@ -659,7 +666,8 @@ document.addEventListener("submit", (e) => {
   if (e.target.matches("#form-animales")) guardarAnimal("POST");
   if (e.target.matches("#form-act_animales")) guardarAnimal("PUT");
   if (e.target.matches("#form_vacunacion_animal")) guardarVacunacion("POST");
-  if (e.target.matches("#form_medicamento")) guardarmedicamento("POST");
-  if (e.target.matches("#form_ventas")) guardarventa("POST");
+  if (e.target.matches("#form_medicamento")) guardarMedicamento("POST");
+  if (e.target.matches("#form_ventas")) guardarVenta("POST");
   if (e.target.matches("#form_muertes")) guardarmuertes("POST");
+  
 });
