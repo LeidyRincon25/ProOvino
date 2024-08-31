@@ -18,7 +18,7 @@ const Ajax = async (info) => {
 
   try {
     //console.log(url,method)
-    let resp = await fetch(url, { method: "GET" });
+    let resp = await fetch(url,method);
     if (!resp.ok) throw { status: resp.status, msg: resp.statusText };
     let respJson = await resp.json();
     fSuccess(respJson);
@@ -282,7 +282,6 @@ function eliminarAnimal(id) {
     });
   }
 }
-
 function saludAnimal(id) {
   //console.log("Clic en Editar el registro id="+id)
   localStorage.setItem("id_animal", id);
@@ -409,7 +408,6 @@ function guardarventa(m) {
     celular: document.getElementById("celular").value,
     idcategoria: localStorage.getItem("idcategoria"),
     idraza: localStorage.getItem("idraza"),
-    idovino: localStorage.getItem("idovino"),
   };
   //console.log(datos)
   Ajax({
@@ -574,30 +572,6 @@ function validarToken() {
                            <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
                            <small>${el.ant}</small> 
                          </a>`;
-          });
-          $inf.innerHTML = data;
-        }, 100);
-      });
-    }
-    //Funciones para ventas
-    if (location.pathname.includes("ventas")) {
-      buscarAnimal(localStorage.getItem("id_animal"), (resp) => {
-        setTimeout(() => {
-          let $inf = document.getElementById("info_animal"),
-            data = "";
-          document.getElementById("id_animal").value =
-            localStorage.getItem("id_animal");
-          console.log(resp);
-          resp.forEach((el) => {
-            data = `<a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                              <div class="d-flex w-100 justify-content-between">
-                                 <h5 class="mb-1">Categoria: ${el.cate}</h5>
-                                 <h5 class="mb-1">Raza: ${el.raza}</h5>
-                                 <small>ID:${el.id}</small>
-                              </div>
-                              <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
-                              <small>${el.ant}</small> 
-                            </a>`;
           });
           $inf.innerHTML = data;
         }, 100);
