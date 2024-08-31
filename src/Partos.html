@@ -28,62 +28,60 @@ integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2
         </div>
       </nav>  
    <div class="container">
-       <div class="row d-flex align-items-center">
+       <div class="m-5 d-flex align-items-center">
            <div class="col"> 
                <div class="card">
                    <h3 class="card-header text-center">PARTOS</h3>
                 <div class="card-body">
-                        <form class="form-control" action="" method="post">                                                                     
-                            <div class="mb-3">
-                                <label for="Fecha ">Fecha de Parto</label>
-                                <input type="date" class="form-control" name="fecha" id="fecha">
+                        <form class="form-control" action="" method="post">    
+                            <div class="row align-items-center mb-3">
+                                <div class="col" id="drazas">
+                                    <label for="raza">Raza de la Hembra</label>
+                                    <select class="form-select" name="raza" id="raza" required>
+                                        <option value="">Seleccione una</option>
+                                    </select>   
+                                </div>                                                                                  
+                                <div class="col">
+                                    <label for="edad">Edad</label>
+                                    <input type="text" class="form-control" name="edad" id="edad" required>
+                                </div>
+                                <div class="col">
+                                    <label for="peso">Peso</label>
+                                    <div class="input-group mb-3">
+                                        <input type="number" class="form-control" id="peso" name="peso" placeholder="" 
+                                        aria-describedby= "basic-addon2">
+                                        <span class="input-group-text" id="basic-addon2">Kg</span>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="Identidicacion">Numero de Identificaci&oacute;n de la Hembra</label>
-                                <input type="text" class="form-control" id="Identificaci&oacute;n" name="Identificaci&oacute;n">                                                                     
-                            </div>
-                            <div class="mb-3" >
-                                <label for="Identidicacion">Numero de Identificaci&oacute;n del Nacido</label>
-                                <input type="text" class="form-control" id="Identificaci&oacute;n" name="Identificaci&oacute;n">                                                                     
-                            </div>
-                            <div class="mb-3">
-                                <label for="Peso">Peso del Nacido en Kg</label>
-                                <div class="input-group mb-3">
-                                    <input type="number" class="form-control" id="peso" name="peso" placeholder="" 
-                                    aria-describedby= "basic-addon2">
-                                    <span class="input-group-text" id="basic-addon2">Kg</span>
-                            </div>
-                            <div class="mb-3">
-                                <label for="Raza">Raza del Nacido</label>
-                                <select class="form-select" name="Raza" id="Raza">
-                                    <option value="Seleccione uno">Seleccione uno</option>
-                                    <option value="Criolla">Criolla</option>
-                                    <option value="Hampshire">Hampshire</option>
-                                    <option value="Dorper">Dorper</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="Genero">Genero del Nacido</label>
-                                <select name="Genero" id="Genero">
-                                    <option value="Seleccione uno">Seleccione uno</option>
-                                    <option value="Macho">Macho</option>
-                                    <option value="Hembra">Hembra</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="Categoria">Categoria del Nacido</label>
-                                <select class="form-select" name="Categoria" id="Categoria">
-                                    <option value="Seleccione uno">Seleccione uno</option>
-                                    <option value="Cordero">Cordero</option>
-                                    <option value="Oveja">Oveja</option>
-                                    <option value="Borrega">Borrego</option>
-                                    <option value="Borrego">Borrego</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="Antecedentes">Antecedentes Geneticos</label>
-                                <textarea class="form-control" name="Antecedentes"id="Antecedentes;">Ninguno</textarea>
-                            </div>
+                            <div class="row align-items-center mb-3">
+                               <div class="col">
+                                    <label for="Fecha ">Fecha de Parto</label>
+                                    <input type="date" class="form-control" name="fecha" id="fecha" required>
+                                </div>
+                                <div class="col">
+                                    <label for="hora">Hora del Parto</label>
+                                    <input type="time" class="form-control" name="hora" id="hora" required>
+                                </div>
+                                <div class="col">
+                                    <label for="nacidos">Numero de Nacidos</label>
+                                    <input type="number" class="form-control" name="nacidos" id="nacidos" required>
+                                </div>                                                                                  
+                                <div class="col">
+                                    <label for="sexo">Sexo del Nacido</label>
+                                    <select class="form-select" name="sexo" id="sexo" required>
+                                        <option value="">Seleccione uno</option>
+                                        <option value="">Macho</option>
+                                        <option value="">Hembra</option>
+                                    </select>   
+                                </div>
+                                <div class="col">
+                                    <label for="Peso">Peso del Nacido en Kg</label>
+                                    <div class="input-group mb-3">
+                                        <input type="number" class="form-control" id="peso" name="peso" placeholder="" 
+                                        aria-describedby= "basic-addon2">
+                                        <span class="input-group-text" id="basic-addon2">Kg</span>
+                                </div>
+                            </div>                                                                                                                                                                                 
                             <div class="mb-3">
                                 <label for="Observaci&oacute;n">Observaci&oacute;n</label>
                                 <textarea class="form-control" name="Observaci&oacute;n"id="Observaci&oacute;n">Ninguno</textarea>

@@ -5,18 +5,15 @@ require_once("configdb.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $post = json_decode(file_get_contents('php://input'), true);       
-        if($post["MortaFecha"]!="" && $post["MortaSexo"]!="" && $post["MortaCausa"]!="" && $post["iduser"]!="" && $post["id_animal"]!="")
+        if($post["fecha"]!="" && $post["causa"]!="" && $post["id_animal"]!="")
         $bd = new ConfigDb(); {
             $bd = new ConfigDb();
             $conn = $bd->conexion();
-            $sql = "INSERT INTO `tbmortalidad`(`IdMortalidad`, `MortaFecha`, `MortaSexo`, `MortaCausa`, `IdRegOvino`, `IdCategoria`, `IdRaza`) VALUES (null, :MortaFecha, :MortaSexo, :MortaCausa, :IdAnimal, :IdCategoria, :IdRaza)";
+            $sql = "INSERT INTO `tbmortalidad`(`IdMortalidad`, `MortaFecha`, `MortaCausa`, `IdRegOvino`) VALUES (null, :MortaFecha, :MortaCausa, :Id_Animal)";
             $stmt = $conn->prepare($sql);
-            $stmt->bindParam(":MortaFecha",$post["MortaFecha"],PDO::PARAM_STR);
-            $stmt->bindParam(":MortaSexo",$post["MortaSexo"],PDO::PARAM_STR);
-            $stmt->bindParam(":MortaCausa",$post["MortaCausa"],PDO::PARAM_STR);
-            $stmt->bindParam(":IdAnimal",$post["id_animal"],PDO::PARAM_INT);
-            $stmt->bindParam(":IdCategoria",$post["cat"],PDO::PARAM_INT);
-            $stmt->bindParam(":IdRaza",$post["raza"],PDO::PARAM_INT);
+            $stmt->bindParam(":MortaFecha",$post["fecha"],PDO::PARAM_STR);
+            $stmt->bindParam(":MortaCausa",$post["causa"],PDO::PARAM_STR);
+            $stmt->bindParam(":Id_Animal",$post["id_animal"],PDO::PARAM_INT);
             if ($stmt->execute()) {                
                 header("HTTP/1.1 200 OK");
                 echo json_encode(['code' => 200, 'msg' => "OK"]);
@@ -37,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $info = array();
             $bd = new ConfigDb();
             $conn = $bd->conexion();
-            $sql = "SELECT `IdMortalidad`, `MortaFecha`, `MortaSexo`, `MortaCausa`, `IdRegOvino`, `IdCategoria`, `IdRaza` FROM `tbmortalidad` ORDER BY `MortaFecha` ASC";
+            $sql = "SELECT `IdMortalidad`, `MortaFecha`, `MortaCausa`, `IdRegOvino` FROM `tbmortalidad` ORDER BY `MortaFecha` ASC";
             $stmt = $conn ->prepare($sql);
             if($stmt->execute()){                
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

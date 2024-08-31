@@ -140,7 +140,7 @@ function muertes() {
         let opc = ``;
         //console.log(Resp.data)
         resp.data.map((el) => {
-          opc += `<option value="${el.IdMorta}"> ${el.MortaFecha} ${el.MortaSexo} (${el.MortaCausa})</option>`;
+          opc += `<option value="${el.IdMorta}"> ${el.MortaFecha} (${el.MortaCausa})</option>`;
           //console.log(el)
         });
       }
@@ -198,9 +198,8 @@ function listadoAnimales() {
                         <button type="button" class="btn btn-outline-primary fa fa-edit u_animal" title='Editar' data-id='${el.id}'></button>
                         <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.id}'></button>
                         <button type="button" class="btn btn-outline-success fa fa-file-medical s_animal" title='Agregar Medicamento' data-id='${el.id}'></button>
-                        <button type="button" class="btn btn-outline-dark fa-sharp-duotone fa-solid fa-syringe ms_animal" title= 'Historial Medico' data-id='${el.id}'></button>
-                         <button type="button" class="btn btn-outline-primary fa-sharp-duotone fa-solid fa-syringe m_animal" title= 'Medicamentos' data-id='${el.id}'></button>
-                        <button type="button" class="btn btn-outline-dark fa-sharp-duotone fa-solid fa-syringe mv_animal" title= 'Historial Ventas' data-id='${el.id}'></button>
+                         <button type="button" class="btn btn-outline-secondary fa-sharp-duotone fa-solid fa-syringe m_animal" title= 'Medicamentos' data-id='${el.id}'></button>
+                        <button type="button" class="btn btn-outline-dark fa-solid fa-skull-crossbones"mt_animal" title= 'Muertes' data-id='${el.id}'></button>
                        </div>
                       </td></tr>`;
         });
@@ -294,10 +293,10 @@ function historialMedico(id) {
   ruta("historialmedico.html?id=" + id);
 }
 
-function historialVentas(id) {
+function muertes(id) {
   //console.log("Clic en Editar el registro id="+id)
   localStorage.setItem("id_animal", id);
-  ruta("historialventas.html?id=" + id);
+  ruta("muertes.html?id=" + id);
 }
 
 function medicamentos(id) {
@@ -346,7 +345,7 @@ function guardarVacunacion(m) {
       //console.log(resp)
       if (resp.code == 200) {
         alert("El registos fue guardado correctamente");
-        ruta("listadoanimales.html");
+        ruta("historialmedico.html");
       } else alert("Error en el registro. " + resp.msg);
     }
   });
@@ -366,21 +365,18 @@ function guardarMedicamento(m) {
       //console.log(resp)
       if (resp.code == 200) {
         alert("El registro fue guardado correctamente");
-        ruta("medicamentos.html");
+        ruta("vacunacion.html");
       } else {
         alert("Error en el registro. " + resp.msg);
       }
     }
   });
 }
-function guardarmuertes(m) {
+function guardarMuertes(m) {
   let datos = {
-    MortaFecha: document.getElementById("MortaFecha"),
-    MortaSexo: document.getElementById("MortaSexo"),
-    MortaCausa: document.getElementById("MortaCausa"),
-    idcategoria: localStorage.getItem("idcategoria"),
-    idraza: localStorage.getItem("idraza"),
-    idovino: localStorage.getItem("idovino"),
+    fecha: document.getElementById("fecha").value,
+    causa: document.getElementById("causa").value,
+    id_animal: localStorage.getItem("id_animal"),
   };
   //console.log(datos)
   Ajax({
@@ -543,7 +539,6 @@ function validarToken() {
                               <small>${el.ant}</small> 
                              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                <button class="btn btn-info m_animal" type="button" data-id='${el.id}'>Medicamentos</button>
-                               <button class="btn btn-info ms_animal" type="button"  data-id='${el.id}'>Historial de Medicamentos</button>
                              </div>
                             </a>`;
                   })
@@ -630,9 +625,8 @@ document.addEventListener("click", (e) => {
   if (e.target.matches(".u_animal")) editarAnimal(e.target.dataset.id);
   if (e.target.matches(".d_animal")) eliminarAnimal(e.target.dataset.id);
   if (e.target.matches(".s_animal")) saludAnimal(e.target.dataset.id);
-  if (e.target.matches(".ms_animal")) historialMedico(e.target.dataset.id);
   if (e.target.matches(".m_animal")) medicamentos(e.target.dataset.id);
-  if (e.target.matches(".mv_animal")) historialVentas(e.target.dataset.id);
+  if (e.target.matches(".mt_animal")) muertes(e.target.dataset.id);
 });
 
 document.addEventListener("submit", (e) => {
@@ -642,6 +636,6 @@ document.addEventListener("submit", (e) => {
   if (e.target.matches("#form_vacunacion_animal")) guardarVacunacion("POST");
   if (e.target.matches("#form_medicamento")) guardarMedicamento("POST");
   if (e.target.matches("#form_ventas")) guardarVenta("POST");
-  if (e.target.matches("#form_muertes")) guardarmuertes("POST");
+  if (e.target.matches("#form_muertes")) guardarMuertes("POST");
   
 });
