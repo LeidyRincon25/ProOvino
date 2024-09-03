@@ -198,8 +198,8 @@ function listadoAnimales() {
                         <button type="button" class="btn btn-outline-primary fa fa-edit u_animal" title='Editar' data-id='${el.id}'></button>
                         <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.id}'></button>
                         <button type="button" class="btn btn-outline-success fa fa-file-medical s_animal" title='Agregar Medicamento' data-id='${el.id}'></button>
-                         <button type="button" class="btn btn-outline-secondary fa-sharp-duotone fa-solid fa-syringe m_animal" title= 'Medicamentos' data-id='${el.id}'></button>
-                        <button type="button" class="btn btn-outline-dark fa-solid fa-skull-crossbones"mt_animal" title= 'Muertes' data-id='${el.id}'></button>
+                        <button type="button" class="btn btn-outline-secondary fa-sharp-duotone fa-solid fa-syringe m_animal" title= 'Medicamentos' data-id='${el.id}'></button>
+                        <button type="button" class="btn btn-outline-dark fa-solid fa-skull-crossbones mt_animal" title= 'Muertes' data-id='${el.id}'></button>
                        </div>
                       </td></tr>`;
         });
@@ -372,6 +372,32 @@ function guardarMedicamento(m) {
     }
   });
 }
+function guardarReproduccion(m) {
+  //alert("OK estamos listos para enviar los datos")
+  let datos = {
+    FechadelServicio: document.getElementById("fecha").value,
+    MetododeServicio: document.getElementById("servicio").value,
+    ResultadodelServicio: document.getElementById("resultado").value,
+    FechadeParto: document.getElementById("fecha").value,
+    NumerodeNacidos: document.getElementById("nacidos").value,
+    SexodelNacido: document.getElementById("sexo").value,
+    Observaciones: document.getElementById("observaciones").value,
+    id_animal: localStorage.getItem("id_animal"),
+  };
+  //console.log(datos)
+  Ajax({
+    url: "../control/reproduccion.php",
+    method: m,
+    param: datos,
+    fSuccess: (resp) => {
+      //console.log(resp)
+      if (resp.code == 200) {
+        alert("El registos fue guardado correctamente");
+        ruta("reproduccion.html");
+      } else alert("Error en el registro. " + resp.msg);
+    }
+  });
+}
 function guardarMuertes(m) {
   let datos = {
     fecha: document.getElementById("fecha").value,
@@ -422,6 +448,7 @@ function guardarVenta(m) {
     }
   });
 }
+
 
 function historialMedicoAnimal() {
   let $tinfo = document.getElementById("tinfo"),
@@ -474,6 +501,32 @@ function historialVentas() {
                       <td>${el.CateNombre} / ${el.RazaNombres}</td>
                       <!-- --><td> <div class="btn-group" role="group">
                         <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.IdVenta}'></button>
+                       </div>
+                      </td></tr>`;
+        });
+        if (item == "")
+          item = `<tr><td colspan='6' class='text-center'>No hay registos asociados</td></tr>`;
+        $tinfo.innerHTML = item;
+      } else
+        $tinfo.innerHTML = `<tr><td colspan='6' class='text-center'>Error en la petición <b>${resp.msg}</b></td></tr>`;
+    }
+  });
+}
+function historialMuertes() {
+  let $tinfo = document.getElementById("tinfo"), id="", item = "";
+  $tinfo.innerHTML = `<tr><td colspan='6' class='text-center'><div class="spinner-border text-black" role="status"><span class="sr-only"></span></div><br>Procesando...</td></tr>`;
+  Ajax({
+    url: "../control/Muertes.php",
+    method: "GET",
+    param: { id },
+    fSuccess: (resp) => {
+      if (resp.code == 200) {
+        //console.log(resp.data)
+        resp.data.forEach((el) => {
+          item += `<tr><th scope='row'>${el.MortaFecha}</th>
+                      <td>${el.MortaCausaF}</td>
+                      <!-- --><td> <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.IdMortalidad}'></button>
                        </div>
                       </td></tr>`;
         });
@@ -546,29 +599,49 @@ function validarToken() {
             },100)
          })
     }
-    //Funcion para muertes de Animales
-    if (location.pathname.includes("muertes")) {
-      buscarAnimal(localStorage.getItem("id_animal"), (resp) => {
-        setTimeout(() => {
-          let $inf = document.getElementById("info_animal"),
-            data = "";
-          document.getElementById("id_animal").value =
-            localStorage.getItem("id_animal");
-          console.log(resp);
-          resp.forEach((el) => {
-            data = `<a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                           <div class="d-flex w-100 justify-content-between">
-                              <h5 class="mb-1">Categoria: ${el.cate}</h5>
-                              <h5 class="mb-1">Raza: ${el.raza}</h5>
-                              <small>ID:${el.id}</small>
-                           </div>
-                           <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
-                           <small>${el.ant}</small> 
-                         </a>`;
-          });
-          $inf.innerHTML = data;
-        }, 100);
-      });
+     //Funciones Muertes de Animales
+ if (location.pathname.includes("muertes")) {
+  buscarAnimal(localStorage.getItem("id_animal"), (resp)=>{
+           setTimeout(()=>{
+              let $inf = document.getElementById("info_animal"), data=""
+              document.getElementById("id_animal").value=localStorage.getItem("id_animal")
+              //console.log(resp)
+              resp.forEach((el)=>{
+                 data=`<a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                          <div class="d-flex w-100 justify-content-between">
+                             <h5 class="mb-1">Categoria: ${el.cate}</h5>
+                             <h5 class="mb-1">Raza: ${el.raza}</h5>
+                             <small>ID:${el.id}</small>
+                          </div>
+                          <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
+                          <small>${el.ant}</small> 
+                        </a>`;
+              })
+              $inf.innerHTML=data;
+        },100)
+     })
+}
+     //Funciones Reproduccion de Animales
+     if (location.pathname.includes("reproduccion")) {
+      buscarAnimal(localStorage.getItem("id_animal"), (resp)=>{
+               setTimeout(()=>{
+                  let $inf = document.getElementById("info_animal"), data=""
+                  document.getElementById("id_animal").value=localStorage.getItem("id_animal")
+                  //console.log(resp)
+                  resp.forEach((el)=>{
+                     data=`<a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                              <div class="d-flex w-100 justify-content-between">
+                                 <h5 class="mb-1">Categoria: ${el.cate}</h5>
+                                 <h5 class="mb-1">Raza: ${el.raza}</h5>
+                                 <small>ID:${el.id}</small>
+                              </div>
+                              <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
+                              <small>${el.ant}</small> 
+                            </a>`;
+                  })
+                  $inf.innerHTML=data;
+            },100)
+         })
     }
     //Funciones para Historial Medico de Animales
     if (location.pathname.includes("historialmedico")) {
@@ -598,6 +671,30 @@ function validarToken() {
         }, 100);
       });
     }
+     //Funciones para Historial de muertes de Animales
+ if (location.pathname.includes("historialmuertes")) {
+  buscarAnimal(localStorage.getItem("id_animal"), (resp) => {
+    setTimeout(() => {
+      let $inf = document.getElementById("info_animal"),
+        data = "";
+      document.getElementById("id_animal").value =
+        localStorage.getItem("id_animal");
+      //console.log(resp)
+      resp.forEach((el) => {
+        data = `<a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                          <div class="d-flex w-100 justify-content-between">
+                             <h5 class="mb-1">Categoria: ${el.cate}</h5>
+                             <h5 class="mb-1">Raza: ${el.raza}</h5>
+                             <small>ID:${el.id}</small>
+                          </div>
+                          <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
+                          <small>${el.ant}</small>
+                       </a>`;
+      });
+      $inf.innerHTML = data;
+    }, 100);
+  });
+}
     //Funciones para Historial de ventas
     if (location.pathname.includes("historialventas")) {
       historialVentas()
@@ -636,6 +733,7 @@ document.addEventListener("submit", (e) => {
   if (e.target.matches("#form_vacunacion_animal")) guardarVacunacion("POST");
   if (e.target.matches("#form_medicamento")) guardarMedicamento("POST");
   if (e.target.matches("#form_ventas")) guardarVenta("POST");
-  if (e.target.matches("#form_muertes")) guardarMuertes("POST");
-  
+  if (e.target.matches("#form_muertes")) guardarMuertes("POST"); 
+  if (e.target.matches("#form_reproduccion")) guardarReproduccion("POST"); 
+
 });
