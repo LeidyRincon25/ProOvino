@@ -195,11 +195,12 @@ function listadoAnimales() {
                       <td>${el.peso} Kg</td>
                       <td>${el.ant}</td>
                       <td> <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary fa fa-edit u_animal" title='Editar' data-id='${el.id}'></button>
-                        <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.id}'></button>
-                        <button type="button" class="btn btn-outline-success fa fa-file-medical s_animal" title='Agregar Medicamento' data-id='${el.id}'></button>
-                        <button type="button" class="btn btn-outline-secondary fa-sharp-duotone fa-solid fa-syringe m_animal" title= 'Medicamentos' data-id='${el.id}'></button>
-                        <button type="button" class="btn btn-outline-dark fa-solid fa-skull-crossbones mt_animal" title= 'Muertes' data-id='${el.id}'></button>
+                        <button type="button" class="btn btn-primary fa fa-edit u_animal" title='Editar' data-id='${el.id}'></button>
+                        <button type="button" class="btn btn-success fa fa-file-medical s_animal" title='Agregar Medicamento' data-id='${el.id}'></button>
+                        <button type="button" class="btn btn-secondary fa-sharp-duotone fa-solid fa-syringe m_animal" title= 'Medicamentos' data-id='${el.id}'></button>
+                        <button type="button" class="btn btn-dark fa-solid fa-skull-crossbones mt_animal" title= 'Muertes' data-id='${el.id}'></button>
+                        ${(el.sexo=="Hembra" ? `<button type="button" class="btn btn-warning fa-solid fa-stethoscope re_animal" title= 'Reproduccion' data-id='${el.id}'></button>` : "")}
+                        <button type="button" class="btn btn-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.id}'></button>                        
                        </div>
                       </td></tr>`;
         });
@@ -375,13 +376,15 @@ function guardarMedicamento(m) {
 function guardarReproduccion(m) {
   //alert("OK estamos listos para enviar los datos")
   let datos = {
-    FechadelServicio: document.getElementById("fecha").value,
+    FechadelServicio: document.getElementById("fecha_servivio").value,
     MetododeServicio: document.getElementById("servicio").value,
     ResultadodelServicio: document.getElementById("resultado").value,
-    FechadeParto: document.getElementById("fecha").value,
-    NumerodeNacidos: document.getElementById("nacidos").value,
-    SexodelNacido: document.getElementById("sexo").value,
-    Observaciones: document.getElementById("observaciones").value,
+    FechaParto: document.getElementById("fecha_parto").value,
+    HoradParto: document.getElementById("hora_parto").value,
+    nvivos: document.getElementById("vivos").value,
+    nmuertos: document.getElementById("muertos").value,
+    nmachos: document.getElementById("machos").value,
+    nhembras: document.getElementById("hembras").value,
     id_animal: localStorage.getItem("id_animal"),
   };
   //console.log(datos)
@@ -537,6 +540,12 @@ function historialMuertes() {
         $tinfo.innerHTML = `<tr><td colspan='6' class='text-center'>Error en la petición <b>${resp.msg}</b></td></tr>`;
     }
   });
+}
+
+function reproduccionAnimal(id) {
+  //console.log("Clic en Editar el registro id="+id)
+  localStorage.setItem("id_animal", id);
+  ruta("reproduccion.html?id=" + id);
 }
 
 function validarToken() {
@@ -724,6 +733,7 @@ document.addEventListener("click", (e) => {
   if (e.target.matches(".s_animal")) saludAnimal(e.target.dataset.id);
   if (e.target.matches(".m_animal")) medicamentos(e.target.dataset.id);
   if (e.target.matches(".mt_animal")) muertes(e.target.dataset.id);
+  if (e.target.matches(".re_animal")) reproduccionAnimal(e.target.dataset.id);
 });
 
 document.addEventListener("submit", (e) => {

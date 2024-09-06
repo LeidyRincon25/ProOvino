@@ -36,17 +36,17 @@ integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2
                         <form class="form-control" action="" id="form_reproduccion" method="post">
                                 <input type="hidden" id="id_animal" name="id_animal">
                             <div class="list-group" id="info_animal"></div>                    
-                            <div class="row align-items-center mb-3">
+                            <div class="row align-items-center mb-3 mt-3">
                                 <div class="col">
-                                    <label for="fecha">Fecha del Servicio</label>
-                                    <input type="date" class="form-control" name="fecha" id="fecha" required>
+                                    <label for="fecha_servivio">Fecha del Servicio</label>
+                                    <input type="date" class="form-control" name="fecha_servivio" id="fecha_servivio" required>
                                  </div>
                                  <div class="col">
                                      <label for="servicio">Metodo de Servicio</label>
                                      <select class="form-select" name="servicio" id="servicio" required>
                                             <option value="">Seleccione uno</option>
                                             <option value="">Monta Natural</option>
-                                            <option value="">Inseminaci&oacute;acute;n Artificial</option>
+                                            <option value="">Inseminación Artificial</option>
                                       </select>   
                                  </div>                                                    
                                  <div class="col">
@@ -60,36 +60,34 @@ integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2
                             </div>
                             <div class="row align-items-center mb-3">
                                <div class="col">
-                                    <label for="Fecha ">Fecha de Parto</label>
-                                    <input type="date" class="form-control" name="fecha" id="fecha" required>
+                                    <label for="fecha_parto">Fecha de Parto</label>
+                                    <input type="date" class="form-control" name="fecha_parto" id="fecha_parto" required>
                                 </div>
                                 <div class="col">
-                                    <label for="hora">Hora del Parto</label>
-                                    <input type="time" class="form-control" name="hora" id="hora" required>
+                                    <label for="hora_parto">Hora del Parto</label>
+                                    <input type="time" class="form-control" name="hora_parto" id="hora_parto" required>
+                                </div>
+                            </div>
+                            <div class="row align-items-center list-group-item">
+                                <h4>Estadisticas</h4>
+                            </div>
+                            <div class="row align-items-center mb-3">
+                                <div class="col">
+                                    <label for="nacidos">Vivos</label>
+                                    <input type="number" class="form-control" name="vivos" id="vivos" min="0" max="10" required>
                                 </div>
                                 <div class="col">
-                                    <label for="nacidos">Numero de Nacidos</label>
-                                    <input type="number" class="form-control" name="nacidos" id="nacidos" required>
-                                </div>                                                                                  
+                                    <label for="nacidos">Muertos</label>
+                                    <input type="number" class="form-control" name="muertos" id="muerto" min="0" max="10" required>
+                                </div>                                                                                
                                 <div class="col">
-                                    <label for="sexo">Sexo del Nacido</label>
-                                    <select class="form-select" name="sexo" id="sexo" required>
-                                        <option value="">Seleccione uno</option>
-                                        <option value="">Macho</option>
-                                        <option value="">Hembra</option>
-                                    </select>   
-                                </div>
+                                    <label for="nacidos">Machos</label>
+                                    <input type="number" class="form-control" name="machos" id="machos" min="0" max="10" required>
+                                </div> 
                                 <div class="col">
-                                    <label for="peso">Peso del Nacido en Kg</label>
-                                    <div class="input-group mb-3">
-                                        <input type="number" class="form-control" id="peso" name="peso" placeholder="" 
-                                        aria-describedby= "basic-addon2">
-                                        <span class="input-group-text" id="basic-addon2">Kg</span>
-                                </div>
-                            </div>                                                                                                                                                                                 
-                            <div class="mb-3">
-                                <label for="observaciones">Observaciones</label>
-                                <textarea class="form-control" name="observaciones"id="observaciones">Ninguno</textarea>
+                                    <label for="nacidos">Hembras</label>
+                                    <input type="number" class="form-control" name="hembras" id="hembras" min="0" max="10" required>
+                                </div> 
                             </div>
                             <div class="mb-3 text-center">
                                 <button name="btnGUARDAR" id="btnGUARDAR" type="submit" class="btn btn-success">GUARDAR</button> 

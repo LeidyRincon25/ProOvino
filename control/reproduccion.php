@@ -5,11 +5,12 @@ require_once("configdb.php");
 if($_SERVER["REQUEST_METHOD"]=="POST"){
     try {
         $post = json_decode(file_get_contents('php://input'),true);       
-        if($post["FechadelServicio"]!="" && $post["MetododeServicio"]!="" && $post["ResultadodelServicio"]!="" && $post["FechadeParto"]!="" && $post["NumerodeNacidos"]!="" && $post["SexodelNacido"]!="" && $post["Observaciones"]!="" && $post["Id_Animal"]!=""){
+        if($post["FechadelServicio"]!="" && $post["MetododeServicio"]!="" && $post["ResultadodelServicio"]!="" && $post["FechaParto"]!="" && $post["HoraParto"]!="" && $post["NumerodeNacidos"]!="" && $post["SexodelNacido"]!="" && $post["Observaciones"]!="" && $post["Id_Animal"]!=""){
             //echo $_post["user"]; 
             $bd = new ConfigDb();
             $conn = $bd->conexion();
-            $sql = "INSERT INTO `tbreproducción`(`IdReproduccion`, `ReFechadelServicio`, `ReMetododeServicio`, `ReResultadodelServicio`, `ReFechadeParto`, `ReHoradelParto`, `ReNumerodeNacidos`, `ReSexodelNacido`, `RePesodelNacido`, `ReObservaciones`, `IdRegOvino`) VALUES (null, :FechadelServicio, :MetododeServicio, :ResultadodelServicio, :FechadeParto, :NumerodeNacidos, :SexodelNacido, :Observaciones, :Id_Animal)";
+            $sql = "INSERT INTO `tbreproducción`(`IdReproduccion`, `ReFechadelServicio`, `ReMetododeServicio`, `ReResultadodelServicio`, `ReFechadeParto`, `ReHoradelParto`, `ReNumerodeNacidos`, `ReSexodelNacido`, `RePesodelNacido`, `ReObservaciones`, `IdRegOvino`) 
+            VALUES (null, :FechadelServicio, :MetododeServicio, :ResultadodelServicio, :FechadeParto, :NumerodeNacidos, :SexodelNacido, :Observaciones, :Id_Animal)";
             $stmt = $conn ->prepare($sql);
             $stmt->bindParam(":FechadelServicio",$post["FechadelServicio"],PDO::PARAM_STR);
             $stmt->bindParam(":MetododeServicio",$post["MetododeServicio"],PDO::PARAM_STR);
