@@ -376,15 +376,15 @@ function guardarMedicamento(m) {
 function guardarReproduccion(m) {
   //alert("OK estamos listos para enviar los datos")
   let datos = {
-    FechadelServicio: document.getElementById("fecha_servivio").value,
-    MetododeServicio: document.getElementById("servicio").value,
-    ResultadodelServicio: document.getElementById("resultado").value,
-    FechaParto: document.getElementById("fecha_parto").value,
-    HoradParto: document.getElementById("hora_parto").value,
-    nvivos: document.getElementById("vivos").value,
-    nmuertos: document.getElementById("muertos").value,
-    nmachos: document.getElementById("machos").value,
-    nhembras: document.getElementById("hembras").value,
+    fechadelservicio: document.getElementById("fechadelservicio").value,
+    metododeservicio: document.getElementById("metododeservicio").value,
+    resultadodelservicio: document.getElementById("resultadodelservicio").value,
+    fechadeparto: document.getElementById("fechadeparto").value,
+    horadelparto: document.getElementById("horadelparto").value,
+    numerodevivos: document.getElementById("numerodevivos").value,
+    numerodemuertos: document.getElementById("numerodemuertos").value,
+    numerodemachos: document.getElementById("numerodemachos").value,
+    numerodehembras: document.getElementById("numerodehembras").value,
     id_animal: localStorage.getItem("id_animal"),
   };
   //console.log(datos)
@@ -474,6 +474,43 @@ function historialMedicoAnimal() {
                       <td>${el.RegTratamiento}</td>
                       <!-- --><td> <div class="btn-group" role="group">
                         <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.IdRegSalud}'></button>
+                       </div>
+                      </td></tr>`;
+        });
+        if (item == "")
+          item = `<tr><td colspan='7' class='text-center'>No hay registos asociados</td></tr>`;
+        $tinfo.innerHTML = item;
+      } else
+        $tinfo.innerHTML = `<tr><td colspan='7' class='text-center'>Error en la petición <b>${resp.msg}</b></td></tr>`;
+    }
+  });
+}
+
+function historialReproduccionAnimal() {
+  let $tinfo = document.getElementById("tinfo"),
+    item = "",
+    id = localStorage.getItem("id_animal");
+  $tinfo.innerHTML = `<tr><td colspan='7' class='text-center'><div class="spinner-border text-black" role="status"><span class="sr-only"></span></div><br>Procesando...</td></tr>`;
+  Ajax({
+    url: "../control/historialreproduccion.php",
+    method: "GET",
+    param: { id },
+    fSuccess: (resp) => {
+      if (resp.code == 200) {
+        //console.log(resp.data)
+        resp.data.forEach((el) => {
+          item += `<tr><th scope='row'>${el.IdReproduccion}</th>
+                      <td>${el.ReFechadelServicio}</td>
+                      <td>${el.ReMetododelServicio}</td>
+                      <td>${el.ReResultadodelServicio}</td>
+                      <td>${el.ReFechadeParto}</td>
+                      <td>${el.ReHoradelParto}</td>
+                      <td>${el.ReNumerodeVivos}</td>
+                      <td>${el.ReNumerodeMuertos}</td>
+                      <td>${el.ReNumerodeMachos}</td>
+                      <td>${el.ReNumerodeHembras}</td>
+                      <!-- --><td> <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.IdReproduccion}'></button>
                        </div>
                       </td></tr>`;
         });
@@ -680,6 +717,31 @@ function validarToken() {
         }, 100);
       });
     }
+     //Funciones para Historial de reproduccion de Animales
+ if (location.pathname.includes("historialdereproduccion")) {
+  buscarAnimal(localStorage.getItem("id_animal"), (resp) => {
+    setTimeout(() => {
+      let $inf = document.getElementById("info_animal"),
+        data = "";
+      document.getElementById("id_animal").value =
+        localStorage.getItem("id_animal");
+      //console.log(resp)
+      resp.forEach((el) => {
+        data = `<a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                          <div class="d-flex w-100 justify-content-between">
+                             <h5 class="mb-1">Categoria: ${el.cate}</h5>
+                             <h5 class="mb-1">Raza: ${el.raza}</h5>
+                             <small>ID:${el.id}</small>
+                          </div>
+                          <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
+                          <small>${el.ant}</small>
+                       </a>`;
+      });
+      $inf.innerHTML = data;
+      historialReproduccionAnimal();
+    }, 100);
+  });
+}
      //Funciones para Historial de muertes de Animales
  if (location.pathname.includes("historialmuertes")) {
   buscarAnimal(localStorage.getItem("id_animal"), (resp) => {

@@ -15,7 +15,7 @@
     </a>
     <ul class="dropdown-menu">
         <li><a class="dropdown-item" href="medicamentos.html">Medicamentos</a></li>
-        <li><a class="dropdown-item" href="muertes.html">Muertes</a></li>
+        <li><a class="dropdown-item" href="historialmedico.html">Historial Medico</a></li>
         <li><a class="dropdown-item" href="historialmuertes.html">Historial de Muertes</a></li>
     </ul>
     </li>

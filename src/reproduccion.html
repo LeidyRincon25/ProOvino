@@ -38,58 +38,52 @@ integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2
                             <div class="list-group" id="info_animal"></div>                    
                             <div class="row align-items-center mb-3 mt-3">
                                 <div class="col">
-                                    <label for="fecha_servivio">Fecha del Servicio</label>
-                                    <input type="date" class="form-control" name="fecha_servivio" id="fecha_servivio" required>
+                                    <label for="fechadelservicio">Fecha del Servicio</label>
+                                    <input type="date" class="form-control" name="fechadelservicio" id="fechadelservicio" required>
                                  </div>
                                  <div class="col">
-                                     <label for="servicio">Metodo de Servicio</label>
-                                     <select class="form-select" name="servicio" id="servicio" required>
-                                            <option value="">Seleccione uno</option>
-                                            <option value="">Monta Natural</option>
-                                            <option value="">Inseminación Artificial</option>
-                                      </select>   
+                                     <label for="metododeservicio">Metodo de Servicio</label>
+                                     <input type="text" class="form-control" name="metododeservicio" id="metododeservicio" required>
                                  </div>                                                    
                                  <div class="col">
-                                     <label for="resultado">Resultado del Servicio</label>
-                                     <select class="form-select" id="resultado" name="resultado" required>
-                                             <option value="">Seleccione uno</option>
-                                             <option value="">Exitoso</option>
-                                             <option value="">No Exitoso</option>
-                                     </select>
+                                     <label for="resultadodelservicio">Resultado del Servicio</label>
+                                     <input type="text" class="form-control" id="resultadodelservicio" name="resultadodelservicio" required>
                                  </div>
                             </div>
                             <div class="row align-items-center mb-3">
                                <div class="col">
-                                    <label for="fecha_parto">Fecha de Parto</label>
-                                    <input type="date" class="form-control" name="fecha_parto" id="fecha_parto" required>
+                                    <label for="fechadeparto">Fecha de Parto</label>
+                                    <input type="date" class="form-control" name="fechadeparto" id="fechadeparto" required>
                                 </div>
                                 <div class="col">
-                                    <label for="hora_parto">Hora del Parto</label>
-                                    <input type="time" class="form-control" name="hora_parto" id="hora_parto" required>
+                                    <label for="horadelparto">Hora del Parto</label>
+                                    <input type="time" class="form-control" name="horadelparto" id="horadelparto" required>
                                 </div>
                             </div>
+                            <div class="card" >
                             <div class="row align-items-center list-group-item">
-                                <h4>Estadisticas</h4>
-                            </div>
+                                   <h4>Estadisticas</h4>
                             <div class="row align-items-center mb-3">
                                 <div class="col">
-                                    <label for="nacidos">Vivos</label>
-                                    <input type="number" class="form-control" name="vivos" id="vivos" min="0" max="10" required>
+                                    <label for="numerodevivos">Vivos</label>
+                                    <input type="number" class="form-control" name="numerodevivos" id="numerodevivos" min="0" max="10" required>
                                 </div>
                                 <div class="col">
-                                    <label for="nacidos">Muertos</label>
-                                    <input type="number" class="form-control" name="muertos" id="muerto" min="0" max="10" required>
+                                    <label for="numerodemuertos">Muertos</label>
+                                    <input type="number" class="form-control" name="numerodemuertos" id="numerodemuertos" min="0" max="10" required>
                                 </div>                                                                                
                                 <div class="col">
-                                    <label for="nacidos">Machos</label>
-                                    <input type="number" class="form-control" name="machos" id="machos" min="0" max="10" required>
+                                    <label for="numerodemachos">Machos</label>
+                                    <input type="number" class="form-control" name="numerodemachos" id="numerodemachos" min="0" max="10" required>
                                 </div> 
                                 <div class="col">
-                                    <label for="nacidos">Hembras</label>
-                                    <input type="number" class="form-control" name="hembras" id="hembras" min="0" max="10" required>
+                                    <label for="numerodehembras">Hembras</label>
+                                    <input type="number" class="form-control" name="numerodehembras" id="numerodehembras" min="0" max="10" required>
                                 </div> 
                             </div>
-                            <div class="mb-3 text-center">
+                            </div>
+                            </div>
+                            <div class="mt-3 text-center">
                                 <button name="btnGUARDAR" id="btnGUARDAR" type="submit" class="btn btn-success">GUARDAR</button> 
                                 <button name="btnCANCELAR" id="btnCANCELAR" type="cancel" class="btn btn-danger">CANCELAR</button>
                             </div>
@@ -102,6 +96,44 @@ integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2
        </div>
       
    </div>
+   <div class="container">
+    <div class="m-5 row d-flex align-items-center">
+        <div class="col"> 
+            <div class="card">
+                <h3 class="card-header text-center">HISTORIAL DE REPRODUCCION</h3>
+                <div class="card-body">
+                     <input type="hidden" id="id_animal" name="id_animal" value="">
+                     <div class="list-group"id="info_animal"></div>
+                         <div class="card-body">
+                             <table class="table table-striped">
+                                 <thead>
+                                   <tr class="table-danger">
+                                     <th scope="col">#</th>
+                                     <th scope="col">Fecha de Servicio</th>
+                                     <th scope="col">Metodo de Servicio</th>
+                                     <th scope="col">Resultado del Sevicio</th>
+                                     <th scope="col">Fecha del Parto</th>
+                                     <th scope="col">Hora del Parto</th>
+                                     <th scope="col">Numero de vivos</th>
+                                     <th scope="col">Numero de Muertos</th>
+                                     <th scope="col">Numero de Machos</th>
+                                     <th scope="col">Numeros de Hembras</th>
+                                     <th scope="col">Opciones</th>
+                                   </tr>
+                                 </thead>
+                                 <tbody id="tinfo">                                                  
+                                 </tbody>
+                               </table>
+                         </div>
+                     </div>
+                </div>
+              </div>
+            <div>
+        </div>
+    </div>
+    </div>
+   
+</div>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
        <script src="../js/jquery-3.7.1.min.js"></script>
