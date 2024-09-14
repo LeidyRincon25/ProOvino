@@ -19,12 +19,13 @@ class ConfigDb {
    }
 
     public function obtenerToken($iduser, $nombreuser){
-      $bandera=true;
+        $bandera=true;
         $estado = "ACTIVO";
         $token = bin2hex(openssl_random_pseudo_bytes(16,$bandera));
         $bd = new ConfigDb();
         $conn = $bd->conexion();
-        $sql = "INSERT INTO `token_acceso` (`ID_TOKEN`, `ID_USUARIO_FK`, `USUARIO`, `FECHA_REG`, `HORA_REG`, `ESTADO`) VALUES ('$token','$iduser','$nombreuser',CURRENT_DATE(), CURRENT_TIME(),'$estado')";
+        $sql = "INSERT INTO `token_acceso` (`ID_TOKEN`, `ID_USUARIO_FK`, `USUARIO`, `FECHA_REG`, `HORA_REG`, `ESTADO`)
+         VALUES ('$token','$iduser','$nombreuser',CURRENT_DATE(), CURRENT_TIME(),'$estado')";
         $stmt = $conn ->prepare($sql);
         if($stmt->execute()){
             return $token;                
