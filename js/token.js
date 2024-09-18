@@ -4,6 +4,7 @@ import { listadoAnimales,buscarAnimal } from "./animales.js";
 import { razas,categorias,via } from "./tool_animales.js";
 import { historialReproduccionAnimal} from "./salud.js";
 import { medicamentosDisponibles,historialMedicoAnimal } from "./medicamentos.js";
+import { historialVentas} from "./ventas.js";
 
 export function validarToken() {
     if (localStorage.getItem("token")) {

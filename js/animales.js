@@ -52,7 +52,7 @@ export function listadoAnimales() {
                           <button type="button" class="btn btn-primary fa fa-edit u_animal" title='Editar' data-id='${el.id}'></button>
                           <button type="button" class="btn btn-success fa fa-file-medical s_animal" title='Agregar Medicamento' data-id='${el.id}'></button>
                           <button type="button" class="btn btn-secondary fa-sharp-duotone fa-solid fa-syringe m_animal" title= 'Historial Médico' data-id='${el.id}'></button>
-                          <button type="button" class="btn btn-dark fa-solid fa-skull-crossbones mt_animal" title= 'Muertes' data-id='${el.id}'></button>
+                          ${(el.ant=="Muerte" ? `<button type="button" class="btn btn-dark fa-solid fa-skull-crossbones mt_animal" title= 'Muertes'  data-id='${el.id}'></button>` : "")}
                           ${(el.sexo=="Hembra" ? `<button type="button" class="btn btn-warning fa-solid fa-stethoscope re_animal" title= 'Reproduccion' data-id='${el.id}'></button>` : "")}
                           <button type="button" class="btn btn-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.id}'></button>                        
                          </div>
