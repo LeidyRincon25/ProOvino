@@ -5,6 +5,7 @@ import { editarAnimal,eliminarAnimal,guardarAnimal } from "./animales.js";
 import { saludAnimal,guardarReproduccion,guardarVacunacion,reproduccionAnimal} from "./salud.js";
 import { guardarMedicamento, historialmedico } from "./medicamentos.js";
 import { muertes,guardarMuertes } from "./muertes.js";
+import { guardarVenta } from "./ventas.js";
 
 //Inicializacion del DOM
 document.addEventListener("DOMContentLoaded", (e) => {

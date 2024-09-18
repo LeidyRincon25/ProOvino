@@ -8,7 +8,7 @@ if($_SERVER["REQUEST_METHOD"]=="GET"){
             $info = array();
             $bd = new ConfigDb();
             $conn = $bd->conexion(); 
-            if(isset($_GET["id"])) $sql = "SELECT m.`IdMortalidad`, m.`MortaFecha`, m.`MortaCausa`, m.`IdRegOvino` FROM `tbmortalidad` m INNER JOIN `tbregovino`";
+            if(isset($_GET["id"])) $sql = "SELECT m.`IdMortalidad`, m.`MortaFecha`, m.`MortaCausa`, m.`IdRegOvino`, o.`RegFechadeNacimiento`, o.`RegSexo`, o.`RegPeso`, o.`RegAntecedentes` FROM `tbmortalidad` m INNER JOIN `tbregovino` o ON (m.IdRegOvino=o.IdRegOvino)";
             $stmt = $conn ->prepare($sql);
             if($stmt->execute()){                
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
