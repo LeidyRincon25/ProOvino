@@ -17,7 +17,7 @@ export function guardarMuertes(m) {
         //console.log(resp)
         if (resp.code == 200) {
           alert("El registro fue guardado correctamente");
-          ruta("muertes.html");
+          ruta("historialmuertes.html");
         } else {
           alert("Error en el registro. " + resp.msg);
         }
@@ -41,8 +41,13 @@ export function historialMuertes() {
             item += `<tr><th scope='row'>${el.IdMortalidad}</th>
                         <td>${el.MortaFecha}</td>
                         <td>${el.MortaCausa}</td>
+                        <td>${el.RegFechadeNacimiento}</td>
+                        <td>${el.RegSexo}</td>
+                        <td> ${el.RegPeso}kg</td>
+                        <td>${el.CateNombre} / ${el.RazaNombres}</td>
+                        <td>${el.RegAntecedentes}</td>
                         <!-- --><td> <div class="btn-group" role="group">
-                          <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.IdMortalidad}'></button>
+                          <button type="button" class="btn btn-outline-danger fa fa-trash d_muertes" title='Eliminar' data-id='${el.IdMortalidad}'></button>
                          </div>
                         </td></tr>`;
           });
@@ -69,7 +74,7 @@ export function muertes_() {
           let opc = ``;
           //console.log(Resp.data)
           resp.data.map((el) => {
-            opc += `<option value="${el.IdMorta}"> ${el.MortaFecha} (${el.MortaCausa})</option>`;
+            opc += `<option value="${el.IdMorta}"> ${el.MortaFecha} (${el.MortaCausa})</option>`; 
             //console.log(el)
           });
         }
@@ -82,3 +87,22 @@ export function muertes(id) {
     localStorage.setItem("id_animal", id);
     ruta("muertes.html?id=" + id);
   }
+
+  export function eliminarMuertes(id) {
+    let resp = confirm("Desea eliminar la muerte (#" + id + ")?");
+    if (resp) {
+      Ajax({
+        url: "../control/muertes.php",
+        method: "DELETE",
+        param: { id },
+        fSuccess: (resp) => {
+          console.log(resp);
+          if (resp.code == 200) {
+            //console.log(resp.data)
+            historialMuertes();
+          } else alert("Error en la petición\n" + resp.msg);
+        }
+      });
+    }
+}
+  

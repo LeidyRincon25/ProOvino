@@ -57,10 +57,36 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         header("HTTP/1.1 500");
         echo json_encode(['code'=>500,'msg' => 'Error interno al procesar su petici&oacute;n', "ERROR"=>$ex->getMessage()]);
     }
-} else {
+}
+else if($_SERVER["REQUEST_METHOD"]=="DELETE"){
+    try {
+        $post = json_decode(file_get_contents('php://input'),true);       
+        if($post["id"]!=""){
+            $bd = new ConfigDb();
+            $conn = $bd->conexion();
+            $sql = "DELETE FROM `tbregsalud`` WHERE IdRegSalud= :ID";
+            $stmt = $conn ->prepare($sql);
+            $stmt->bindParam(":ID",$post["id"],PDO::PARAM_STR);
+            if($stmt->execute()){                
+                    header("HTTP/1.1 200 OK");
+                    echo json_encode(['code'=>200,'msg' => "OK"]);
+                
+            }else{
+                header("HTTP/1.1 403 OK");
+                echo json_encode(['code'=>203,'msg' => "Inconvenientes al gestionar la consulta"]);
+            }
+            $stmt = null;
+            $conn = null;
+        }
+        //exit();
+    } catch (PDOException $ex) {
+        header("HTTP/1.1 500");
+        echo json_encode(['code'=>500,'msg' => 'Error interno al procesar su petici&oacute;n', "ERROR"=>$ex->getMessage()]);
+    }
+}
+else {
     header("HTTP/1.1 400");
     echo json_encode(['code'=>400,'msg' => 'Error, La peticion no se pudo procesar']);
 }
-    
 
 ?>

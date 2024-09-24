@@ -12,7 +12,7 @@ require_once("configdb.php");
     
                 $bd = new ConfigDb();
                 $conn = $bd->conexion();
-                $sql = "INSERT INTO `tbreproducción`(`IdReproduccion`, `ReFechadelServicio`, `ReMetododeServicio`, `ReResultadodelServicio`, `ReFechadeParto`, `ReHoradelParto`, `ReNumerodeVivos`, `ReNumerodeMuertos`, `ReNumerodeMachos`, `ReNumerodeHembras`, `IdRegOvino`) 
+                $sql = "INSERT INTO `tbreproduccion`(`IdReproduccion`, `ReFechadelServicio`, `ReMetododeServicio`, `ReResultadodelServicio`, `ReFechadeParto`, `ReHoradelParto`, `ReNumerodeVivos`, `ReNumerodeMuertos`, `ReNumerodeMachos`, `ReNumerodeHembras`, `IdRegOvino`) 
                 VALUES (null, :FechadelServicio, :MetododeServicio, :ResultadodelServicio, :FechadeParto, :HoradelParto, :NumerodeVivos, :NumerodeMuertos, :NumerodeMachos, :NumerodeHembras, :Id_Animal )";
                 
                 $stmt = $conn->prepare($sql);
@@ -51,8 +51,11 @@ require_once("configdb.php");
     try {
         $bd = new ConfigDb();
         $conn = $bd->conexion(); 
-        $sql = "SELECT `IdReproduccion`, `ReFechadelServicio`, `ReMetododeServicio`, `ReResultadodelServicio`, `ReFechadeParto`, `ReHoradelParto`, `ReNumerodeVivos`, `ReNumerodeMuertos`, `ReNumerodeMachos`, `ReNumerodeHembras`, `IdRegOvino` FROM `tbreproducción`";
-        $stmt = $conn->prepare($sql);
+        $sql = "SELECT r.`IdReproduccion`, r.`ReFechadelServicio`, r.`ReMetododeServicio`, r.`ReResultadodelServicio`, r.`ReFechadeParto`, r.`ReHoradelParto`, r. 
+        `ReNumerodeVivos`, r.`ReNumerodeMuertos`, r.`ReNumerodeMachos`, r.`ReNumerodeHembras`, r.`IdRegOvino`, o.`RegFechadeNacimiento`, o.`RegSexo`, o.`RegPeso`, o.`RegAntecedentes`, o.
+        `IdCategoria`, o.IdRaza, c.CateNombre, z.RazaNombres FROM `tbreproduccion` r INNER JOIN `tbregovino` o ON (r.IdRegOvino=o.IdRegOvino) INNER JOIN `tbcategoria` c ON(c.IdCategoria=o.
+        IdCategoria) INNER JOIN `tbraza` z ON(z.`IdRaza`=o.`IdRaza`)";
+          $stmt = $conn->prepare($sql);
         if($stmt->execute()){                
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             //var_dump($result);
@@ -70,3 +73,29 @@ require_once("configdb.php");
     }
 }
 
+else if($_SERVER["REQUEST_METHOD"]=="DELETE"){
+    try {
+        $post = json_decode(file_get_contents('php://input'),true);       
+        if($post["id"]!=""){
+            $bd = new ConfigDb();
+            $conn = $bd->conexion();
+            $sql = "DELETE FROM `tbreproducción` WHERE `IdReproduccion`= :ID";
+            $stmt = $conn ->prepare($sql);
+            $stmt->bindParam(":ID",$post["id"],PDO::PARAM_STR);
+            if($stmt->execute()){                
+                    header("HTTP/1.1 200 OK");
+                    echo json_encode(['code'=>200,'msg' => "OK"]);
+                
+            }else{
+                header("HTTP/1.1 403 OK");
+                echo json_encode(['code'=>203,'msg' => "Inconvenientes al gestionar la consulta"]);
+            }
+            $stmt = null;
+            $conn = null;
+        }
+        //exit();
+    } catch (PDOException $ex) {
+        header("HTTP/1.1 500");
+        echo json_encode(['code'=>500,'msg' => 'Error interno al procesar su petici&oacute;n', "ERROR"=>$ex->getMessage()]);
+    }
+}

@@ -9,7 +9,7 @@ export function ventas(id) {
   }
   
   
-export function guardarVenta(m) {
+export function guardarVentas(m) {
     let datos = {
       fecha: document.getElementById("fecha").value,
       cantidad: document.getElementById("cantidad").value,
@@ -56,7 +56,7 @@ export function historialVentas() {
                         <td><b>${el.VenComprador}</b><br><small class='text-blue'>ID: ${el.VenIdentificacion} / CEL: ${el.VenCelular}</small></td>
                         <td>${el.CateNombre} / ${el.RazaNombres}</td>
                         <!-- --><td> <div class="btn-group" role="group">
-                          <button type="button" class="btn btn-outline-danger fa fa-trash d_animal" title='Eliminar' data-id='${el.IdVenta}'></button>
+                          <button type="button" class="btn btn-outline-danger fa fa-trash d_ventas" title='Eliminar' data-id='${el.IdVenta}'></button>
                          </div>
                         </td></tr>`;
           });
@@ -68,3 +68,21 @@ export function historialVentas() {
       }
     });
   }
+  
+  export function eliminarVentas(id) {
+    let resp = confirm("Desea eliminar la venta (#" + id + ")?");
+    if (resp) {
+      Ajax({
+        url: "../control/ventas.php",
+        method: "DELETE",
+        param: { id },
+        fSuccess: (resp) => {
+          console.log(resp);
+          if (resp.code == 200) {
+            //console.log(resp.data)
+            historialVentas();
+          } else alert("Error en la petición\n" + resp.msg);
+        }
+      });
+    }
+}

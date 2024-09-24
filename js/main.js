@@ -2,10 +2,10 @@
 import { validarToken }  from "./token.js"
 import { ruta, salida } from "./tool.js";
 import { editarAnimal,eliminarAnimal,guardarAnimal } from "./animales.js";
-import { saludAnimal,guardarReproduccion,guardarVacunacion,reproduccionAnimal} from "./salud.js";
-import { guardarMedicamento, historialmedico } from "./medicamentos.js";
-import { muertes,guardarMuertes } from "./muertes.js";
-import { guardarVenta } from "./ventas.js";
+import { vacunacionAnimal, guardarReproduccion,guardarVacunacion,reproduccionAnimal, eliminarReproduccion, eliminarVacunacion, historialMedicoAnimal,} from "./salud.js";
+import { guardarMedicamento} from "./medicamentos.js";
+import { muertes,guardarMuertes, eliminarMuertes, } from "./muertes.js";
+import { guardarVentas, eliminarVentas} from "./ventas.js";
 
 //Inicializacion del DOM
 document.addEventListener("DOMContentLoaded", (e) => {
@@ -20,10 +20,14 @@ document.addEventListener("click", (e) => {
   if (e.target.matches(".img-fluid")) ruta("principal.html?token=" + localStorage.getItem("token"));
   if (e.target.matches(".u_animal")) editarAnimal(e.target.dataset.id);
   if (e.target.matches(".d_animal")) eliminarAnimal(e.target.dataset.id);
-  if (e.target.matches(".s_animal")) saludAnimal(e.target.dataset.id);
-  if (e.target.matches(".m_animal")) historialmedico(e.target.dataset.id);
+  if (e.target.matches(".s_animal")) vacunacionAnimal(e.target.dataset.id);
+  if (e.target.matches(".m_animal")) historialMedicoAnimal(e.target.dataset.id);
   if (e.target.matches(".mt_animal")) muertes(e.target.dataset.id);
   if (e.target.matches(".re_animal")) reproduccionAnimal(e.target.dataset.id);
+  if (e.target.matches(".d_ventas")) eliminarVentas(e.target.dataset.id);
+  if (e.target.matches(".d_salud")) eliminarVacunacion(e.target.dataset.id);
+  if (e.target.matches(".d_muertes")) eliminarMuertes(e.target.dataset.id);
+  if (e.target.matches(".d_reproduccion")) eliminarReproduccion(e.target.dataset.id);
 });
 
 //Validacion de Evento SUBMIT en DOM
@@ -33,9 +37,9 @@ document.addEventListener("submit", (e) => {
   if (e.target.matches("#form-act_animales")) guardarAnimal("PUT");
   if (e.target.matches("#form_vacunacion_animal")) guardarVacunacion("POST");
   if (e.target.matches("#form_medicamento")) guardarMedicamento("POST");
-  if (e.target.matches("#form_ventas")) guardarVenta("POST");
   if (e.target.matches("#form_muertes")) guardarMuertes("POST"); 
   if (e.target.matches("#form_reproduccion")) guardarReproduccion("POST"); 
+  if (e.target.matches("#form_ventas")) guardarVentas("POST");
 
 });
 
