@@ -122,7 +122,7 @@ export function historialReproduccionAnimal() {
     let $tinfo = document.getElementById("tinfo"),item = "",id = localStorage.getItem("id_animal");
     $tinfo.innerHTML = `<tr><td colspan='7' class='text-center'><div class="spinner-border text-black" role="status"><span class="sr-only"></span></div><br>Procesando...</td></tr>`;
     Ajax({
-      url: "../control/reproduccion.php",
+      url: "../control/historialreproduccion.php",
       method: "GET",
       param: { id },
       fSuccess: (resp) => {

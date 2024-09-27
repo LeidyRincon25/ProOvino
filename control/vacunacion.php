@@ -11,8 +11,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             //echo $_post["user"]; 
             $bd = new ConfigDb();
             $conn = $bd->conexion();
-            $sql = "INSERT INTO `tbregsalud`(`IdRegSalud`, `RegFecha`, `RegVia`, `RegEnfermedades`, `RegTratamiento`, `IdMedicamentos`, `IdRegOvino`) VALUES ".
-            "(null,:FECHA,:VIA,:ENFE,:DOSIS,:IDMEDI,:IDANIMAL)";
+            $sql = "INSERT INTO `tbregsalud`(`IdRegSalud`, `RegFecha`, `RegVia`, `RegEnfermedades`, `RegTratamiento`, `IdMedicamentos`, `IdRegOvino`) VALUES (null,:FECHA,:VIA,:ENFE,:DOSIS,:IDMEDI,:IDANIMAL)";
             $stmt = $conn ->prepare($sql);
             $stmt->bindParam(":FECHA",$post["fecha"],PDO::PARAM_STR);
             $stmt->bindParam(":VIA",$post["via"],PDO::PARAM_STR);
@@ -39,8 +38,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     try {
             $bd = new ConfigDb();
             $conn = $bd->conexion();
-            $sql= "SELECT `IdRegSalud` as 'id', t2.MediNombre as 'medi', t3.ViaNombre as 'via',`RegFecha` as 'fn', `RegEnfermedades` as 'enfe', 
-            `RegTratamiento` as 'dosis' FROM `tbregsalud` t1, `tbmedicamentos` t2, `tbvia` t3 WHERE t1.IdMedicamentos=t2.IdMedicamentos AND t1.IdVia=t3.IdVia ORDER BY t1.IdRegSalud";
+            //$sql= "SELECT `IdRegSalud` as 'id', t2.MediNombre as 'medi', t3.ViaNombre as 'via',`RegFecha` as 'fn', `RegEnfermedades` as 'enfe', 
+            //`RegTratamiento` as 'dosis' FROM `tbregsalud` t1, `tbmedicamentos` t2, `tbvia` t3 WHERE t1.IdMedicamentos=t2.IdMedicamentos AND t1.IdVia=t3.IdVia ORDER BY t1.IdRegSalud";
+            $sql = "SELECT `IdRegSalud`, `RegFecha`, `RegEnfermedades`, `RegTratamiento`, `IdMedicamentos`, `IdRegOvino`, `RegVia` FROM `tbregsalud` ORDER BY `s`.`RegFecha` DESC";
+            $stmt = $conn ->prepare($sql);
             $stmt = $conn ->prepare($sql);
             if($stmt->execute()){                
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -64,7 +65,7 @@ else if($_SERVER["REQUEST_METHOD"]=="DELETE"){
         if($post["id"]!=""){
             $bd = new ConfigDb();
             $conn = $bd->conexion();
-            $sql = "DELETE FROM `tbregsalud`` WHERE IdRegSalud= :ID";
+            $sql = "DELETE FROM `tbregsalud` WHERE IdRegSalud= :ID";
             $stmt = $conn ->prepare($sql);
             $stmt->bindParam(":ID",$post["id"],PDO::PARAM_STR);
             if($stmt->execute()){                

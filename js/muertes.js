@@ -44,7 +44,6 @@ export function historialMuertes() {
                         <td>${el.RegFechadeNacimiento}</td>
                         <td>${el.RegSexo}</td>
                         <td> ${el.RegPeso}kg</td>
-                        <td>${el.CateNombre} / ${el.RazaNombres}</td>
                         <td>${el.RegAntecedentes}</td>
                         <!-- --><td> <div class="btn-group" role="group">
                           <button type="button" class="btn btn-outline-danger fa fa-trash d_muertes" title='Eliminar' data-id='${el.IdMortalidad}'></button>
