@@ -5,6 +5,7 @@ import { razas,categorias,via } from "./tool_animales.js";
 import { historialReproduccionAnimal, historialMedico } from "./salud.js";
 import { medicamentosDisponibles,  } from "./medicamentos.js";
 import { historialVentas } from "./ventas.js";
+import { historialMuertes } from "./muertes.js";
 
 export function validarToken() {
     if (localStorage.getItem("token")) {
@@ -162,27 +163,7 @@ export function validarToken() {
   }
        //Funciones para Historial de muertes de Animales
    if (location.pathname.includes("historialmuertes")) {
-    buscarAnimal(localStorage.getItem("id_animal"), (resp) => {
-      setTimeout(() => {
-        let $inf = document.getElementById("info_animal"),
-          data = "";
-        document.getElementById("id_animal").value =
-          localStorage.getItem("id_animal");
-        //console.log(resp)
-        resp.forEach((el) => {
-          data = `<a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                            <div class="d-flex w-100 justify-content-between">
-                               <h5 class="mb-1">Categoria: ${el.cate}</h5>
-                               <h5 class="mb-1">Raza: ${el.raza}</h5>
-                               <small>ID:${el.id}</small>
-                            </div>
-                            <p>Peso: ${el.peso} KG /  Sexo: ${el.sexo} /  Fecha de nacimiento: ${el.fn}</p>
-                            <small>${el.ant}</small>
-                         </a>`;
-        });
-        $inf.innerHTML = data;
-      }, 100);
-    });
+    historialMuertes()
   }
       //Funciones para Historial de ventas
       if (location.pathname.includes("historialventas")) {

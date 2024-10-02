@@ -120,7 +120,7 @@ export function guardarReproduccion(m) {
   
 export function historialReproduccionAnimal() {
     let $tinfo = document.getElementById("tinfo"),item = "",id = localStorage.getItem("id_animal");
-    $tinfo.innerHTML = `<tr><td colspan='7' class='text-center'><div class="spinner-border text-black" role="status"><span class="sr-only"></span></div><br>Procesando...</td></tr>`;
+    $tinfo.innerHTML = `<tr><td colspan='9' class='text-center'><div class="spinner-border text-black" role="status"><span class="sr-only"></span></div><br>Procesando...</td></tr>`;
     Ajax({
       url: "../control/historialreproduccion.php",
       method: "GET",
@@ -133,22 +133,20 @@ export function historialReproduccionAnimal() {
                         <td>${el.ReFechadelServicio}</td>
                         <td>${el.ReMetododeServicio}</td>
                         <td>${el.ReResultadodelServicio}</td>
-                        <td>${el.ReFechadeParto}</td>
-                        <td>${el.ReHoradelParto}</td>
+                        <td>${el.ReFechadeParto} ${el.ReHoradelParto}</td>
                         <td>${el.ReNumerodeVivos}</td>
                         <td>${el.ReNumerodeMuertos}</td>
-                        <td>${el.ReNumerodeMachos}</td>
-                        <td>${el.ReNumerodeHembras}</td>
+                        <td>M=${el.ReNumerodeMachos} | H=${el.ReNumerodeHembras}</td>
                         <!-- --><td> <div class="btn-group" role="group">
                           <button type="button" class="btn btn-outline-danger fa fa-trash d_reproduccion" title='Eliminar' data-id='${el.IdReproduccion}'></button>
                          </div>
                         </td></tr>`;
           });
           if (item == "")
-            item = `<tr><td colspan='7' class='text-center'>No hay registos asociados</td></tr>`;
+            item = `<tr><td colspan='9' class='text-center'>No hay registos asociados</td></tr>`;
           $tinfo.innerHTML = item;
         } else
-          $tinfo.innerHTML = `<tr><td colspan='7' class='text-center'>Error en la petición <b>${resp.msg}</b></td></tr>`;
+          $tinfo.innerHTML = `<tr><td colspan='9' class='text-center'>Error en la petición <b>${resp.msg}</b></td></tr>`;
       }
     });
   }
