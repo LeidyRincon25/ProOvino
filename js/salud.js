@@ -131,7 +131,7 @@ export function historialReproduccionAnimal() {
           resp.data.forEach((el) => {
             item += `<tr><th scope='row'>${el.IdReproduccion}</th>
                         <td>${el.ReFechadelServicio}</td>
-                        <td>${el.ReMetododelServicio}</td>
+                        <td>${el.ReMetododeServicio}</td>
                         <td>${el.ReResultadodelServicio}</td>
                         <td>${el.ReFechadeParto}</td>
                         <td>${el.ReHoradelParto}</td>

@@ -103,6 +103,7 @@ export function validarToken() {
                               </a>`;
                     })
                     $inf.innerHTML=data;
+                    historialReproduccionAnimal()
               },100)
            })
       }
