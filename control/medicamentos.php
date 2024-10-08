@@ -1,9 +1,3 @@
-
-
-
-
-
-
 <?php
 
 require_once("configdb.php");

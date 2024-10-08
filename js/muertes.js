@@ -31,7 +31,7 @@ export function historialMuertes() {
     let $tinfo = document.getElementById("tinfo"), id="", item = "";
     $tinfo.innerHTML = `<tr><td colspan='6' class='text-center'><div class="spinner-border text-black" role="status"><span class="sr-only"></span></div><br>Procesando...</td></tr>`;
     Ajax({
-      url: "../control/historialmuertes.php",
+      url: "../control/muertes.php",
       method: "GET",
       param: { id },
       fSuccess: (resp) => {
@@ -43,6 +43,8 @@ export function historialMuertes() {
                         <td>${el.MortaCausa}</td>
                         <td>${el.RegFechadeNacimiento}</td>
                         <td>${el.RegSexo}</td>
+                   
+                   
                         <td> ${el.RegPeso}kg</td>
                         <td>${el.CateNombre} / ${el.RazaNombres}</td>
                         <td>${el.RegAntecedentes}</td>
